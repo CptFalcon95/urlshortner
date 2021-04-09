@@ -8,7 +8,8 @@ services:
       - MARIADB_USER=my_user
       - MARIADB_DATABASE=my_database
       - MARIADB_PASSWORD=my_password
-
+    ports:
+      - 3306:3366
   myapp:
     tty: true
     image: docker.io/bitnami/laravel:8
@@ -21,6 +22,7 @@ services:
       - mariadb
     ports:
       - 3000:3000
+      - 3306:3366
     volumes:
       - ./:/app
     # privileged: true # Privileged mode could be required to run this container under Windows
