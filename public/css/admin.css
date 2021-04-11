@@ -10001,3 +10001,9 @@ h3 {
     border-color: #dee2e6;
   }
 }
+.admin {
+  background-color: #292929;
+}
+.admin > .navbar {
+  background-color: #32383E;
+}
