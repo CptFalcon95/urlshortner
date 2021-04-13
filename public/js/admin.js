@@ -37186,3660 +37186,4984 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ "./node_modules/sweetalert2/dist/sweetalert2.all.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/sweetalert2/dist/sweetalert2.all.js ***!
-  \**********************************************************/
-/***/ (function(module) {
+/***/ "./node_modules/sweetalert2/src/SweetAlert.js":
+/*!****************************************************!*\
+  !*** ./node_modules/sweetalert2/src/SweetAlert.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-/*!
-* sweetalert2 v10.16.0
-* Released under the MIT License.
-*/
-(function (global, factory) {
-   true ? module.exports = factory() :
-  0;
-}(this, function () { 'use strict';
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+/* harmony import */ var _utils_DismissReason_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/DismissReason.js */ "./node_modules/sweetalert2/src/utils/DismissReason.js");
+/* harmony import */ var _staticMethods_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./staticMethods.js */ "./node_modules/sweetalert2/src/staticMethods.js");
+/* harmony import */ var _instanceMethods_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./instanceMethods.js */ "./node_modules/sweetalert2/src/instanceMethods.js");
+/* harmony import */ var _privateProps_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./privateProps.js */ "./node_modules/sweetalert2/src/privateProps.js");
 
-  function _typeof(obj) {
-    "@babel/helpers - typeof";
 
-    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-      _typeof = function (obj) {
-        return typeof obj;
-      };
-    } else {
-      _typeof = function (obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-      };
-    }
 
-    return _typeof(obj);
-  }
 
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
 
-  function _defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
 
-  function _createClass(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
-    return Constructor;
-  }
+let currentInstance
 
-  function _extends() {
-    _extends = Object.assign || function (target) {
-      for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i];
-
-        for (var key in source) {
-          if (Object.prototype.hasOwnProperty.call(source, key)) {
-            target[key] = source[key];
-          }
-        }
-      }
-
-      return target;
-    };
-
-    return _extends.apply(this, arguments);
-  }
-
-  function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-      throw new TypeError("Super expression must either be null or a function");
-    }
-
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-      constructor: {
-        value: subClass,
-        writable: true,
-        configurable: true
-      }
-    });
-    if (superClass) _setPrototypeOf(subClass, superClass);
-  }
-
-  function _getPrototypeOf(o) {
-    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-      return o.__proto__ || Object.getPrototypeOf(o);
-    };
-    return _getPrototypeOf(o);
-  }
-
-  function _setPrototypeOf(o, p) {
-    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-      o.__proto__ = p;
-      return o;
-    };
-
-    return _setPrototypeOf(o, p);
-  }
-
-  function _isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-    if (Reflect.construct.sham) return false;
-    if (typeof Proxy === "function") return true;
-
-    try {
-      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  function _construct(Parent, args, Class) {
-    if (_isNativeReflectConstruct()) {
-      _construct = Reflect.construct;
-    } else {
-      _construct = function _construct(Parent, args, Class) {
-        var a = [null];
-        a.push.apply(a, args);
-        var Constructor = Function.bind.apply(Parent, a);
-        var instance = new Constructor();
-        if (Class) _setPrototypeOf(instance, Class.prototype);
-        return instance;
-      };
-    }
-
-    return _construct.apply(null, arguments);
-  }
-
-  function _assertThisInitialized(self) {
-    if (self === void 0) {
-      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-
-    return self;
-  }
-
-  function _possibleConstructorReturn(self, call) {
-    if (call && (typeof call === "object" || typeof call === "function")) {
-      return call;
-    }
-
-    return _assertThisInitialized(self);
-  }
-
-  function _createSuper(Derived) {
-    var hasNativeReflectConstruct = _isNativeReflectConstruct();
-
-    return function _createSuperInternal() {
-      var Super = _getPrototypeOf(Derived),
-          result;
-
-      if (hasNativeReflectConstruct) {
-        var NewTarget = _getPrototypeOf(this).constructor;
-
-        result = Reflect.construct(Super, arguments, NewTarget);
-      } else {
-        result = Super.apply(this, arguments);
-      }
-
-      return _possibleConstructorReturn(this, result);
-    };
-  }
-
-  function _superPropBase(object, property) {
-    while (!Object.prototype.hasOwnProperty.call(object, property)) {
-      object = _getPrototypeOf(object);
-      if (object === null) break;
-    }
-
-    return object;
-  }
-
-  function _get(target, property, receiver) {
-    if (typeof Reflect !== "undefined" && Reflect.get) {
-      _get = Reflect.get;
-    } else {
-      _get = function _get(target, property, receiver) {
-        var base = _superPropBase(target, property);
-
-        if (!base) return;
-        var desc = Object.getOwnPropertyDescriptor(base, property);
-
-        if (desc.get) {
-          return desc.get.call(receiver);
-        }
-
-        return desc.value;
-      };
-    }
-
-    return _get(target, property, receiver || target);
-  }
-
-  var consolePrefix = 'SweetAlert2:';
-  /**
-   * Filter the unique values into a new array
-   * @param arr
-   */
-
-  var uniqueArray = function uniqueArray(arr) {
-    var result = [];
-
-    for (var i = 0; i < arr.length; i++) {
-      if (result.indexOf(arr[i]) === -1) {
-        result.push(arr[i]);
-      }
-    }
-
-    return result;
-  };
-  /**
-   * Capitalize the first letter of a string
-   * @param str
-   */
-
-  var capitalizeFirstLetter = function capitalizeFirstLetter(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  };
-  /**
-   * Returns the array of object values (Object.values isn't supported in IE11)
-   * @param obj
-   */
-
-  var objectValues = function objectValues(obj) {
-    return Object.keys(obj).map(function (key) {
-      return obj[key];
-    });
-  };
-  /**
-   * Convert NodeList to Array
-   * @param nodeList
-   */
-
-  var toArray = function toArray(nodeList) {
-    return Array.prototype.slice.call(nodeList);
-  };
-  /**
-   * Standardise console warnings
-   * @param message
-   */
-
-  var warn = function warn(message) {
-    console.warn("".concat(consolePrefix, " ").concat(_typeof(message) === 'object' ? message.join(' ') : message));
-  };
-  /**
-   * Standardise console errors
-   * @param message
-   */
-
-  var error = function error(message) {
-    console.error("".concat(consolePrefix, " ").concat(message));
-  };
-  /**
-   * Private global state for `warnOnce`
-   * @type {Array}
-   * @private
-   */
-
-  var previousWarnOnceMessages = [];
-  /**
-   * Show a console warning, but only if it hasn't already been shown
-   * @param message
-   */
-
-  var warnOnce = function warnOnce(message) {
-    if (!(previousWarnOnceMessages.indexOf(message) !== -1)) {
-      previousWarnOnceMessages.push(message);
-      warn(message);
-    }
-  };
-  /**
-   * Show a one-time console warning about deprecated params/methods
-   */
-
-  var warnAboutDeprecation = function warnAboutDeprecation(deprecatedParam, useInstead) {
-    warnOnce("\"".concat(deprecatedParam, "\" is deprecated and will be removed in the next major release. Please use \"").concat(useInstead, "\" instead."));
-  };
-  /**
-   * If `arg` is a function, call it (with no arguments or context) and return the result.
-   * Otherwise, just pass the value through
-   * @param arg
-   */
-
-  var callIfFunction = function callIfFunction(arg) {
-    return typeof arg === 'function' ? arg() : arg;
-  };
-  var hasToPromiseFn = function hasToPromiseFn(arg) {
-    return arg && typeof arg.toPromise === 'function';
-  };
-  var asPromise = function asPromise(arg) {
-    return hasToPromiseFn(arg) ? arg.toPromise() : Promise.resolve(arg);
-  };
-  var isPromise = function isPromise(arg) {
-    return arg && Promise.resolve(arg) === arg;
-  };
-
-  var DismissReason = Object.freeze({
-    cancel: 'cancel',
-    backdrop: 'backdrop',
-    close: 'close',
-    esc: 'esc',
-    timer: 'timer'
-  });
-
-  var isJqueryElement = function isJqueryElement(elem) {
-    return _typeof(elem) === 'object' && elem.jquery;
-  };
-
-  var isElement = function isElement(elem) {
-    return elem instanceof Element || isJqueryElement(elem);
-  };
-
-  var argsToParams = function argsToParams(args) {
-    var params = {};
-
-    if (_typeof(args[0]) === 'object' && !isElement(args[0])) {
-      _extends(params, args[0]);
-    } else {
-      ['title', 'html', 'icon'].forEach(function (name, index) {
-        var arg = args[index];
-
-        if (typeof arg === 'string' || isElement(arg)) {
-          params[name] = arg;
-        } else if (arg !== undefined) {
-          error("Unexpected type of ".concat(name, "! Expected \"string\" or \"Element\", got ").concat(_typeof(arg)));
-        }
-      });
-    }
-
-    return params;
-  };
-
-  var swalPrefix = 'swal2-';
-  var prefix = function prefix(items) {
-    var result = {};
-
-    for (var i in items) {
-      result[items[i]] = swalPrefix + items[i];
-    }
-
-    return result;
-  };
-  var swalClasses = prefix(['container', 'shown', 'height-auto', 'iosfix', 'popup', 'modal', 'no-backdrop', 'no-transition', 'toast', 'toast-shown', 'toast-column', 'show', 'hide', 'close', 'title', 'header', 'content', 'html-container', 'actions', 'confirm', 'deny', 'cancel', 'footer', 'icon', 'icon-content', 'image', 'input', 'file', 'range', 'select', 'radio', 'checkbox', 'label', 'textarea', 'inputerror', 'input-label', 'validation-message', 'progress-steps', 'active-progress-step', 'progress-step', 'progress-step-line', 'loader', 'loading', 'styled', 'top', 'top-start', 'top-end', 'top-left', 'top-right', 'center', 'center-start', 'center-end', 'center-left', 'center-right', 'bottom', 'bottom-start', 'bottom-end', 'bottom-left', 'bottom-right', 'grow-row', 'grow-column', 'grow-fullscreen', 'rtl', 'timer-progress-bar', 'timer-progress-bar-container', 'scrollbar-measure', 'icon-success', 'icon-warning', 'icon-info', 'icon-question', 'icon-error']);
-  var iconTypes = prefix(['success', 'warning', 'info', 'question', 'error']);
-
-  var getContainer = function getContainer() {
-    return document.body.querySelector(".".concat(swalClasses.container));
-  };
-  var elementBySelector = function elementBySelector(selectorString) {
-    var container = getContainer();
-    return container ? container.querySelector(selectorString) : null;
-  };
-
-  var elementByClass = function elementByClass(className) {
-    return elementBySelector(".".concat(className));
-  };
-
-  var getPopup = function getPopup() {
-    return elementByClass(swalClasses.popup);
-  };
-  var getIcon = function getIcon() {
-    return elementByClass(swalClasses.icon);
-  };
-  var getTitle = function getTitle() {
-    return elementByClass(swalClasses.title);
-  };
-  var getContent = function getContent() {
-    return elementByClass(swalClasses.content);
-  };
-  var getHtmlContainer = function getHtmlContainer() {
-    return elementByClass(swalClasses['html-container']);
-  };
-  var getImage = function getImage() {
-    return elementByClass(swalClasses.image);
-  };
-  var getProgressSteps = function getProgressSteps() {
-    return elementByClass(swalClasses['progress-steps']);
-  };
-  var getValidationMessage = function getValidationMessage() {
-    return elementByClass(swalClasses['validation-message']);
-  };
-  var getConfirmButton = function getConfirmButton() {
-    return elementBySelector(".".concat(swalClasses.actions, " .").concat(swalClasses.confirm));
-  };
-  var getDenyButton = function getDenyButton() {
-    return elementBySelector(".".concat(swalClasses.actions, " .").concat(swalClasses.deny));
-  };
-  var getInputLabel = function getInputLabel() {
-    return elementByClass(swalClasses['input-label']);
-  };
-  var getLoader = function getLoader() {
-    return elementBySelector(".".concat(swalClasses.loader));
-  };
-  var getCancelButton = function getCancelButton() {
-    return elementBySelector(".".concat(swalClasses.actions, " .").concat(swalClasses.cancel));
-  };
-  var getActions = function getActions() {
-    return elementByClass(swalClasses.actions);
-  };
-  var getHeader = function getHeader() {
-    return elementByClass(swalClasses.header);
-  };
-  var getFooter = function getFooter() {
-    return elementByClass(swalClasses.footer);
-  };
-  var getTimerProgressBar = function getTimerProgressBar() {
-    return elementByClass(swalClasses['timer-progress-bar']);
-  };
-  var getCloseButton = function getCloseButton() {
-    return elementByClass(swalClasses.close);
-  }; // https://github.com/jkup/focusable/blob/master/index.js
-
-  var focusable = "\n  a[href],\n  area[href],\n  input:not([disabled]),\n  select:not([disabled]),\n  textarea:not([disabled]),\n  button:not([disabled]),\n  iframe,\n  object,\n  embed,\n  [tabindex=\"0\"],\n  [contenteditable],\n  audio[controls],\n  video[controls],\n  summary\n";
-  var getFocusableElements = function getFocusableElements() {
-    var focusableElementsWithTabindex = toArray(getPopup().querySelectorAll('[tabindex]:not([tabindex="-1"]):not([tabindex="0"])')) // sort according to tabindex
-    .sort(function (a, b) {
-      a = parseInt(a.getAttribute('tabindex'));
-      b = parseInt(b.getAttribute('tabindex'));
-
-      if (a > b) {
-        return 1;
-      } else if (a < b) {
-        return -1;
-      }
-
-      return 0;
-    });
-    var otherFocusableElements = toArray(getPopup().querySelectorAll(focusable)).filter(function (el) {
-      return el.getAttribute('tabindex') !== '-1';
-    });
-    return uniqueArray(focusableElementsWithTabindex.concat(otherFocusableElements)).filter(function (el) {
-      return isVisible(el);
-    });
-  };
-  var isModal = function isModal() {
-    return !isToast() && !document.body.classList.contains(swalClasses['no-backdrop']);
-  };
-  var isToast = function isToast() {
-    return document.body.classList.contains(swalClasses['toast-shown']);
-  };
-  var isLoading = function isLoading() {
-    return getPopup().hasAttribute('data-loading');
-  };
-
-  var states = {
-    previousBodyPadding: null
-  };
-  var setInnerHtml = function setInnerHtml(elem, html) {
-    // #1926
-    elem.textContent = '';
-
-    if (html) {
-      var parser = new DOMParser();
-      var parsed = parser.parseFromString(html, "text/html");
-      toArray(parsed.querySelector('head').childNodes).forEach(function (child) {
-        elem.appendChild(child);
-      });
-      toArray(parsed.querySelector('body').childNodes).forEach(function (child) {
-        elem.appendChild(child);
-      });
-    }
-  };
-  var hasClass = function hasClass(elem, className) {
-    if (!className) {
-      return false;
-    }
-
-    var classList = className.split(/\s+/);
-
-    for (var i = 0; i < classList.length; i++) {
-      if (!elem.classList.contains(classList[i])) {
-        return false;
-      }
-    }
-
-    return true;
-  };
-
-  var removeCustomClasses = function removeCustomClasses(elem, params) {
-    toArray(elem.classList).forEach(function (className) {
-      if (!(objectValues(swalClasses).indexOf(className) !== -1) && !(objectValues(iconTypes).indexOf(className) !== -1) && !(objectValues(params.showClass).indexOf(className) !== -1)) {
-        elem.classList.remove(className);
-      }
-    });
-  };
-
-  var applyCustomClass = function applyCustomClass(elem, params, className) {
-    removeCustomClasses(elem, params);
-
-    if (params.customClass && params.customClass[className]) {
-      if (typeof params.customClass[className] !== 'string' && !params.customClass[className].forEach) {
-        return warn("Invalid type of customClass.".concat(className, "! Expected string or iterable object, got \"").concat(_typeof(params.customClass[className]), "\""));
-      }
-
-      addClass(elem, params.customClass[className]);
-    }
-  };
-  function getInput(content, inputType) {
-    if (!inputType) {
-      return null;
-    }
-
-    switch (inputType) {
-      case 'select':
-      case 'textarea':
-      case 'file':
-        return getChildByClass(content, swalClasses[inputType]);
-
-      case 'checkbox':
-        return content.querySelector(".".concat(swalClasses.checkbox, " input"));
-
-      case 'radio':
-        return content.querySelector(".".concat(swalClasses.radio, " input:checked")) || content.querySelector(".".concat(swalClasses.radio, " input:first-child"));
-
-      case 'range':
-        return content.querySelector(".".concat(swalClasses.range, " input"));
-
-      default:
-        return getChildByClass(content, swalClasses.input);
-    }
-  }
-  var focusInput = function focusInput(input) {
-    input.focus(); // place cursor at end of text in text input
-
-    if (input.type !== 'file') {
-      // http://stackoverflow.com/a/2345915
-      var val = input.value;
-      input.value = '';
-      input.value = val;
-    }
-  };
-  var toggleClass = function toggleClass(target, classList, condition) {
-    if (!target || !classList) {
-      return;
-    }
-
-    if (typeof classList === 'string') {
-      classList = classList.split(/\s+/).filter(Boolean);
-    }
-
-    classList.forEach(function (className) {
-      if (target.forEach) {
-        target.forEach(function (elem) {
-          condition ? elem.classList.add(className) : elem.classList.remove(className);
-        });
-      } else {
-        condition ? target.classList.add(className) : target.classList.remove(className);
-      }
-    });
-  };
-  var addClass = function addClass(target, classList) {
-    toggleClass(target, classList, true);
-  };
-  var removeClass = function removeClass(target, classList) {
-    toggleClass(target, classList, false);
-  };
-  var getChildByClass = function getChildByClass(elem, className) {
-    for (var i = 0; i < elem.childNodes.length; i++) {
-      if (hasClass(elem.childNodes[i], className)) {
-        return elem.childNodes[i];
-      }
-    }
-  };
-  var applyNumericalStyle = function applyNumericalStyle(elem, property, value) {
-    if (value === "".concat(parseInt(value))) {
-      value = parseInt(value);
-    }
-
-    if (value || parseInt(value) === 0) {
-      elem.style[property] = typeof value === 'number' ? "".concat(value, "px") : value;
-    } else {
-      elem.style.removeProperty(property);
-    }
-  };
-  var show = function show(elem) {
-    var display = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'flex';
-    elem.style.display = display;
-  };
-  var hide = function hide(elem) {
-    elem.style.display = 'none';
-  };
-  var setStyle = function setStyle(parent, selector, property, value) {
-    var el = parent.querySelector(selector);
-
-    if (el) {
-      el.style[property] = value;
-    }
-  };
-  var toggle = function toggle(elem, condition, display) {
-    condition ? show(elem, display) : hide(elem);
-  }; // borrowed from jquery $(elem).is(':visible') implementation
-
-  var isVisible = function isVisible(elem) {
-    return !!(elem && (elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length));
-  };
-  var allButtonsAreHidden = function allButtonsAreHidden() {
-    return !isVisible(getConfirmButton()) && !isVisible(getDenyButton()) && !isVisible(getCancelButton());
-  };
-  var isScrollable = function isScrollable(elem) {
-    return !!(elem.scrollHeight > elem.clientHeight);
-  }; // borrowed from https://stackoverflow.com/a/46352119
-
-  var hasCssAnimation = function hasCssAnimation(elem) {
-    var style = window.getComputedStyle(elem);
-    var animDuration = parseFloat(style.getPropertyValue('animation-duration') || '0');
-    var transDuration = parseFloat(style.getPropertyValue('transition-duration') || '0');
-    return animDuration > 0 || transDuration > 0;
-  };
-  var contains = function contains(haystack, needle) {
-    if (typeof haystack.contains === 'function') {
-      return haystack.contains(needle);
-    }
-  };
-  var animateTimerProgressBar = function animateTimerProgressBar(timer) {
-    var reset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-    var timerProgressBar = getTimerProgressBar();
-
-    if (isVisible(timerProgressBar)) {
-      if (reset) {
-        timerProgressBar.style.transition = 'none';
-        timerProgressBar.style.width = '100%';
-      }
-
-      setTimeout(function () {
-        timerProgressBar.style.transition = "width ".concat(timer / 1000, "s linear");
-        timerProgressBar.style.width = '0%';
-      }, 10);
-    }
-  };
-  var stopTimerProgressBar = function stopTimerProgressBar() {
-    var timerProgressBar = getTimerProgressBar();
-    var timerProgressBarWidth = parseInt(window.getComputedStyle(timerProgressBar).width);
-    timerProgressBar.style.removeProperty('transition');
-    timerProgressBar.style.width = '100%';
-    var timerProgressBarFullWidth = parseInt(window.getComputedStyle(timerProgressBar).width);
-    var timerProgressBarPercent = parseInt(timerProgressBarWidth / timerProgressBarFullWidth * 100);
-    timerProgressBar.style.removeProperty('transition');
-    timerProgressBar.style.width = "".concat(timerProgressBarPercent, "%");
-  };
-
-  // Detect Node env
-  var isNodeEnv = function isNodeEnv() {
-    return typeof window === 'undefined' || typeof document === 'undefined';
-  };
-
-  var sweetHTML = "\n <div aria-labelledby=\"".concat(swalClasses.title, "\" aria-describedby=\"").concat(swalClasses.content, "\" class=\"").concat(swalClasses.popup, "\" tabindex=\"-1\">\n   <div class=\"").concat(swalClasses.header, "\">\n     <ul class=\"").concat(swalClasses['progress-steps'], "\"></ul>\n     <div class=\"").concat(swalClasses.icon, "\"></div>\n     <img class=\"").concat(swalClasses.image, "\" />\n     <h2 class=\"").concat(swalClasses.title, "\" id=\"").concat(swalClasses.title, "\"></h2>\n     <button type=\"button\" class=\"").concat(swalClasses.close, "\"></button>\n   </div>\n   <div class=\"").concat(swalClasses.content, "\">\n     <div id=\"").concat(swalClasses.content, "\" class=\"").concat(swalClasses['html-container'], "\"></div>\n     <input class=\"").concat(swalClasses.input, "\" />\n     <input type=\"file\" class=\"").concat(swalClasses.file, "\" />\n     <div class=\"").concat(swalClasses.range, "\">\n       <input type=\"range\" />\n       <output></output>\n     </div>\n     <select class=\"").concat(swalClasses.select, "\"></select>\n     <div class=\"").concat(swalClasses.radio, "\"></div>\n     <label for=\"").concat(swalClasses.checkbox, "\" class=\"").concat(swalClasses.checkbox, "\">\n       <input type=\"checkbox\" />\n       <span class=\"").concat(swalClasses.label, "\"></span>\n     </label>\n     <textarea class=\"").concat(swalClasses.textarea, "\"></textarea>\n     <div class=\"").concat(swalClasses['validation-message'], "\" id=\"").concat(swalClasses['validation-message'], "\"></div>\n   </div>\n   <div class=\"").concat(swalClasses.actions, "\">\n     <div class=\"").concat(swalClasses.loader, "\"></div>\n     <button type=\"button\" class=\"").concat(swalClasses.confirm, "\"></button>\n     <button type=\"button\" class=\"").concat(swalClasses.deny, "\"></button>\n     <button type=\"button\" class=\"").concat(swalClasses.cancel, "\"></button>\n   </div>\n   <div class=\"").concat(swalClasses.footer, "\"></div>\n   <div class=\"").concat(swalClasses['timer-progress-bar-container'], "\">\n     <div class=\"").concat(swalClasses['timer-progress-bar'], "\"></div>\n   </div>\n </div>\n").replace(/(^|\n)\s*/g, '');
-
-  var resetOldContainer = function resetOldContainer() {
-    var oldContainer = getContainer();
-
-    if (!oldContainer) {
-      return false;
-    }
-
-    oldContainer.parentNode.removeChild(oldContainer);
-    removeClass([document.documentElement, document.body], [swalClasses['no-backdrop'], swalClasses['toast-shown'], swalClasses['has-column']]);
-    return true;
-  };
-
-  var oldInputVal; // IE11 workaround, see #1109 for details
-
-  var resetValidationMessage = function resetValidationMessage(e) {
-    if (Swal.isVisible() && oldInputVal !== e.target.value) {
-      Swal.resetValidationMessage();
-    }
-
-    oldInputVal = e.target.value;
-  };
-
-  var addInputChangeListeners = function addInputChangeListeners() {
-    var content = getContent();
-    var input = getChildByClass(content, swalClasses.input);
-    var file = getChildByClass(content, swalClasses.file);
-    var range = content.querySelector(".".concat(swalClasses.range, " input"));
-    var rangeOutput = content.querySelector(".".concat(swalClasses.range, " output"));
-    var select = getChildByClass(content, swalClasses.select);
-    var checkbox = content.querySelector(".".concat(swalClasses.checkbox, " input"));
-    var textarea = getChildByClass(content, swalClasses.textarea);
-    input.oninput = resetValidationMessage;
-    file.onchange = resetValidationMessage;
-    select.onchange = resetValidationMessage;
-    checkbox.onchange = resetValidationMessage;
-    textarea.oninput = resetValidationMessage;
-
-    range.oninput = function (e) {
-      resetValidationMessage(e);
-      rangeOutput.value = range.value;
-    };
-
-    range.onchange = function (e) {
-      resetValidationMessage(e);
-      range.nextSibling.value = range.value;
-    };
-  };
-
-  var getTarget = function getTarget(target) {
-    return typeof target === 'string' ? document.querySelector(target) : target;
-  };
-
-  var setupAccessibility = function setupAccessibility(params) {
-    var popup = getPopup();
-    popup.setAttribute('role', params.toast ? 'alert' : 'dialog');
-    popup.setAttribute('aria-live', params.toast ? 'polite' : 'assertive');
-
-    if (!params.toast) {
-      popup.setAttribute('aria-modal', 'true');
-    }
-  };
-
-  var setupRTL = function setupRTL(targetElement) {
-    if (window.getComputedStyle(targetElement).direction === 'rtl') {
-      addClass(getContainer(), swalClasses.rtl);
-    }
-  };
-  /*
-   * Add modal + backdrop to DOM
-   */
-
-
-  var init = function init(params) {
-    // Clean up the old popup container if it exists
-    var oldContainerExisted = resetOldContainer();
-    /* istanbul ignore if */
-
-    if (isNodeEnv()) {
-      error('SweetAlert2 requires document to initialize');
-      return;
-    }
-
-    var container = document.createElement('div');
-    container.className = swalClasses.container;
-
-    if (oldContainerExisted) {
-      addClass(container, swalClasses['no-transition']);
-    }
-
-    setInnerHtml(container, sweetHTML);
-    var targetElement = getTarget(params.target);
-    targetElement.appendChild(container);
-    setupAccessibility(params);
-    setupRTL(targetElement);
-    addInputChangeListeners();
-  };
-
-  var parseHtmlToContainer = function parseHtmlToContainer(param, target) {
-    // DOM element
-    if (param instanceof HTMLElement) {
-      target.appendChild(param); // Object
-    } else if (_typeof(param) === 'object') {
-      handleObject(param, target); // Plain string
-    } else if (param) {
-      setInnerHtml(target, param);
-    }
-  };
-
-  var handleObject = function handleObject(param, target) {
-    // JQuery element(s)
-    if (param.jquery) {
-      handleJqueryElem(target, param); // For other objects use their string representation
-    } else {
-      setInnerHtml(target, param.toString());
-    }
-  };
-
-  var handleJqueryElem = function handleJqueryElem(target, elem) {
-    target.textContent = '';
-
-    if (0 in elem) {
-      for (var i = 0; (i in elem); i++) {
-        target.appendChild(elem[i].cloneNode(true));
-      }
-    } else {
-      target.appendChild(elem.cloneNode(true));
-    }
-  };
-
-  var animationEndEvent = function () {
+class SweetAlert {
+  constructor (...args) {
     // Prevent run in Node env
-
-    /* istanbul ignore if */
-    if (isNodeEnv()) {
-      return false;
-    }
-
-    var testEl = document.createElement('div');
-    var transEndEventNames = {
-      WebkitAnimation: 'webkitAnimationEnd',
-      OAnimation: 'oAnimationEnd oanimationend',
-      animation: 'animationend'
-    };
-
-    for (var i in transEndEventNames) {
-      if (Object.prototype.hasOwnProperty.call(transEndEventNames, i) && typeof testEl.style[i] !== 'undefined') {
-        return transEndEventNames[i];
-      }
-    }
-
-    return false;
-  }();
-
-  // https://github.com/twbs/bootstrap/blob/master/js/src/modal.js
-
-  var measureScrollbar = function measureScrollbar() {
-    var scrollDiv = document.createElement('div');
-    scrollDiv.className = swalClasses['scrollbar-measure'];
-    document.body.appendChild(scrollDiv);
-    var scrollbarWidth = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth;
-    document.body.removeChild(scrollDiv);
-    return scrollbarWidth;
-  };
-
-  var renderActions = function renderActions(instance, params) {
-    var actions = getActions();
-    var loader = getLoader();
-    var confirmButton = getConfirmButton();
-    var denyButton = getDenyButton();
-    var cancelButton = getCancelButton(); // Actions (buttons) wrapper
-
-    if (!params.showConfirmButton && !params.showDenyButton && !params.showCancelButton) {
-      hide(actions);
-    } // Custom class
-
-
-    applyCustomClass(actions, params, 'actions'); // Render buttons
-
-    renderButton(confirmButton, 'confirm', params);
-    renderButton(denyButton, 'deny', params);
-    renderButton(cancelButton, 'cancel', params);
-    handleButtonsStyling(confirmButton, denyButton, cancelButton, params);
-
-    if (params.reverseButtons) {
-      actions.insertBefore(cancelButton, loader);
-      actions.insertBefore(denyButton, loader);
-      actions.insertBefore(confirmButton, loader);
-    } // Loader
-
-
-    setInnerHtml(loader, params.loaderHtml);
-    applyCustomClass(loader, params, 'loader');
-  };
-
-  function handleButtonsStyling(confirmButton, denyButton, cancelButton, params) {
-    if (!params.buttonsStyling) {
-      return removeClass([confirmButton, denyButton, cancelButton], swalClasses.styled);
-    }
-
-    addClass([confirmButton, denyButton, cancelButton], swalClasses.styled); // Buttons background colors
-
-    if (params.confirmButtonColor) {
-      confirmButton.style.backgroundColor = params.confirmButtonColor;
-    }
-
-    if (params.denyButtonColor) {
-      denyButton.style.backgroundColor = params.denyButtonColor;
-    }
-
-    if (params.cancelButtonColor) {
-      cancelButton.style.backgroundColor = params.cancelButtonColor;
-    }
-  }
-
-  function renderButton(button, buttonType, params) {
-    toggle(button, params["show".concat(capitalizeFirstLetter(buttonType), "Button")], 'inline-block');
-    setInnerHtml(button, params["".concat(buttonType, "ButtonText")]); // Set caption text
-
-    button.setAttribute('aria-label', params["".concat(buttonType, "ButtonAriaLabel")]); // ARIA label
-    // Add buttons custom classes
-
-    button.className = swalClasses[buttonType];
-    applyCustomClass(button, params, "".concat(buttonType, "Button"));
-    addClass(button, params["".concat(buttonType, "ButtonClass")]);
-  }
-
-  function handleBackdropParam(container, backdrop) {
-    if (typeof backdrop === 'string') {
-      container.style.background = backdrop;
-    } else if (!backdrop) {
-      addClass([document.documentElement, document.body], swalClasses['no-backdrop']);
-    }
-  }
-
-  function handlePositionParam(container, position) {
-    if (position in swalClasses) {
-      addClass(container, swalClasses[position]);
-    } else {
-      warn('The "position" parameter is not valid, defaulting to "center"');
-      addClass(container, swalClasses.center);
-    }
-  }
-
-  function handleGrowParam(container, grow) {
-    if (grow && typeof grow === 'string') {
-      var growClass = "grow-".concat(grow);
-
-      if (growClass in swalClasses) {
-        addClass(container, swalClasses[growClass]);
-      }
-    }
-  }
-
-  var renderContainer = function renderContainer(instance, params) {
-    var container = getContainer();
-
-    if (!container) {
-      return;
-    }
-
-    handleBackdropParam(container, params.backdrop);
-
-    if (!params.backdrop && params.allowOutsideClick) {
-      warn('"allowOutsideClick" parameter requires `backdrop` parameter to be set to `true`');
-    }
-
-    handlePositionParam(container, params.position);
-    handleGrowParam(container, params.grow); // Custom class
-
-    applyCustomClass(container, params, 'container'); // Set queue step attribute for getQueueStep() method
-
-    var queueStep = document.body.getAttribute('data-swal2-queue-step');
-
-    if (queueStep) {
-      container.setAttribute('data-queue-step', queueStep);
-      document.body.removeAttribute('data-swal2-queue-step');
-    }
-  };
-
-  /**
-   * This module containts `WeakMap`s for each effectively-"private  property" that a `Swal` has.
-   * For example, to set the private property "foo" of `this` to "bar", you can `privateProps.foo.set(this, 'bar')`
-   * This is the approach that Babel will probably take to implement private methods/fields
-   *   https://github.com/tc39/proposal-private-methods
-   *   https://github.com/babel/babel/pull/7555
-   * Once we have the changes from that PR in Babel, and our core class fits reasonable in *one module*
-   *   then we can use that language feature.
-   */
-  var privateProps = {
-    promise: new WeakMap(),
-    innerParams: new WeakMap(),
-    domCache: new WeakMap()
-  };
-
-  var inputTypes = ['input', 'file', 'range', 'select', 'radio', 'checkbox', 'textarea'];
-  var renderInput = function renderInput(instance, params) {
-    var content = getContent();
-    var innerParams = privateProps.innerParams.get(instance);
-    var rerender = !innerParams || params.input !== innerParams.input;
-    inputTypes.forEach(function (inputType) {
-      var inputClass = swalClasses[inputType];
-      var inputContainer = getChildByClass(content, inputClass); // set attributes
-
-      setAttributes(inputType, params.inputAttributes); // set class
-
-      inputContainer.className = inputClass;
-
-      if (rerender) {
-        hide(inputContainer);
-      }
-    });
-
-    if (params.input) {
-      if (rerender) {
-        showInput(params);
-      } // set custom class
-
-
-      setCustomClass(params);
-    }
-  };
-
-  var showInput = function showInput(params) {
-    if (!renderInputType[params.input]) {
-      return error("Unexpected type of input! Expected \"text\", \"email\", \"password\", \"number\", \"tel\", \"select\", \"radio\", \"checkbox\", \"textarea\", \"file\" or \"url\", got \"".concat(params.input, "\""));
-    }
-
-    var inputContainer = getInputContainer(params.input);
-    var input = renderInputType[params.input](inputContainer, params);
-    show(input); // input autofocus
-
-    setTimeout(function () {
-      focusInput(input);
-    });
-  };
-
-  var removeAttributes = function removeAttributes(input) {
-    for (var i = 0; i < input.attributes.length; i++) {
-      var attrName = input.attributes[i].name;
-
-      if (!(['type', 'value', 'style'].indexOf(attrName) !== -1)) {
-        input.removeAttribute(attrName);
-      }
-    }
-  };
-
-  var setAttributes = function setAttributes(inputType, inputAttributes) {
-    var input = getInput(getContent(), inputType);
-
-    if (!input) {
-      return;
-    }
-
-    removeAttributes(input);
-
-    for (var attr in inputAttributes) {
-      // Do not set a placeholder for <input type="range">
-      // it'll crash Edge, #1298
-      if (inputType === 'range' && attr === 'placeholder') {
-        continue;
-      }
-
-      input.setAttribute(attr, inputAttributes[attr]);
-    }
-  };
-
-  var setCustomClass = function setCustomClass(params) {
-    var inputContainer = getInputContainer(params.input);
-
-    if (params.customClass) {
-      addClass(inputContainer, params.customClass.input);
-    }
-  };
-
-  var setInputPlaceholder = function setInputPlaceholder(input, params) {
-    if (!input.placeholder || params.inputPlaceholder) {
-      input.placeholder = params.inputPlaceholder;
-    }
-  };
-
-  var setInputLabel = function setInputLabel(input, prependTo, params) {
-    if (params.inputLabel) {
-      input.id = swalClasses.input;
-      var label = document.createElement('label');
-      var labelClass = swalClasses['input-label'];
-      label.setAttribute('for', input.id);
-      label.className = labelClass;
-      addClass(label, params.customClass.inputLabel);
-      label.innerText = params.inputLabel;
-      prependTo.insertAdjacentElement('beforebegin', label);
-    }
-  };
-
-  var getInputContainer = function getInputContainer(inputType) {
-    var inputClass = swalClasses[inputType] ? swalClasses[inputType] : swalClasses.input;
-    return getChildByClass(getContent(), inputClass);
-  };
-
-  var renderInputType = {};
-
-  renderInputType.text = renderInputType.email = renderInputType.password = renderInputType.number = renderInputType.tel = renderInputType.url = function (input, params) {
-    if (typeof params.inputValue === 'string' || typeof params.inputValue === 'number') {
-      input.value = params.inputValue;
-    } else if (!isPromise(params.inputValue)) {
-      warn("Unexpected type of inputValue! Expected \"string\", \"number\" or \"Promise\", got \"".concat(_typeof(params.inputValue), "\""));
-    }
-
-    setInputLabel(input, input, params);
-    setInputPlaceholder(input, params);
-    input.type = params.input;
-    return input;
-  };
-
-  renderInputType.file = function (input, params) {
-    setInputLabel(input, input, params);
-    setInputPlaceholder(input, params);
-    return input;
-  };
-
-  renderInputType.range = function (range, params) {
-    var rangeInput = range.querySelector('input');
-    var rangeOutput = range.querySelector('output');
-    rangeInput.value = params.inputValue;
-    rangeInput.type = params.input;
-    rangeOutput.value = params.inputValue;
-    setInputLabel(rangeInput, range, params);
-    return range;
-  };
-
-  renderInputType.select = function (select, params) {
-    select.textContent = '';
-
-    if (params.inputPlaceholder) {
-      var placeholder = document.createElement('option');
-      setInnerHtml(placeholder, params.inputPlaceholder);
-      placeholder.value = '';
-      placeholder.disabled = true;
-      placeholder.selected = true;
-      select.appendChild(placeholder);
-    }
-
-    setInputLabel(select, select, params);
-    return select;
-  };
-
-  renderInputType.radio = function (radio) {
-    radio.textContent = '';
-    return radio;
-  };
-
-  renderInputType.checkbox = function (checkboxContainer, params) {
-    var checkbox = getInput(getContent(), 'checkbox');
-    checkbox.value = 1;
-    checkbox.id = swalClasses.checkbox;
-    checkbox.checked = Boolean(params.inputValue);
-    var label = checkboxContainer.querySelector('span');
-    setInnerHtml(label, params.inputPlaceholder);
-    return checkboxContainer;
-  };
-
-  renderInputType.textarea = function (textarea, params) {
-    textarea.value = params.inputValue;
-    setInputPlaceholder(textarea, params);
-    setInputLabel(textarea, textarea, params);
-
-    var getPadding = function getPadding(el) {
-      return parseInt(window.getComputedStyle(el).paddingLeft) + parseInt(window.getComputedStyle(el).paddingRight);
-    };
-
-    if ('MutationObserver' in window) {
-      // #1699
-      var initialPopupWidth = parseInt(window.getComputedStyle(getPopup()).width);
-
-      var outputsize = function outputsize() {
-        var contentWidth = textarea.offsetWidth + getPadding(getPopup()) + getPadding(getContent());
-
-        if (contentWidth > initialPopupWidth) {
-          getPopup().style.width = "".concat(contentWidth, "px");
-        } else {
-          getPopup().style.width = null;
-        }
-      };
-
-      new MutationObserver(outputsize).observe(textarea, {
-        attributes: true,
-        attributeFilter: ['style']
-      });
-    }
-
-    return textarea;
-  };
-
-  var renderContent = function renderContent(instance, params) {
-    var htmlContainer = getHtmlContainer();
-    applyCustomClass(htmlContainer, params, 'htmlContainer'); // Content as HTML
-
-    if (params.html) {
-      parseHtmlToContainer(params.html, htmlContainer);
-      show(htmlContainer, 'block'); // Content as plain text
-    } else if (params.text) {
-      htmlContainer.textContent = params.text;
-      show(htmlContainer, 'block'); // No content
-    } else {
-      hide(htmlContainer);
-    }
-
-    renderInput(instance, params); // Custom class
-
-    applyCustomClass(getContent(), params, 'content');
-  };
-
-  var renderFooter = function renderFooter(instance, params) {
-    var footer = getFooter();
-    toggle(footer, params.footer);
-
-    if (params.footer) {
-      parseHtmlToContainer(params.footer, footer);
-    } // Custom class
-
-
-    applyCustomClass(footer, params, 'footer');
-  };
-
-  var renderCloseButton = function renderCloseButton(instance, params) {
-    var closeButton = getCloseButton();
-    setInnerHtml(closeButton, params.closeButtonHtml); // Custom class
-
-    applyCustomClass(closeButton, params, 'closeButton');
-    toggle(closeButton, params.showCloseButton);
-    closeButton.setAttribute('aria-label', params.closeButtonAriaLabel);
-  };
-
-  var renderIcon = function renderIcon(instance, params) {
-    var innerParams = privateProps.innerParams.get(instance);
-    var icon = getIcon(); // if the given icon already rendered, apply the styling without re-rendering the icon
-
-    if (innerParams && params.icon === innerParams.icon) {
-      // Custom or default content
-      setContent(icon, params);
-      applyStyles(icon, params);
-      return;
-    }
-
-    if (!params.icon && !params.iconHtml) {
-      return hide(icon);
-    }
-
-    if (params.icon && Object.keys(iconTypes).indexOf(params.icon) === -1) {
-      error("Unknown icon! Expected \"success\", \"error\", \"warning\", \"info\" or \"question\", got \"".concat(params.icon, "\""));
-      return hide(icon);
-    }
-
-    show(icon); // Custom or default content
-
-    setContent(icon, params);
-    applyStyles(icon, params); // Animate icon
-
-    addClass(icon, params.showClass.icon);
-  };
-
-  var applyStyles = function applyStyles(icon, params) {
-    for (var iconType in iconTypes) {
-      if (params.icon !== iconType) {
-        removeClass(icon, iconTypes[iconType]);
-      }
-    }
-
-    addClass(icon, iconTypes[params.icon]); // Icon color
-
-    setColor(icon, params); // Success icon background color
-
-    adjustSuccessIconBackgoundColor(); // Custom class
-
-    applyCustomClass(icon, params, 'icon');
-  }; // Adjust success icon background color to match the popup background color
-
-
-  var adjustSuccessIconBackgoundColor = function adjustSuccessIconBackgoundColor() {
-    var popup = getPopup();
-    var popupBackgroundColor = window.getComputedStyle(popup).getPropertyValue('background-color');
-    var successIconParts = popup.querySelectorAll('[class^=swal2-success-circular-line], .swal2-success-fix');
-
-    for (var i = 0; i < successIconParts.length; i++) {
-      successIconParts[i].style.backgroundColor = popupBackgroundColor;
-    }
-  };
-
-  var setContent = function setContent(icon, params) {
-    icon.textContent = '';
-
-    if (params.iconHtml) {
-      setInnerHtml(icon, iconContent(params.iconHtml));
-    } else if (params.icon === 'success') {
-      setInnerHtml(icon, "\n      <div class=\"swal2-success-circular-line-left\"></div>\n      <span class=\"swal2-success-line-tip\"></span> <span class=\"swal2-success-line-long\"></span>\n      <div class=\"swal2-success-ring\"></div> <div class=\"swal2-success-fix\"></div>\n      <div class=\"swal2-success-circular-line-right\"></div>\n    ");
-    } else if (params.icon === 'error') {
-      setInnerHtml(icon, "\n      <span class=\"swal2-x-mark\">\n        <span class=\"swal2-x-mark-line-left\"></span>\n        <span class=\"swal2-x-mark-line-right\"></span>\n      </span>\n    ");
-    } else {
-      var defaultIconHtml = {
-        question: '?',
-        warning: '!',
-        info: 'i'
-      };
-      setInnerHtml(icon, iconContent(defaultIconHtml[params.icon]));
-    }
-  };
-
-  var setColor = function setColor(icon, params) {
-    if (!params.iconColor) {
-      return;
-    }
-
-    icon.style.color = params.iconColor;
-    icon.style.borderColor = params.iconColor;
-
-    for (var _i = 0, _arr = ['.swal2-success-line-tip', '.swal2-success-line-long', '.swal2-x-mark-line-left', '.swal2-x-mark-line-right']; _i < _arr.length; _i++) {
-      var sel = _arr[_i];
-      setStyle(icon, sel, 'backgroundColor', params.iconColor);
-    }
-
-    setStyle(icon, '.swal2-success-ring', 'borderColor', params.iconColor);
-  };
-
-  var iconContent = function iconContent(content) {
-    return "<div class=\"".concat(swalClasses['icon-content'], "\">").concat(content, "</div>");
-  };
-
-  var renderImage = function renderImage(instance, params) {
-    var image = getImage();
-
-    if (!params.imageUrl) {
-      return hide(image);
-    }
-
-    show(image, ''); // Src, alt
-
-    image.setAttribute('src', params.imageUrl);
-    image.setAttribute('alt', params.imageAlt); // Width, height
-
-    applyNumericalStyle(image, 'width', params.imageWidth);
-    applyNumericalStyle(image, 'height', params.imageHeight); // Class
-
-    image.className = swalClasses.image;
-    applyCustomClass(image, params, 'image');
-  };
-
-  var currentSteps = [];
-  /*
-   * Global function for chaining sweetAlert popups
-   */
-
-  var queue = function queue(steps) {
-    var Swal = this;
-    currentSteps = steps;
-
-    var resetAndResolve = function resetAndResolve(resolve, value) {
-      currentSteps = [];
-      resolve(value);
-    };
-
-    var queueResult = [];
-    return new Promise(function (resolve) {
-      (function step(i, callback) {
-        if (i < currentSteps.length) {
-          document.body.setAttribute('data-swal2-queue-step', i);
-          Swal.fire(currentSteps[i]).then(function (result) {
-            if (typeof result.value !== 'undefined') {
-              queueResult.push(result.value);
-              step(i + 1, callback);
-            } else {
-              resetAndResolve(resolve, {
-                dismiss: result.dismiss
-              });
-            }
-          });
-        } else {
-          resetAndResolve(resolve, {
-            value: queueResult
-          });
-        }
-      })(0);
-    });
-  };
-  /*
-   * Global function for getting the index of current popup in queue
-   */
-
-  var getQueueStep = function getQueueStep() {
-    return getContainer() && getContainer().getAttribute('data-queue-step');
-  };
-  /*
-   * Global function for inserting a popup to the queue
-   */
-
-  var insertQueueStep = function insertQueueStep(step, index) {
-    if (index && index < currentSteps.length) {
-      return currentSteps.splice(index, 0, step);
-    }
-
-    return currentSteps.push(step);
-  };
-  /*
-   * Global function for deleting a popup from the queue
-   */
-
-  var deleteQueueStep = function deleteQueueStep(index) {
-    if (typeof currentSteps[index] !== 'undefined') {
-      currentSteps.splice(index, 1);
-    }
-  };
-
-  var createStepElement = function createStepElement(step) {
-    var stepEl = document.createElement('li');
-    addClass(stepEl, swalClasses['progress-step']);
-    setInnerHtml(stepEl, step);
-    return stepEl;
-  };
-
-  var createLineElement = function createLineElement(params) {
-    var lineEl = document.createElement('li');
-    addClass(lineEl, swalClasses['progress-step-line']);
-
-    if (params.progressStepsDistance) {
-      lineEl.style.width = params.progressStepsDistance;
-    }
-
-    return lineEl;
-  };
-
-  var renderProgressSteps = function renderProgressSteps(instance, params) {
-    var progressStepsContainer = getProgressSteps();
-
-    if (!params.progressSteps || params.progressSteps.length === 0) {
-      return hide(progressStepsContainer);
-    }
-
-    show(progressStepsContainer);
-    progressStepsContainer.textContent = '';
-    var currentProgressStep = parseInt(params.currentProgressStep === undefined ? getQueueStep() : params.currentProgressStep);
-
-    if (currentProgressStep >= params.progressSteps.length) {
-      warn('Invalid currentProgressStep parameter, it should be less than progressSteps.length ' + '(currentProgressStep like JS arrays starts from 0)');
-    }
-
-    params.progressSteps.forEach(function (step, index) {
-      var stepEl = createStepElement(step);
-      progressStepsContainer.appendChild(stepEl);
-
-      if (index === currentProgressStep) {
-        addClass(stepEl, swalClasses['active-progress-step']);
-      }
-
-      if (index !== params.progressSteps.length - 1) {
-        var lineEl = createLineElement(params);
-        progressStepsContainer.appendChild(lineEl);
-      }
-    });
-  };
-
-  var renderTitle = function renderTitle(instance, params) {
-    var title = getTitle();
-    toggle(title, params.title || params.titleText);
-
-    if (params.title) {
-      parseHtmlToContainer(params.title, title);
-    }
-
-    if (params.titleText) {
-      title.innerText = params.titleText;
-    } // Custom class
-
-
-    applyCustomClass(title, params, 'title');
-  };
-
-  var renderHeader = function renderHeader(instance, params) {
-    var header = getHeader(); // Custom class
-
-    applyCustomClass(header, params, 'header'); // Progress steps
-
-    renderProgressSteps(instance, params); // Icon
-
-    renderIcon(instance, params); // Image
-
-    renderImage(instance, params); // Title
-
-    renderTitle(instance, params); // Close button
-
-    renderCloseButton(instance, params);
-  };
-
-  var renderPopup = function renderPopup(instance, params) {
-    var container = getContainer();
-    var popup = getPopup(); // Width
-
-    if (params.toast) {
-      // #2170
-      applyNumericalStyle(container, 'width', params.width);
-      popup.style.width = '100%';
-    } else {
-      applyNumericalStyle(popup, 'width', params.width);
-    } // Padding
-
-
-    applyNumericalStyle(popup, 'padding', params.padding); // Background
-
-    if (params.background) {
-      popup.style.background = params.background;
-    }
-
-    hide(getValidationMessage()); // Classes
-
-    addClasses(popup, params);
-  };
-
-  var addClasses = function addClasses(popup, params) {
-    // Default Class + showClass when updating Swal.update({})
-    popup.className = "".concat(swalClasses.popup, " ").concat(isVisible(popup) ? params.showClass.popup : '');
-
-    if (params.toast) {
-      addClass([document.documentElement, document.body], swalClasses['toast-shown']);
-      addClass(popup, swalClasses.toast);
-    } else {
-      addClass(popup, swalClasses.modal);
-    } // Custom class
-
-
-    applyCustomClass(popup, params, 'popup');
-
-    if (typeof params.customClass === 'string') {
-      addClass(popup, params.customClass);
-    } // Icon class (#1842)
-
-
-    if (params.icon) {
-      addClass(popup, swalClasses["icon-".concat(params.icon)]);
-    }
-  };
-
-  var render = function render(instance, params) {
-    renderPopup(instance, params);
-    renderContainer(instance, params);
-    renderHeader(instance, params);
-    renderContent(instance, params);
-    renderActions(instance, params);
-    renderFooter(instance, params);
-
-    if (typeof params.didRender === 'function') {
-      params.didRender(getPopup());
-    } else if (typeof params.onRender === 'function') {
-      params.onRender(getPopup()); // @deprecated
-    }
-  };
-
-  /*
-   * Global function to determine if SweetAlert2 popup is shown
-   */
-
-  var isVisible$1 = function isVisible$$1() {
-    return isVisible(getPopup());
-  };
-  /*
-   * Global function to click 'Confirm' button
-   */
-
-  var clickConfirm = function clickConfirm() {
-    return getConfirmButton() && getConfirmButton().click();
-  };
-  /*
-   * Global function to click 'Deny' button
-   */
-
-  var clickDeny = function clickDeny() {
-    return getDenyButton() && getDenyButton().click();
-  };
-  /*
-   * Global function to click 'Cancel' button
-   */
-
-  var clickCancel = function clickCancel() {
-    return getCancelButton() && getCancelButton().click();
-  };
-
-  function fire() {
-    var Swal = this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _construct(Swal, args);
-  }
-
-  /**
-   * Returns an extended version of `Swal` containing `params` as defaults.
-   * Useful for reusing Swal configuration.
-   *
-   * For example:
-   *
-   * Before:
-   * const textPromptOptions = { input: 'text', showCancelButton: true }
-   * const {value: firstName} = await Swal.fire({ ...textPromptOptions, title: 'What is your first name?' })
-   * const {value: lastName} = await Swal.fire({ ...textPromptOptions, title: 'What is your last name?' })
-   *
-   * After:
-   * const TextPrompt = Swal.mixin({ input: 'text', showCancelButton: true })
-   * const {value: firstName} = await TextPrompt('What is your first name?')
-   * const {value: lastName} = await TextPrompt('What is your last name?')
-   *
-   * @param mixinParams
-   */
-  function mixin(mixinParams) {
-    var MixinSwal = /*#__PURE__*/function (_this) {
-      _inherits(MixinSwal, _this);
-
-      var _super = _createSuper(MixinSwal);
-
-      function MixinSwal() {
-        _classCallCheck(this, MixinSwal);
-
-        return _super.apply(this, arguments);
-      }
-
-      _createClass(MixinSwal, [{
-        key: "_main",
-        value: function _main(params, priorityMixinParams) {
-          return _get(_getPrototypeOf(MixinSwal.prototype), "_main", this).call(this, params, _extends({}, mixinParams, priorityMixinParams));
-        }
-      }]);
-
-      return MixinSwal;
-    }(this);
-
-    return MixinSwal;
-  }
-
-  /**
-   * Shows loader (spinner), this is useful with AJAX requests.
-   * By default the loader be shown instead of the "Confirm" button.
-   */
-
-  var showLoading = function showLoading(buttonToReplace) {
-    var popup = getPopup();
-
-    if (!popup) {
-      Swal.fire();
-    }
-
-    popup = getPopup();
-    var actions = getActions();
-    var loader = getLoader();
-
-    if (!buttonToReplace && isVisible(getConfirmButton())) {
-      buttonToReplace = getConfirmButton();
-    }
-
-    show(actions);
-
-    if (buttonToReplace) {
-      hide(buttonToReplace);
-      loader.setAttribute('data-button-to-replace', buttonToReplace.className);
-    }
-
-    loader.parentNode.insertBefore(loader, buttonToReplace);
-    addClass([popup, actions], swalClasses.loading);
-    show(loader);
-    popup.setAttribute('data-loading', true);
-    popup.setAttribute('aria-busy', true);
-    popup.focus();
-  };
-
-  var RESTORE_FOCUS_TIMEOUT = 100;
-
-  var globalState = {};
-
-  var focusPreviousActiveElement = function focusPreviousActiveElement() {
-    if (globalState.previousActiveElement && globalState.previousActiveElement.focus) {
-      globalState.previousActiveElement.focus();
-      globalState.previousActiveElement = null;
-    } else if (document.body) {
-      document.body.focus();
-    }
-  }; // Restore previous active (focused) element
-
-
-  var restoreActiveElement = function restoreActiveElement(returnFocus) {
-    return new Promise(function (resolve) {
-      if (!returnFocus) {
-        return resolve();
-      }
-
-      var x = window.scrollX;
-      var y = window.scrollY;
-      globalState.restoreFocusTimeout = setTimeout(function () {
-        focusPreviousActiveElement();
-        resolve();
-      }, RESTORE_FOCUS_TIMEOUT); // issues/900
-
-      if (typeof x !== 'undefined' && typeof y !== 'undefined') {
-        // IE doesn't have scrollX/scrollY support
-        window.scrollTo(x, y);
-      }
-    });
-  };
-
-  /**
-   * If `timer` parameter is set, returns number of milliseconds of timer remained.
-   * Otherwise, returns undefined.
-   */
-
-  var getTimerLeft = function getTimerLeft() {
-    return globalState.timeout && globalState.timeout.getTimerLeft();
-  };
-  /**
-   * Stop timer. Returns number of milliseconds of timer remained.
-   * If `timer` parameter isn't set, returns undefined.
-   */
-
-  var stopTimer = function stopTimer() {
-    if (globalState.timeout) {
-      stopTimerProgressBar();
-      return globalState.timeout.stop();
-    }
-  };
-  /**
-   * Resume timer. Returns number of milliseconds of timer remained.
-   * If `timer` parameter isn't set, returns undefined.
-   */
-
-  var resumeTimer = function resumeTimer() {
-    if (globalState.timeout) {
-      var remaining = globalState.timeout.start();
-      animateTimerProgressBar(remaining);
-      return remaining;
-    }
-  };
-  /**
-   * Resume timer. Returns number of milliseconds of timer remained.
-   * If `timer` parameter isn't set, returns undefined.
-   */
-
-  var toggleTimer = function toggleTimer() {
-    var timer = globalState.timeout;
-    return timer && (timer.running ? stopTimer() : resumeTimer());
-  };
-  /**
-   * Increase timer. Returns number of milliseconds of an updated timer.
-   * If `timer` parameter isn't set, returns undefined.
-   */
-
-  var increaseTimer = function increaseTimer(n) {
-    if (globalState.timeout) {
-      var remaining = globalState.timeout.increase(n);
-      animateTimerProgressBar(remaining, true);
-      return remaining;
-    }
-  };
-  /**
-   * Check if timer is running. Returns true if timer is running
-   * or false if timer is paused or stopped.
-   * If `timer` parameter isn't set, returns undefined
-   */
-
-  var isTimerRunning = function isTimerRunning() {
-    return globalState.timeout && globalState.timeout.isRunning();
-  };
-
-  var bodyClickListenerAdded = false;
-  var clickHandlers = {};
-  function bindClickHandler() {
-    var attr = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'data-swal-template';
-    clickHandlers[attr] = this;
-
-    if (!bodyClickListenerAdded) {
-      document.body.addEventListener('click', bodyClickListener);
-      bodyClickListenerAdded = true;
-    }
-  }
-
-  var bodyClickListener = function bodyClickListener(event) {
-    // 1. using .parentNode instead of event.path because of better support by old browsers https://stackoverflow.com/a/39245638
-    // 2. using .parentNode instead of .parentElement because of IE11 + SVG https://stackoverflow.com/a/36270354
-    for (var el = event.target; el && el !== document; el = el.parentNode) {
-      for (var attr in clickHandlers) {
-        var template = el.getAttribute(attr);
-
-        if (template) {
-          clickHandlers[attr].fire({
-            template: template
-          });
-          return;
-        }
-      }
-    }
-  };
-
-  var defaultParams = {
-    title: '',
-    titleText: '',
-    text: '',
-    html: '',
-    footer: '',
-    icon: undefined,
-    iconColor: undefined,
-    iconHtml: undefined,
-    template: undefined,
-    toast: false,
-    animation: true,
-    showClass: {
-      popup: 'swal2-show',
-      backdrop: 'swal2-backdrop-show',
-      icon: 'swal2-icon-show'
-    },
-    hideClass: {
-      popup: 'swal2-hide',
-      backdrop: 'swal2-backdrop-hide',
-      icon: 'swal2-icon-hide'
-    },
-    customClass: {},
-    target: 'body',
-    backdrop: true,
-    heightAuto: true,
-    allowOutsideClick: true,
-    allowEscapeKey: true,
-    allowEnterKey: true,
-    stopKeydownPropagation: true,
-    keydownListenerCapture: false,
-    showConfirmButton: true,
-    showDenyButton: false,
-    showCancelButton: false,
-    preConfirm: undefined,
-    preDeny: undefined,
-    confirmButtonText: 'OK',
-    confirmButtonAriaLabel: '',
-    confirmButtonColor: undefined,
-    denyButtonText: 'No',
-    denyButtonAriaLabel: '',
-    denyButtonColor: undefined,
-    cancelButtonText: 'Cancel',
-    cancelButtonAriaLabel: '',
-    cancelButtonColor: undefined,
-    buttonsStyling: true,
-    reverseButtons: false,
-    focusConfirm: true,
-    focusDeny: false,
-    focusCancel: false,
-    returnFocus: true,
-    showCloseButton: false,
-    closeButtonHtml: '&times;',
-    closeButtonAriaLabel: 'Close this dialog',
-    loaderHtml: '',
-    showLoaderOnConfirm: false,
-    showLoaderOnDeny: false,
-    imageUrl: undefined,
-    imageWidth: undefined,
-    imageHeight: undefined,
-    imageAlt: '',
-    timer: undefined,
-    timerProgressBar: false,
-    width: undefined,
-    padding: undefined,
-    background: undefined,
-    input: undefined,
-    inputPlaceholder: '',
-    inputLabel: '',
-    inputValue: '',
-    inputOptions: {},
-    inputAutoTrim: true,
-    inputAttributes: {},
-    inputValidator: undefined,
-    returnInputValueOnDeny: false,
-    validationMessage: undefined,
-    grow: false,
-    position: 'center',
-    progressSteps: [],
-    currentProgressStep: undefined,
-    progressStepsDistance: undefined,
-    onBeforeOpen: undefined,
-    onOpen: undefined,
-    willOpen: undefined,
-    didOpen: undefined,
-    onRender: undefined,
-    didRender: undefined,
-    onClose: undefined,
-    onAfterClose: undefined,
-    willClose: undefined,
-    didClose: undefined,
-    onDestroy: undefined,
-    didDestroy: undefined,
-    scrollbarPadding: true
-  };
-  var updatableParams = ['allowEscapeKey', 'allowOutsideClick', 'background', 'buttonsStyling', 'cancelButtonAriaLabel', 'cancelButtonColor', 'cancelButtonText', 'closeButtonAriaLabel', 'closeButtonHtml', 'confirmButtonAriaLabel', 'confirmButtonColor', 'confirmButtonText', 'currentProgressStep', 'customClass', 'denyButtonAriaLabel', 'denyButtonColor', 'denyButtonText', 'didClose', 'didDestroy', 'footer', 'hideClass', 'html', 'icon', 'iconColor', 'iconHtml', 'imageAlt', 'imageHeight', 'imageUrl', 'imageWidth', 'onAfterClose', 'onClose', 'onDestroy', 'progressSteps', 'returnFocus', 'reverseButtons', 'showCancelButton', 'showCloseButton', 'showConfirmButton', 'showDenyButton', 'text', 'title', 'titleText', 'willClose'];
-  var deprecatedParams = {
-    animation: 'showClass" and "hideClass',
-    onBeforeOpen: 'willOpen',
-    onOpen: 'didOpen',
-    onRender: 'didRender',
-    onClose: 'willClose',
-    onAfterClose: 'didClose',
-    onDestroy: 'didDestroy'
-  };
-  var toastIncompatibleParams = ['allowOutsideClick', 'allowEnterKey', 'backdrop', 'focusConfirm', 'focusDeny', 'focusCancel', 'returnFocus', 'heightAuto', 'keydownListenerCapture'];
-  /**
-   * Is valid parameter
-   * @param {String} paramName
-   */
-
-  var isValidParameter = function isValidParameter(paramName) {
-    return Object.prototype.hasOwnProperty.call(defaultParams, paramName);
-  };
-  /**
-   * Is valid parameter for Swal.update() method
-   * @param {String} paramName
-   */
-
-  var isUpdatableParameter = function isUpdatableParameter(paramName) {
-    return updatableParams.indexOf(paramName) !== -1;
-  };
-  /**
-   * Is deprecated parameter
-   * @param {String} paramName
-   */
-
-  var isDeprecatedParameter = function isDeprecatedParameter(paramName) {
-    return deprecatedParams[paramName];
-  };
-
-  var checkIfParamIsValid = function checkIfParamIsValid(param) {
-    if (!isValidParameter(param)) {
-      warn("Unknown parameter \"".concat(param, "\""));
-    }
-  };
-
-  var checkIfToastParamIsValid = function checkIfToastParamIsValid(param) {
-    if (toastIncompatibleParams.indexOf(param) !== -1) {
-      warn("The parameter \"".concat(param, "\" is incompatible with toasts"));
-    }
-  };
-
-  var checkIfParamIsDeprecated = function checkIfParamIsDeprecated(param) {
-    if (isDeprecatedParameter(param)) {
-      warnAboutDeprecation(param, isDeprecatedParameter(param));
-    }
-  };
-  /**
-   * Show relevant warnings for given params
-   *
-   * @param params
-   */
-
-
-  var showWarningsForParams = function showWarningsForParams(params) {
-    for (var param in params) {
-      checkIfParamIsValid(param);
-
-      if (params.toast) {
-        checkIfToastParamIsValid(param);
-      }
-
-      checkIfParamIsDeprecated(param);
-    }
-  };
-
-
-
-  var staticMethods = /*#__PURE__*/Object.freeze({
-    isValidParameter: isValidParameter,
-    isUpdatableParameter: isUpdatableParameter,
-    isDeprecatedParameter: isDeprecatedParameter,
-    argsToParams: argsToParams,
-    isVisible: isVisible$1,
-    clickConfirm: clickConfirm,
-    clickDeny: clickDeny,
-    clickCancel: clickCancel,
-    getContainer: getContainer,
-    getPopup: getPopup,
-    getTitle: getTitle,
-    getContent: getContent,
-    getHtmlContainer: getHtmlContainer,
-    getImage: getImage,
-    getIcon: getIcon,
-    getInputLabel: getInputLabel,
-    getCloseButton: getCloseButton,
-    getActions: getActions,
-    getConfirmButton: getConfirmButton,
-    getDenyButton: getDenyButton,
-    getCancelButton: getCancelButton,
-    getLoader: getLoader,
-    getHeader: getHeader,
-    getFooter: getFooter,
-    getTimerProgressBar: getTimerProgressBar,
-    getFocusableElements: getFocusableElements,
-    getValidationMessage: getValidationMessage,
-    isLoading: isLoading,
-    fire: fire,
-    mixin: mixin,
-    queue: queue,
-    getQueueStep: getQueueStep,
-    insertQueueStep: insertQueueStep,
-    deleteQueueStep: deleteQueueStep,
-    showLoading: showLoading,
-    enableLoading: showLoading,
-    getTimerLeft: getTimerLeft,
-    stopTimer: stopTimer,
-    resumeTimer: resumeTimer,
-    toggleTimer: toggleTimer,
-    increaseTimer: increaseTimer,
-    isTimerRunning: isTimerRunning,
-    bindClickHandler: bindClickHandler
-  });
-
-  /**
-   * Hides loader and shows back the button which was hidden by .showLoading()
-   */
-
-  function hideLoading() {
-    // do nothing if popup is closed
-    var innerParams = privateProps.innerParams.get(this);
-
-    if (!innerParams) {
-      return;
-    }
-
-    var domCache = privateProps.domCache.get(this);
-    hide(domCache.loader);
-    var buttonToReplace = domCache.popup.getElementsByClassName(domCache.loader.getAttribute('data-button-to-replace'));
-
-    if (buttonToReplace.length) {
-      show(buttonToReplace[0], 'inline-block');
-    } else if (allButtonsAreHidden()) {
-      hide(domCache.actions);
-    }
-
-    removeClass([domCache.popup, domCache.actions], swalClasses.loading);
-    domCache.popup.removeAttribute('aria-busy');
-    domCache.popup.removeAttribute('data-loading');
-    domCache.confirmButton.disabled = false;
-    domCache.denyButton.disabled = false;
-    domCache.cancelButton.disabled = false;
-  }
-
-  function getInput$1(instance) {
-    var innerParams = privateProps.innerParams.get(instance || this);
-    var domCache = privateProps.domCache.get(instance || this);
-
-    if (!domCache) {
-      return null;
-    }
-
-    return getInput(domCache.content, innerParams.input);
-  }
-
-  var fixScrollbar = function fixScrollbar() {
-    // for queues, do not do this more than once
-    if (states.previousBodyPadding !== null) {
-      return;
-    } // if the body has overflow
-
-
-    if (document.body.scrollHeight > window.innerHeight) {
-      // add padding so the content doesn't shift after removal of scrollbar
-      states.previousBodyPadding = parseInt(window.getComputedStyle(document.body).getPropertyValue('padding-right'));
-      document.body.style.paddingRight = "".concat(states.previousBodyPadding + measureScrollbar(), "px");
-    }
-  };
-  var undoScrollbar = function undoScrollbar() {
-    if (states.previousBodyPadding !== null) {
-      document.body.style.paddingRight = "".concat(states.previousBodyPadding, "px");
-      states.previousBodyPadding = null;
-    }
-  };
-
-  /* istanbul ignore file */
-
-  var iOSfix = function iOSfix() {
-    var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream || navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
-
-    if (iOS && !hasClass(document.body, swalClasses.iosfix)) {
-      var offset = document.body.scrollTop;
-      document.body.style.top = "".concat(offset * -1, "px");
-      addClass(document.body, swalClasses.iosfix);
-      lockBodyScroll();
-      addBottomPaddingForTallPopups(); // #1948
-    }
-  };
-
-  var addBottomPaddingForTallPopups = function addBottomPaddingForTallPopups() {
-    var safari = !navigator.userAgent.match(/(CriOS|FxiOS|EdgiOS|YaBrowser|UCBrowser)/i);
-
-    if (safari) {
-      var bottomPanelHeight = 44;
-
-      if (getPopup().scrollHeight > window.innerHeight - bottomPanelHeight) {
-        getContainer().style.paddingBottom = "".concat(bottomPanelHeight, "px");
-      }
-    }
-  };
-
-  var lockBodyScroll = function lockBodyScroll() {
-    // #1246
-    var container = getContainer();
-    var preventTouchMove;
-
-    container.ontouchstart = function (e) {
-      preventTouchMove = shouldPreventTouchMove(e);
-    };
-
-    container.ontouchmove = function (e) {
-      if (preventTouchMove) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    };
-  };
-
-  var shouldPreventTouchMove = function shouldPreventTouchMove(event) {
-    var target = event.target;
-    var container = getContainer();
-
-    if (isStylys(event) || isZoom(event)) {
-      return false;
-    }
-
-    if (target === container) {
-      return true;
-    }
-
-    if (!isScrollable(container) && target.tagName !== 'INPUT' && // #1603
-    !(isScrollable(getContent()) && // #1944
-    getContent().contains(target))) {
-      return true;
-    }
-
-    return false;
-  };
-
-  var isStylys = function isStylys(event) {
-    // #1786
-    return event.touches && event.touches.length && event.touches[0].touchType === 'stylus';
-  };
-
-  var isZoom = function isZoom(event) {
-    // #1891
-    return event.touches && event.touches.length > 1;
-  };
-
-  var undoIOSfix = function undoIOSfix() {
-    if (hasClass(document.body, swalClasses.iosfix)) {
-      var offset = parseInt(document.body.style.top, 10);
-      removeClass(document.body, swalClasses.iosfix);
-      document.body.style.top = '';
-      document.body.scrollTop = offset * -1;
-    }
-  };
-
-  /* istanbul ignore file */
-
-  var isIE11 = function isIE11() {
-    return !!window.MSInputMethodContext && !!document.documentMode;
-  }; // Fix IE11 centering sweetalert2/issues/933
-
-
-  var fixVerticalPositionIE = function fixVerticalPositionIE() {
-    var container = getContainer();
-    var popup = getPopup();
-    container.style.removeProperty('align-items');
-
-    if (popup.offsetTop < 0) {
-      container.style.alignItems = 'flex-start';
-    }
-  };
-
-  var IEfix = function IEfix() {
-    if (typeof window !== 'undefined' && isIE11()) {
-      fixVerticalPositionIE();
-      window.addEventListener('resize', fixVerticalPositionIE);
-    }
-  };
-  var undoIEfix = function undoIEfix() {
-    if (typeof window !== 'undefined' && isIE11()) {
-      window.removeEventListener('resize', fixVerticalPositionIE);
-    }
-  };
-
-  // Adding aria-hidden="true" to elements outside of the active modal dialog ensures that
-  // elements not within the active modal dialog will not be surfaced if a user opens a screen
-  // reader’s list of elements (headings, form controls, landmarks, etc.) in the document.
-
-  var setAriaHidden = function setAriaHidden() {
-    var bodyChildren = toArray(document.body.children);
-    bodyChildren.forEach(function (el) {
-      if (el === getContainer() || contains(el, getContainer())) {
-        return;
-      }
-
-      if (el.hasAttribute('aria-hidden')) {
-        el.setAttribute('data-previous-aria-hidden', el.getAttribute('aria-hidden'));
-      }
-
-      el.setAttribute('aria-hidden', 'true');
-    });
-  };
-  var unsetAriaHidden = function unsetAriaHidden() {
-    var bodyChildren = toArray(document.body.children);
-    bodyChildren.forEach(function (el) {
-      if (el.hasAttribute('data-previous-aria-hidden')) {
-        el.setAttribute('aria-hidden', el.getAttribute('data-previous-aria-hidden'));
-        el.removeAttribute('data-previous-aria-hidden');
-      } else {
-        el.removeAttribute('aria-hidden');
-      }
-    });
-  };
-
-  /**
-   * This module containts `WeakMap`s for each effectively-"private  property" that a `Swal` has.
-   * For example, to set the private property "foo" of `this` to "bar", you can `privateProps.foo.set(this, 'bar')`
-   * This is the approach that Babel will probably take to implement private methods/fields
-   *   https://github.com/tc39/proposal-private-methods
-   *   https://github.com/babel/babel/pull/7555
-   * Once we have the changes from that PR in Babel, and our core class fits reasonable in *one module*
-   *   then we can use that language feature.
-   */
-  var privateMethods = {
-    swalPromiseResolve: new WeakMap()
-  };
-
-  /*
-   * Instance method to close sweetAlert
-   */
-
-  function removePopupAndResetState(instance, container, returnFocus, didClose) {
-    if (isToast()) {
-      triggerDidCloseAndDispose(instance, didClose);
-    } else {
-      restoreActiveElement(returnFocus).then(function () {
-        return triggerDidCloseAndDispose(instance, didClose);
-      });
-      globalState.keydownTarget.removeEventListener('keydown', globalState.keydownHandler, {
-        capture: globalState.keydownListenerCapture
-      });
-      globalState.keydownHandlerAdded = false;
-    }
-
-    if (container.parentNode && !document.body.getAttribute('data-swal2-queue-step')) {
-      container.parentNode.removeChild(container);
-    }
-
-    if (isModal()) {
-      undoScrollbar();
-      undoIOSfix();
-      undoIEfix();
-      unsetAriaHidden();
-    }
-
-    removeBodyClasses();
-  }
-
-  function removeBodyClasses() {
-    removeClass([document.documentElement, document.body], [swalClasses.shown, swalClasses['height-auto'], swalClasses['no-backdrop'], swalClasses['toast-shown'], swalClasses['toast-column']]);
-  }
-
-  function close(resolveValue) {
-    var popup = getPopup();
-
-    if (!popup) {
-      return;
-    }
-
-    resolveValue = prepareResolveValue(resolveValue);
-    var innerParams = privateProps.innerParams.get(this);
-
-    if (!innerParams || hasClass(popup, innerParams.hideClass.popup)) {
-      return;
-    }
-
-    var swalPromiseResolve = privateMethods.swalPromiseResolve.get(this);
-    removeClass(popup, innerParams.showClass.popup);
-    addClass(popup, innerParams.hideClass.popup);
-    var backdrop = getContainer();
-    removeClass(backdrop, innerParams.showClass.backdrop);
-    addClass(backdrop, innerParams.hideClass.backdrop);
-    handlePopupAnimation(this, popup, innerParams); // Resolve Swal promise
-
-    swalPromiseResolve(resolveValue);
-  }
-
-  var prepareResolveValue = function prepareResolveValue(resolveValue) {
-    // When user calls Swal.close()
-    if (typeof resolveValue === 'undefined') {
-      return {
-        isConfirmed: false,
-        isDenied: false,
-        isDismissed: true
-      };
-    }
-
-    return _extends({
-      isConfirmed: false,
-      isDenied: false,
-      isDismissed: false
-    }, resolveValue);
-  };
-
-  var handlePopupAnimation = function handlePopupAnimation(instance, popup, innerParams) {
-    var container = getContainer(); // If animation is supported, animate
-
-    var animationIsSupported = animationEndEvent && hasCssAnimation(popup);
-    var onClose = innerParams.onClose,
-        onAfterClose = innerParams.onAfterClose,
-        willClose = innerParams.willClose,
-        didClose = innerParams.didClose;
-    runDidClose(popup, willClose, onClose);
-
-    if (animationIsSupported) {
-      animatePopup(instance, popup, container, innerParams.returnFocus, didClose || onAfterClose);
-    } else {
-      // Otherwise, remove immediately
-      removePopupAndResetState(instance, container, innerParams.returnFocus, didClose || onAfterClose);
-    }
-  };
-
-  var runDidClose = function runDidClose(popup, willClose, onClose) {
-    if (willClose !== null && typeof willClose === 'function') {
-      willClose(popup);
-    } else if (onClose !== null && typeof onClose === 'function') {
-      onClose(popup); // @deprecated
-    }
-  };
-
-  var animatePopup = function animatePopup(instance, popup, container, returnFocus, didClose) {
-    globalState.swalCloseEventFinishedCallback = removePopupAndResetState.bind(null, instance, container, returnFocus, didClose);
-    popup.addEventListener(animationEndEvent, function (e) {
-      if (e.target === popup) {
-        globalState.swalCloseEventFinishedCallback();
-        delete globalState.swalCloseEventFinishedCallback;
-      }
-    });
-  };
-
-  var triggerDidCloseAndDispose = function triggerDidCloseAndDispose(instance, didClose) {
-    setTimeout(function () {
-      if (typeof didClose === 'function') {
-        didClose();
-      }
-
-      instance._destroy();
-    });
-  };
-
-  function setButtonsDisabled(instance, buttons, disabled) {
-    var domCache = privateProps.domCache.get(instance);
-    buttons.forEach(function (button) {
-      domCache[button].disabled = disabled;
-    });
-  }
-
-  function setInputDisabled(input, disabled) {
-    if (!input) {
-      return false;
-    }
-
-    if (input.type === 'radio') {
-      var radiosContainer = input.parentNode.parentNode;
-      var radios = radiosContainer.querySelectorAll('input');
-
-      for (var i = 0; i < radios.length; i++) {
-        radios[i].disabled = disabled;
-      }
-    } else {
-      input.disabled = disabled;
-    }
-  }
-
-  function enableButtons() {
-    setButtonsDisabled(this, ['confirmButton', 'denyButton', 'cancelButton'], false);
-  }
-  function disableButtons() {
-    setButtonsDisabled(this, ['confirmButton', 'denyButton', 'cancelButton'], true);
-  }
-  function enableInput() {
-    return setInputDisabled(this.getInput(), false);
-  }
-  function disableInput() {
-    return setInputDisabled(this.getInput(), true);
-  }
-
-  function showValidationMessage(error) {
-    var domCache = privateProps.domCache.get(this);
-    var params = privateProps.innerParams.get(this);
-    setInnerHtml(domCache.validationMessage, error);
-    domCache.validationMessage.className = swalClasses['validation-message'];
-
-    if (params.customClass && params.customClass.validationMessage) {
-      addClass(domCache.validationMessage, params.customClass.validationMessage);
-    }
-
-    show(domCache.validationMessage);
-    var input = this.getInput();
-
-    if (input) {
-      input.setAttribute('aria-invalid', true);
-      input.setAttribute('aria-describedBy', swalClasses['validation-message']);
-      focusInput(input);
-      addClass(input, swalClasses.inputerror);
-    }
-  } // Hide block with validation message
-
-  function resetValidationMessage$1() {
-    var domCache = privateProps.domCache.get(this);
-
-    if (domCache.validationMessage) {
-      hide(domCache.validationMessage);
-    }
-
-    var input = this.getInput();
-
-    if (input) {
-      input.removeAttribute('aria-invalid');
-      input.removeAttribute('aria-describedBy');
-      removeClass(input, swalClasses.inputerror);
-    }
-  }
-
-  function getProgressSteps$1() {
-    var domCache = privateProps.domCache.get(this);
-    return domCache.progressSteps;
-  }
-
-  var Timer = /*#__PURE__*/function () {
-    function Timer(callback, delay) {
-      _classCallCheck(this, Timer);
-
-      this.callback = callback;
-      this.remaining = delay;
-      this.running = false;
-      this.start();
-    }
-
-    _createClass(Timer, [{
-      key: "start",
-      value: function start() {
-        if (!this.running) {
-          this.running = true;
-          this.started = new Date();
-          this.id = setTimeout(this.callback, this.remaining);
-        }
-
-        return this.remaining;
-      }
-    }, {
-      key: "stop",
-      value: function stop() {
-        if (this.running) {
-          this.running = false;
-          clearTimeout(this.id);
-          this.remaining -= new Date() - this.started;
-        }
-
-        return this.remaining;
-      }
-    }, {
-      key: "increase",
-      value: function increase(n) {
-        var running = this.running;
-
-        if (running) {
-          this.stop();
-        }
-
-        this.remaining += n;
-
-        if (running) {
-          this.start();
-        }
-
-        return this.remaining;
-      }
-    }, {
-      key: "getTimerLeft",
-      value: function getTimerLeft() {
-        if (this.running) {
-          this.stop();
-          this.start();
-        }
-
-        return this.remaining;
-      }
-    }, {
-      key: "isRunning",
-      value: function isRunning() {
-        return this.running;
-      }
-    }]);
-
-    return Timer;
-  }();
-
-  var defaultInputValidators = {
-    email: function email(string, validationMessage) {
-      return /^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9-]{2,24}$/.test(string) ? Promise.resolve() : Promise.resolve(validationMessage || 'Invalid email address');
-    },
-    url: function url(string, validationMessage) {
-      // taken from https://stackoverflow.com/a/3809435 with a small change from #1306 and #2013
-      return /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)$/.test(string) ? Promise.resolve() : Promise.resolve(validationMessage || 'Invalid URL');
-    }
-  };
-
-  function setDefaultInputValidators(params) {
-    // Use default `inputValidator` for supported input types if not provided
-    if (!params.inputValidator) {
-      Object.keys(defaultInputValidators).forEach(function (key) {
-        if (params.input === key) {
-          params.inputValidator = defaultInputValidators[key];
-        }
-      });
-    }
-  }
-
-  function validateCustomTargetElement(params) {
-    // Determine if the custom target element is valid
-    if (!params.target || typeof params.target === 'string' && !document.querySelector(params.target) || typeof params.target !== 'string' && !params.target.appendChild) {
-      warn('Target parameter is not valid, defaulting to "body"');
-      params.target = 'body';
-    }
-  }
-  /**
-   * Set type, text and actions on popup
-   *
-   * @param params
-   * @returns {boolean}
-   */
-
-
-  function setParameters(params) {
-    setDefaultInputValidators(params); // showLoaderOnConfirm && preConfirm
-
-    if (params.showLoaderOnConfirm && !params.preConfirm) {
-      warn('showLoaderOnConfirm is set to true, but preConfirm is not defined.\n' + 'showLoaderOnConfirm should be used together with preConfirm, see usage example:\n' + 'https://sweetalert2.github.io/#ajax-request');
-    } // params.animation will be actually used in renderPopup.js
-    // but in case when params.animation is a function, we need to call that function
-    // before popup (re)initialization, so it'll be possible to check Swal.isVisible()
-    // inside the params.animation function
-
-
-    params.animation = callIfFunction(params.animation);
-    validateCustomTargetElement(params); // Replace newlines with <br> in title
-
-    if (typeof params.title === 'string') {
-      params.title = params.title.split('\n').join('<br />');
-    }
-
-    init(params);
-  }
-
-  var swalStringParams = ['swal-title', 'swal-html', 'swal-footer'];
-  var getTemplateParams = function getTemplateParams(params) {
-    var template = typeof params.template === 'string' ? document.querySelector(params.template) : params.template;
-
-    if (!template) {
-      return {};
-    }
-
-    var templateContent = template.content || template; // IE11
-
-    showWarningsForElements(templateContent);
-
-    var result = _extends(getSwalParams(templateContent), getSwalButtons(templateContent), getSwalImage(templateContent), getSwalIcon(templateContent), getSwalInput(templateContent), getSwalStringParams(templateContent, swalStringParams));
-
-    return result;
-  };
-
-  var getSwalParams = function getSwalParams(templateContent) {
-    var result = {};
-    toArray(templateContent.querySelectorAll('swal-param')).forEach(function (param) {
-      showWarningsForAttributes(param, ['name', 'value']);
-      var paramName = param.getAttribute('name');
-      var value = param.getAttribute('value');
-
-      if (typeof defaultParams[paramName] === 'boolean' && value === 'false') {
-        value = false;
-      }
-
-      if (_typeof(defaultParams[paramName]) === 'object') {
-        value = JSON.parse(value);
-      }
-
-      result[paramName] = value;
-    });
-    return result;
-  };
-
-  var getSwalButtons = function getSwalButtons(templateContent) {
-    var result = {};
-    toArray(templateContent.querySelectorAll('swal-button')).forEach(function (button) {
-      showWarningsForAttributes(button, ['type', 'color', 'aria-label']);
-      var type = button.getAttribute('type');
-      result["".concat(type, "ButtonText")] = button.innerHTML;
-      result["show".concat(capitalizeFirstLetter(type), "Button")] = true;
-
-      if (button.hasAttribute('color')) {
-        result["".concat(type, "ButtonColor")] = button.getAttribute('color');
-      }
-
-      if (button.hasAttribute('aria-label')) {
-        result["".concat(type, "ButtonAriaLabel")] = button.getAttribute('aria-label');
-      }
-    });
-    return result;
-  };
-
-  var getSwalImage = function getSwalImage(templateContent) {
-    var result = {};
-    var image = templateContent.querySelector('swal-image');
-
-    if (image) {
-      showWarningsForAttributes(image, ['src', 'width', 'height', 'alt']);
-
-      if (image.hasAttribute('src')) {
-        result.imageUrl = image.getAttribute('src');
-      }
-
-      if (image.hasAttribute('width')) {
-        result.imageWidth = image.getAttribute('width');
-      }
-
-      if (image.hasAttribute('height')) {
-        result.imageHeight = image.getAttribute('height');
-      }
-
-      if (image.hasAttribute('alt')) {
-        result.imageAlt = image.getAttribute('alt');
-      }
-    }
-
-    return result;
-  };
-
-  var getSwalIcon = function getSwalIcon(templateContent) {
-    var result = {};
-    var icon = templateContent.querySelector('swal-icon');
-
-    if (icon) {
-      showWarningsForAttributes(icon, ['type', 'color']);
-
-      if (icon.hasAttribute('type')) {
-        result.icon = icon.getAttribute('type');
-      }
-
-      if (icon.hasAttribute('color')) {
-        result.iconColor = icon.getAttribute('color');
-      }
-
-      result.iconHtml = icon.innerHTML;
-    }
-
-    return result;
-  };
-
-  var getSwalInput = function getSwalInput(templateContent) {
-    var result = {};
-    var input = templateContent.querySelector('swal-input');
-
-    if (input) {
-      showWarningsForAttributes(input, ['type', 'label', 'placeholder', 'value']);
-      result.input = input.getAttribute('type') || 'text';
-
-      if (input.hasAttribute('label')) {
-        result.inputLabel = input.getAttribute('label');
-      }
-
-      if (input.hasAttribute('placeholder')) {
-        result.inputPlaceholder = input.getAttribute('placeholder');
-      }
-
-      if (input.hasAttribute('value')) {
-        result.inputValue = input.getAttribute('value');
-      }
-    }
-
-    var inputOptions = templateContent.querySelectorAll('swal-input-option');
-
-    if (inputOptions.length) {
-      result.inputOptions = {};
-      toArray(inputOptions).forEach(function (option) {
-        showWarningsForAttributes(option, ['value']);
-        var optionValue = option.getAttribute('value');
-        var optionName = option.innerHTML;
-        result.inputOptions[optionValue] = optionName;
-      });
-    }
-
-    return result;
-  };
-
-  var getSwalStringParams = function getSwalStringParams(templateContent, paramNames) {
-    var result = {};
-
-    for (var i in paramNames) {
-      var paramName = paramNames[i];
-      var tag = templateContent.querySelector(paramName);
-
-      if (tag) {
-        showWarningsForAttributes(tag, []);
-        result[paramName.replace(/^swal-/, '')] = tag.innerHTML;
-      }
-    }
-
-    return result;
-  };
-
-  var showWarningsForElements = function showWarningsForElements(template) {
-    var allowedElements = swalStringParams.concat(['swal-param', 'swal-button', 'swal-image', 'swal-icon', 'swal-input', 'swal-input-option']);
-    toArray(template.querySelectorAll('*')).forEach(function (el) {
-      if (el.parentNode !== template) {
-        // can't use template.children because of IE11
-        return;
-      }
-
-      var tagName = el.tagName.toLowerCase();
-
-      if (allowedElements.indexOf(tagName) === -1) {
-        warn("Unrecognized element <".concat(tagName, ">"));
-      }
-    });
-  };
-
-  var showWarningsForAttributes = function showWarningsForAttributes(el, allowedAttributes) {
-    toArray(el.attributes).forEach(function (attribute) {
-      if (allowedAttributes.indexOf(attribute.name) === -1) {
-        warn(["Unrecognized attribute \"".concat(attribute.name, "\" on <").concat(el.tagName.toLowerCase(), ">."), "".concat(allowedAttributes.length ? "Allowed attributes are: ".concat(allowedAttributes.join(', ')) : 'To set the value, use HTML within the element.')]);
-      }
-    });
-  };
-
-  var SHOW_CLASS_TIMEOUT = 10;
-  /**
-   * Open popup, add necessary classes and styles, fix scrollbar
-   *
-   * @param params
-   */
-
-  var openPopup = function openPopup(params) {
-    var container = getContainer();
-    var popup = getPopup();
-
-    if (typeof params.willOpen === 'function') {
-      params.willOpen(popup);
-    } else if (typeof params.onBeforeOpen === 'function') {
-      params.onBeforeOpen(popup); // @deprecated
-    }
-
-    var bodyStyles = window.getComputedStyle(document.body);
-    var initialBodyOverflow = bodyStyles.overflowY;
-    addClasses$1(container, popup, params); // scrolling is 'hidden' until animation is done, after that 'auto'
-
-    setTimeout(function () {
-      setScrollingVisibility(container, popup);
-    }, SHOW_CLASS_TIMEOUT);
-
-    if (isModal()) {
-      fixScrollContainer(container, params.scrollbarPadding, initialBodyOverflow);
-      setAriaHidden();
-    }
-
-    if (!isToast() && !globalState.previousActiveElement) {
-      globalState.previousActiveElement = document.activeElement;
-    }
-
-    runDidOpen(popup, params);
-    removeClass(container, swalClasses['no-transition']);
-  };
-
-  var runDidOpen = function runDidOpen(popup, params) {
-    if (typeof params.didOpen === 'function') {
-      setTimeout(function () {
-        return params.didOpen(popup);
-      });
-    } else if (typeof params.onOpen === 'function') {
-      setTimeout(function () {
-        return params.onOpen(popup);
-      }); // @deprecated
-    }
-  };
-
-  var swalOpenAnimationFinished = function swalOpenAnimationFinished(event) {
-    var popup = getPopup();
-
-    if (event.target !== popup) {
-      return;
-    }
-
-    var container = getContainer();
-    popup.removeEventListener(animationEndEvent, swalOpenAnimationFinished);
-    container.style.overflowY = 'auto';
-  };
-
-  var setScrollingVisibility = function setScrollingVisibility(container, popup) {
-    if (animationEndEvent && hasCssAnimation(popup)) {
-      container.style.overflowY = 'hidden';
-      popup.addEventListener(animationEndEvent, swalOpenAnimationFinished);
-    } else {
-      container.style.overflowY = 'auto';
-    }
-  };
-
-  var fixScrollContainer = function fixScrollContainer(container, scrollbarPadding, initialBodyOverflow) {
-    iOSfix();
-    IEfix();
-
-    if (scrollbarPadding && initialBodyOverflow !== 'hidden') {
-      fixScrollbar();
-    } // sweetalert2/issues/1247
-
-
-    setTimeout(function () {
-      container.scrollTop = 0;
-    });
-  };
-
-  var addClasses$1 = function addClasses(container, popup, params) {
-    addClass(container, params.showClass.backdrop); // the workaround with setting/unsetting opacity is needed for #2019 and 2059
-
-    popup.style.setProperty('opacity', '0', 'important');
-    show(popup);
-    setTimeout(function () {
-      // Animate popup right after showing it
-      addClass(popup, params.showClass.popup); // and remove the opacity workaround
-
-      popup.style.removeProperty('opacity');
-    }, SHOW_CLASS_TIMEOUT); // 10ms in order to fix #2062
-
-    addClass([document.documentElement, document.body], swalClasses.shown);
-
-    if (params.heightAuto && params.backdrop && !params.toast) {
-      addClass([document.documentElement, document.body], swalClasses['height-auto']);
-    }
-  };
-
-  var handleInputOptionsAndValue = function handleInputOptionsAndValue(instance, params) {
-    if (params.input === 'select' || params.input === 'radio') {
-      handleInputOptions(instance, params);
-    } else if (['text', 'email', 'number', 'tel', 'textarea'].indexOf(params.input) !== -1 && (hasToPromiseFn(params.inputValue) || isPromise(params.inputValue))) {
-      handleInputValue(instance, params);
-    }
-  };
-  var getInputValue = function getInputValue(instance, innerParams) {
-    var input = instance.getInput();
-
-    if (!input) {
-      return null;
-    }
-
-    switch (innerParams.input) {
-      case 'checkbox':
-        return getCheckboxValue(input);
-
-      case 'radio':
-        return getRadioValue(input);
-
-      case 'file':
-        return getFileValue(input);
-
-      default:
-        return innerParams.inputAutoTrim ? input.value.trim() : input.value;
-    }
-  };
-
-  var getCheckboxValue = function getCheckboxValue(input) {
-    return input.checked ? 1 : 0;
-  };
-
-  var getRadioValue = function getRadioValue(input) {
-    return input.checked ? input.value : null;
-  };
-
-  var getFileValue = function getFileValue(input) {
-    return input.files.length ? input.getAttribute('multiple') !== null ? input.files : input.files[0] : null;
-  };
-
-  var handleInputOptions = function handleInputOptions(instance, params) {
-    var content = getContent();
-
-    var processInputOptions = function processInputOptions(inputOptions) {
-      return populateInputOptions[params.input](content, formatInputOptions(inputOptions), params);
-    };
-
-    if (hasToPromiseFn(params.inputOptions) || isPromise(params.inputOptions)) {
-      showLoading(getConfirmButton());
-      asPromise(params.inputOptions).then(function (inputOptions) {
-        instance.hideLoading();
-        processInputOptions(inputOptions);
-      });
-    } else if (_typeof(params.inputOptions) === 'object') {
-      processInputOptions(params.inputOptions);
-    } else {
-      error("Unexpected type of inputOptions! Expected object, Map or Promise, got ".concat(_typeof(params.inputOptions)));
-    }
-  };
-
-  var handleInputValue = function handleInputValue(instance, params) {
-    var input = instance.getInput();
-    hide(input);
-    asPromise(params.inputValue).then(function (inputValue) {
-      input.value = params.input === 'number' ? parseFloat(inputValue) || 0 : "".concat(inputValue);
-      show(input);
-      input.focus();
-      instance.hideLoading();
-    })["catch"](function (err) {
-      error("Error in inputValue promise: ".concat(err));
-      input.value = '';
-      show(input);
-      input.focus();
-      instance.hideLoading();
-    });
-  };
-
-  var populateInputOptions = {
-    select: function select(content, inputOptions, params) {
-      var select = getChildByClass(content, swalClasses.select);
-
-      var renderOption = function renderOption(parent, optionLabel, optionValue) {
-        var option = document.createElement('option');
-        option.value = optionValue;
-        setInnerHtml(option, optionLabel);
-        option.selected = isSelected(optionValue, params.inputValue);
-        parent.appendChild(option);
-      };
-
-      inputOptions.forEach(function (inputOption) {
-        var optionValue = inputOption[0];
-        var optionLabel = inputOption[1]; // <optgroup> spec:
-        // https://www.w3.org/TR/html401/interact/forms.html#h-17.6
-        // "...all OPTGROUP elements must be specified directly within a SELECT element (i.e., groups may not be nested)..."
-        // check whether this is a <optgroup>
-
-        if (Array.isArray(optionLabel)) {
-          // if it is an array, then it is an <optgroup>
-          var optgroup = document.createElement('optgroup');
-          optgroup.label = optionValue;
-          optgroup.disabled = false; // not configurable for now
-
-          select.appendChild(optgroup);
-          optionLabel.forEach(function (o) {
-            return renderOption(optgroup, o[1], o[0]);
-          });
-        } else {
-          // case of <option>
-          renderOption(select, optionLabel, optionValue);
-        }
-      });
-      select.focus();
-    },
-    radio: function radio(content, inputOptions, params) {
-      var radio = getChildByClass(content, swalClasses.radio);
-      inputOptions.forEach(function (inputOption) {
-        var radioValue = inputOption[0];
-        var radioLabel = inputOption[1];
-        var radioInput = document.createElement('input');
-        var radioLabelElement = document.createElement('label');
-        radioInput.type = 'radio';
-        radioInput.name = swalClasses.radio;
-        radioInput.value = radioValue;
-
-        if (isSelected(radioValue, params.inputValue)) {
-          radioInput.checked = true;
-        }
-
-        var label = document.createElement('span');
-        setInnerHtml(label, radioLabel);
-        label.className = swalClasses.label;
-        radioLabelElement.appendChild(radioInput);
-        radioLabelElement.appendChild(label);
-        radio.appendChild(radioLabelElement);
-      });
-      var radios = radio.querySelectorAll('input');
-
-      if (radios.length) {
-        radios[0].focus();
-      }
+    if (typeof window === 'undefined') {
+      return
     }
-  };
-  /**
-   * Converts `inputOptions` into an array of `[value, label]`s
-   * @param inputOptions
-   */
 
-  var formatInputOptions = function formatInputOptions(inputOptions) {
-    var result = [];
-
-    if (typeof Map !== 'undefined' && inputOptions instanceof Map) {
-      inputOptions.forEach(function (value, key) {
-        var valueFormatted = value;
-
-        if (_typeof(valueFormatted) === 'object') {
-          // case of <optgroup>
-          valueFormatted = formatInputOptions(valueFormatted);
-        }
-
-        result.push([key, valueFormatted]);
-      });
-    } else {
-      Object.keys(inputOptions).forEach(function (key) {
-        var valueFormatted = inputOptions[key];
-
-        if (_typeof(valueFormatted) === 'object') {
-          // case of <optgroup>
-          valueFormatted = formatInputOptions(valueFormatted);
-        }
-
-        result.push([key, valueFormatted]);
-      });
-    }
-
-    return result;
-  };
-
-  var isSelected = function isSelected(optionValue, inputValue) {
-    return inputValue && inputValue.toString() === optionValue.toString();
-  };
-
-  var handleConfirmButtonClick = function handleConfirmButtonClick(instance, innerParams) {
-    instance.disableButtons();
-
-    if (innerParams.input) {
-      handleConfirmOrDenyWithInput(instance, innerParams, 'confirm');
-    } else {
-      confirm(instance, innerParams, true);
-    }
-  };
-  var handleDenyButtonClick = function handleDenyButtonClick(instance, innerParams) {
-    instance.disableButtons();
-
-    if (innerParams.returnInputValueOnDeny) {
-      handleConfirmOrDenyWithInput(instance, innerParams, 'deny');
-    } else {
-      deny(instance, innerParams, false);
-    }
-  };
-  var handleCancelButtonClick = function handleCancelButtonClick(instance, dismissWith) {
-    instance.disableButtons();
-    dismissWith(DismissReason.cancel);
-  };
-
-  var handleConfirmOrDenyWithInput = function handleConfirmOrDenyWithInput(instance, innerParams, type
-  /* type is either 'confirm' or 'deny' */
-  ) {
-    var inputValue = getInputValue(instance, innerParams);
-
-    if (innerParams.inputValidator) {
-      handleInputValidator(instance, innerParams, inputValue);
-    } else if (!instance.getInput().checkValidity()) {
-      instance.enableButtons();
-      instance.showValidationMessage(innerParams.validationMessage);
-    } else if (type === 'deny') {
-      deny(instance, innerParams, inputValue);
-    } else {
-      confirm(instance, innerParams, inputValue);
-    }
-  };
-
-  var handleInputValidator = function handleInputValidator(instance, innerParams, inputValue) {
-    instance.disableInput();
-    var validationPromise = Promise.resolve().then(function () {
-      return asPromise(innerParams.inputValidator(inputValue, innerParams.validationMessage));
-    });
-    validationPromise.then(function (validationMessage) {
-      instance.enableButtons();
-      instance.enableInput();
-
-      if (validationMessage) {
-        instance.showValidationMessage(validationMessage);
-      } else {
-        confirm(instance, innerParams, inputValue);
-      }
-    });
-  };
-
-  var deny = function deny(instance, innerParams, value) {
-    if (innerParams.showLoaderOnDeny) {
-      showLoading(getDenyButton());
-    }
-
-    if (innerParams.preDeny) {
-      var preDenyPromise = Promise.resolve().then(function () {
-        return asPromise(innerParams.preDeny(value, innerParams.validationMessage));
-      });
-      preDenyPromise.then(function (preDenyValue) {
-        if (preDenyValue === false) {
-          instance.hideLoading();
-        } else {
-          instance.closePopup({
-            isDenied: true,
-            value: typeof preDenyValue === 'undefined' ? value : preDenyValue
-          });
-        }
-      });
-    } else {
-      instance.closePopup({
-        isDenied: true,
-        value: value
-      });
-    }
-  };
-
-  var succeedWith = function succeedWith(instance, value) {
-    instance.closePopup({
-      isConfirmed: true,
-      value: value
-    });
-  };
-
-  var confirm = function confirm(instance, innerParams, value) {
-    if (innerParams.showLoaderOnConfirm) {
-      showLoading(); // TODO: make showLoading an *instance* method
-    }
-
-    if (innerParams.preConfirm) {
-      instance.resetValidationMessage();
-      var preConfirmPromise = Promise.resolve().then(function () {
-        return asPromise(innerParams.preConfirm(value, innerParams.validationMessage));
-      });
-      preConfirmPromise.then(function (preConfirmValue) {
-        if (isVisible(getValidationMessage()) || preConfirmValue === false) {
-          instance.hideLoading();
-        } else {
-          succeedWith(instance, typeof preConfirmValue === 'undefined' ? value : preConfirmValue);
-        }
-      });
-    } else {
-      succeedWith(instance, value);
-    }
-  };
-
-  var addKeydownHandler = function addKeydownHandler(instance, globalState, innerParams, dismissWith) {
-    if (globalState.keydownTarget && globalState.keydownHandlerAdded) {
-      globalState.keydownTarget.removeEventListener('keydown', globalState.keydownHandler, {
-        capture: globalState.keydownListenerCapture
-      });
-      globalState.keydownHandlerAdded = false;
-    }
-
-    if (!innerParams.toast) {
-      globalState.keydownHandler = function (e) {
-        return keydownHandler(instance, e, dismissWith);
-      };
-
-      globalState.keydownTarget = innerParams.keydownListenerCapture ? window : getPopup();
-      globalState.keydownListenerCapture = innerParams.keydownListenerCapture;
-      globalState.keydownTarget.addEventListener('keydown', globalState.keydownHandler, {
-        capture: globalState.keydownListenerCapture
-      });
-      globalState.keydownHandlerAdded = true;
-    }
-  }; // Focus handling
-
-  var setFocus = function setFocus(innerParams, index, increment) {
-    var focusableElements = getFocusableElements(); // search for visible elements and select the next possible match
-
-    if (focusableElements.length) {
-      index = index + increment; // rollover to first item
-
-      if (index === focusableElements.length) {
-        index = 0; // go to last item
-      } else if (index === -1) {
-        index = focusableElements.length - 1;
-      }
-
-      return focusableElements[index].focus();
-    } // no visible focusable elements, focus the popup
-
-
-    getPopup().focus();
-  };
-  var arrowKeysNextButton = ['ArrowRight', 'ArrowDown', 'Right', 'Down' // IE11
-  ];
-  var arrowKeysPreviousButton = ['ArrowLeft', 'ArrowUp', 'Left', 'Up' // IE11
-  ];
-  var escKeys = ['Escape', 'Esc' // IE11
-  ];
-
-  var keydownHandler = function keydownHandler(instance, e, dismissWith) {
-    var innerParams = privateProps.innerParams.get(instance);
-
-    if (!innerParams) {
-      return; // This instance has already been destroyed
-    }
-
-    if (innerParams.stopKeydownPropagation) {
-      e.stopPropagation();
-    } // ENTER
-
-
-    if (e.key === 'Enter') {
-      handleEnter(instance, e, innerParams); // TAB
-    } else if (e.key === 'Tab') {
-      handleTab(e, innerParams); // ARROWS - switch focus between buttons
-    } else if ([].concat(arrowKeysNextButton, arrowKeysPreviousButton).indexOf(e.key) !== -1) {
-      handleArrows(e.key); // ESC
-    } else if (escKeys.indexOf(e.key) !== -1) {
-      handleEsc(e, innerParams, dismissWith);
-    }
-  };
-
-  var handleEnter = function handleEnter(instance, e, innerParams) {
-    // #720 #721
-    if (e.isComposing) {
-      return;
-    }
-
-    if (e.target && instance.getInput() && e.target.outerHTML === instance.getInput().outerHTML) {
-      if (['textarea', 'file'].indexOf(innerParams.input) !== -1) {
-        return; // do not submit
-      }
-
-      clickConfirm();
-      e.preventDefault();
-    }
-  };
-
-  var handleTab = function handleTab(e, innerParams) {
-    var targetElement = e.target;
-    var focusableElements = getFocusableElements();
-    var btnIndex = -1;
-
-    for (var i = 0; i < focusableElements.length; i++) {
-      if (targetElement === focusableElements[i]) {
-        btnIndex = i;
-        break;
-      }
-    }
-
-    if (!e.shiftKey) {
-      // Cycle to the next button
-      setFocus(innerParams, btnIndex, 1);
-    } else {
-      // Cycle to the prev button
-      setFocus(innerParams, btnIndex, -1);
-    }
-
-    e.stopPropagation();
-    e.preventDefault();
-  };
-
-  var handleArrows = function handleArrows(key) {
-    var confirmButton = getConfirmButton();
-    var denyButton = getDenyButton();
-    var cancelButton = getCancelButton();
-
-    if (!([confirmButton, denyButton, cancelButton].indexOf(document.activeElement) !== -1)) {
-      return;
-    }
-
-    var sibling = arrowKeysNextButton.indexOf(key) !== -1 ? 'nextElementSibling' : 'previousElementSibling';
-    var buttonToFocus = document.activeElement[sibling];
-
-    if (buttonToFocus) {
-      buttonToFocus.focus();
-    }
-  };
-
-  var handleEsc = function handleEsc(e, innerParams, dismissWith) {
-    if (callIfFunction(innerParams.allowEscapeKey)) {
-      e.preventDefault();
-      dismissWith(DismissReason.esc);
-    }
-  };
-
-  var handlePopupClick = function handlePopupClick(instance, domCache, dismissWith) {
-    var innerParams = privateProps.innerParams.get(instance);
-
-    if (innerParams.toast) {
-      handleToastClick(instance, domCache, dismissWith);
-    } else {
-      // Ignore click events that had mousedown on the popup but mouseup on the container
-      // This can happen when the user drags a slider
-      handleModalMousedown(domCache); // Ignore click events that had mousedown on the container but mouseup on the popup
-
-      handleContainerMousedown(domCache);
-      handleModalClick(instance, domCache, dismissWith);
-    }
-  };
-
-  var handleToastClick = function handleToastClick(instance, domCache, dismissWith) {
-    // Closing toast by internal click
-    domCache.popup.onclick = function () {
-      var innerParams = privateProps.innerParams.get(instance);
-
-      if (innerParams.showConfirmButton || innerParams.showDenyButton || innerParams.showCancelButton || innerParams.showCloseButton || innerParams.timer || innerParams.input) {
-        return;
-      }
-
-      dismissWith(DismissReason.close);
-    };
-  };
-
-  var ignoreOutsideClick = false;
-
-  var handleModalMousedown = function handleModalMousedown(domCache) {
-    domCache.popup.onmousedown = function () {
-      domCache.container.onmouseup = function (e) {
-        domCache.container.onmouseup = undefined; // We only check if the mouseup target is the container because usually it doesn't
-        // have any other direct children aside of the popup
-
-        if (e.target === domCache.container) {
-          ignoreOutsideClick = true;
-        }
-      };
-    };
-  };
-
-  var handleContainerMousedown = function handleContainerMousedown(domCache) {
-    domCache.container.onmousedown = function () {
-      domCache.popup.onmouseup = function (e) {
-        domCache.popup.onmouseup = undefined; // We also need to check if the mouseup target is a child of the popup
-
-        if (e.target === domCache.popup || domCache.popup.contains(e.target)) {
-          ignoreOutsideClick = true;
-        }
-      };
-    };
-  };
-
-  var handleModalClick = function handleModalClick(instance, domCache, dismissWith) {
-    domCache.container.onclick = function (e) {
-      var innerParams = privateProps.innerParams.get(instance);
-
-      if (ignoreOutsideClick) {
-        ignoreOutsideClick = false;
-        return;
-      }
-
-      if (e.target === domCache.container && callIfFunction(innerParams.allowOutsideClick)) {
-        dismissWith(DismissReason.backdrop);
-      }
-    };
-  };
-
-  function _main(userParams) {
-    var mixinParams = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    showWarningsForParams(_extends({}, mixinParams, userParams));
-
-    if (globalState.currentInstance) {
-      globalState.currentInstance._destroy();
-    }
-
-    globalState.currentInstance = this;
-    var innerParams = prepareParams(userParams, mixinParams);
-    setParameters(innerParams);
-    Object.freeze(innerParams); // clear the previous timer
-
-    if (globalState.timeout) {
-      globalState.timeout.stop();
-      delete globalState.timeout;
-    } // clear the restore focus timeout
-
-
-    clearTimeout(globalState.restoreFocusTimeout);
-    var domCache = populateDomCache(this);
-    render(this, innerParams);
-    privateProps.innerParams.set(this, innerParams);
-    return swalPromise(this, domCache, innerParams);
-  }
-
-  var prepareParams = function prepareParams(userParams, mixinParams) {
-    var templateParams = getTemplateParams(userParams);
-
-    var showClass = _extends({}, defaultParams.showClass, mixinParams.showClass, templateParams.showClass, userParams.showClass);
-
-    var hideClass = _extends({}, defaultParams.hideClass, mixinParams.hideClass, templateParams.hideClass, userParams.hideClass);
-
-    var params = _extends({}, defaultParams, mixinParams, templateParams, userParams); // precedence is described in #2131
-
-
-    params.showClass = showClass;
-    params.hideClass = hideClass; // @deprecated
-
-    if (userParams.animation === false) {
-      params.showClass = {
-        popup: 'swal2-noanimation',
-        backdrop: 'swal2-noanimation'
-      };
-      params.hideClass = {};
-    }
-
-    return params;
-  };
-
-  var swalPromise = function swalPromise(instance, domCache, innerParams) {
-    return new Promise(function (resolve) {
-      // functions to handle all closings/dismissals
-      var dismissWith = function dismissWith(dismiss) {
-        instance.closePopup({
-          isDismissed: true,
-          dismiss: dismiss
-        });
-      };
-
-      privateMethods.swalPromiseResolve.set(instance, resolve);
-
-      domCache.confirmButton.onclick = function () {
-        return handleConfirmButtonClick(instance, innerParams);
-      };
-
-      domCache.denyButton.onclick = function () {
-        return handleDenyButtonClick(instance, innerParams);
-      };
-
-      domCache.cancelButton.onclick = function () {
-        return handleCancelButtonClick(instance, dismissWith);
-      };
-
-      domCache.closeButton.onclick = function () {
-        return dismissWith(DismissReason.close);
-      };
-
-      handlePopupClick(instance, domCache, dismissWith);
-      addKeydownHandler(instance, globalState, innerParams, dismissWith);
-
-      if (innerParams.toast && (innerParams.input || innerParams.footer || innerParams.showCloseButton)) {
-        addClass(document.body, swalClasses['toast-column']);
-      } else {
-        removeClass(document.body, swalClasses['toast-column']);
-      }
-
-      handleInputOptionsAndValue(instance, innerParams);
-      openPopup(innerParams);
-      setupTimer(globalState, innerParams, dismissWith);
-      initFocus(domCache, innerParams); // Scroll container to top on open (#1247, #1946)
-
-      setTimeout(function () {
-        domCache.container.scrollTop = 0;
-      });
-    });
-  };
-
-  var populateDomCache = function populateDomCache(instance) {
-    var domCache = {
-      popup: getPopup(),
-      container: getContainer(),
-      content: getContent(),
-      actions: getActions(),
-      confirmButton: getConfirmButton(),
-      denyButton: getDenyButton(),
-      cancelButton: getCancelButton(),
-      loader: getLoader(),
-      closeButton: getCloseButton(),
-      validationMessage: getValidationMessage(),
-      progressSteps: getProgressSteps()
-    };
-    privateProps.domCache.set(instance, domCache);
-    return domCache;
-  };
-
-  var setupTimer = function setupTimer(globalState$$1, innerParams, dismissWith) {
-    var timerProgressBar = getTimerProgressBar();
-    hide(timerProgressBar);
-
-    if (innerParams.timer) {
-      globalState$$1.timeout = new Timer(function () {
-        dismissWith('timer');
-        delete globalState$$1.timeout;
-      }, innerParams.timer);
-
-      if (innerParams.timerProgressBar) {
-        show(timerProgressBar);
-        setTimeout(function () {
-          if (globalState$$1.timeout && globalState$$1.timeout.running) {
-            // timer can be already stopped or unset at this point
-            animateTimerProgressBar(innerParams.timer);
-          }
-        });
-      }
-    }
-  };
-
-  var initFocus = function initFocus(domCache, innerParams) {
-    if (innerParams.toast) {
-      return;
-    }
-
-    if (!callIfFunction(innerParams.allowEnterKey)) {
-      return blurActiveElement();
-    }
-
-    if (!focusButton(domCache, innerParams)) {
-      setFocus(innerParams, -1, 1);
-    }
-  };
-
-  var focusButton = function focusButton(domCache, innerParams) {
-    if (innerParams.focusDeny && isVisible(domCache.denyButton)) {
-      domCache.denyButton.focus();
-      return true;
-    }
-
-    if (innerParams.focusCancel && isVisible(domCache.cancelButton)) {
-      domCache.cancelButton.focus();
-      return true;
-    }
-
-    if (innerParams.focusConfirm && isVisible(domCache.confirmButton)) {
-      domCache.confirmButton.focus();
-      return true;
-    }
-
-    return false;
-  };
-
-  var blurActiveElement = function blurActiveElement() {
-    if (document.activeElement && typeof document.activeElement.blur === 'function') {
-      document.activeElement.blur();
+    // Check for the existence of Promise
+    if (typeof Promise === 'undefined') {
+      (0,_utils_utils_js__WEBPACK_IMPORTED_MODULE_0__.error)('This package requires a Promise library, please include a shim to enable it in this browser (See: https://github.com/sweetalert2/sweetalert2/wiki/Migration-from-SweetAlert-to-SweetAlert2#1-ie-support)')
     }
-  };
-
-  /**
-   * Updates popup parameters.
-   */
-
-  function update(params) {
-    var popup = getPopup();
-    var innerParams = privateProps.innerParams.get(this);
-
-    if (!popup || hasClass(popup, innerParams.hideClass.popup)) {
-      return warn("You're trying to update the closed or closing popup, that won't work. Use the update() method in preConfirm parameter or show a new popup.");
-    }
-
-    var validUpdatableParams = {}; // assign valid params from `params` to `defaults`
 
-    Object.keys(params).forEach(function (param) {
-      if (Swal.isUpdatableParameter(param)) {
-        validUpdatableParams[param] = params[param];
-      } else {
-        warn("Invalid parameter to update: \"".concat(param, "\". Updatable params are listed here: https://github.com/sweetalert2/sweetalert2/blob/master/src/utils/params.js\n\nIf you think this parameter should be updatable, request it here: https://github.com/sweetalert2/sweetalert2/issues/new?template=02_feature_request.md"));
-      }
-    });
+    currentInstance = this
 
-    var updatedParams = _extends({}, innerParams, validUpdatableParams);
+    const outerParams = Object.freeze(this.constructor.argsToParams(args))
 
-    render(this, updatedParams);
-    privateProps.innerParams.set(this, updatedParams);
     Object.defineProperties(this, {
       params: {
-        value: _extends({}, this.params, params),
+        value: outerParams,
         writable: false,
-        enumerable: true
+        enumerable: true,
+        configurable: true
       }
-    });
+    })
+
+    const promise = this._main(this.params)
+    _privateProps_js__WEBPACK_IMPORTED_MODULE_4__.default.promise.set(this, promise)
   }
 
-  function _destroy() {
-    var domCache = privateProps.domCache.get(this);
-    var innerParams = privateProps.innerParams.get(this);
-
-    if (!innerParams) {
-      return; // This instance has already been destroyed
-    } // Check if there is another Swal closing
-
-
-    if (domCache.popup && globalState.swalCloseEventFinishedCallback) {
-      globalState.swalCloseEventFinishedCallback();
-      delete globalState.swalCloseEventFinishedCallback;
-    } // Check if there is a swal disposal defer timer
-
-
-    if (globalState.deferDisposalTimer) {
-      clearTimeout(globalState.deferDisposalTimer);
-      delete globalState.deferDisposalTimer;
-    }
-
-    runDidDestroy(innerParams);
-    disposeSwal(this);
+  // `catch` cannot be the name of a module export, so we define our thenable methods here instead
+  then (onFulfilled) {
+    const promise = _privateProps_js__WEBPACK_IMPORTED_MODULE_4__.default.promise.get(this)
+    return promise.then(onFulfilled)
   }
 
-  var runDidDestroy = function runDidDestroy(innerParams) {
-    if (typeof innerParams.didDestroy === 'function') {
-      innerParams.didDestroy();
-    } else if (typeof innerParams.onDestroy === 'function') {
-      innerParams.onDestroy(); // @deprecated
+  finally (onFinally) {
+    const promise = _privateProps_js__WEBPACK_IMPORTED_MODULE_4__.default.promise.get(this)
+    return promise.finally(onFinally)
+  }
+}
+
+// Assign instance methods from src/instanceMethods/*.js to prototype
+Object.assign(SweetAlert.prototype, _instanceMethods_js__WEBPACK_IMPORTED_MODULE_3__)
+
+// Assign static methods from src/staticMethods/*.js to constructor
+Object.assign(SweetAlert, _staticMethods_js__WEBPACK_IMPORTED_MODULE_2__)
+
+// Proxy to instance methods to constructor, for now, for backwards compatibility
+Object.keys(_instanceMethods_js__WEBPACK_IMPORTED_MODULE_3__).forEach(key => {
+  SweetAlert[key] = function (...args) {
+    if (currentInstance) {
+      return currentInstance[key](...args)
     }
-  };
+  }
+})
 
-  var disposeSwal = function disposeSwal(instance) {
-    // Unset this.params so GC will dispose it (#1569)
-    delete instance.params; // Unset globalState props so GC will dispose globalState (#1569)
+SweetAlert.DismissReason = _utils_DismissReason_js__WEBPACK_IMPORTED_MODULE_1__.DismissReason
 
-    delete globalState.keydownHandler;
-    delete globalState.keydownTarget; // Unset WeakMaps so GC will be able to dispose them (#1569)
+SweetAlert.version = '10.16.0'
 
-    unsetWeakMaps(privateProps);
-    unsetWeakMaps(privateMethods);
-  };
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SweetAlert);
 
-  var unsetWeakMaps = function unsetWeakMaps(obj) {
-    for (var i in obj) {
-      obj[i] = new WeakMap();
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/constants.js":
+/*!***************************************************!*\
+  !*** ./node_modules/sweetalert2/src/constants.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RESTORE_FOCUS_TIMEOUT": () => (/* binding */ RESTORE_FOCUS_TIMEOUT)
+/* harmony export */ });
+const RESTORE_FOCUS_TIMEOUT = 100
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/globalState.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/sweetalert2/src/globalState.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "restoreActiveElement": () => (/* binding */ restoreActiveElement)
+/* harmony export */ });
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.js */ "./node_modules/sweetalert2/src/constants.js");
+
+
+const globalState = {}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (globalState);
+
+const focusPreviousActiveElement = () => {
+  if (globalState.previousActiveElement && globalState.previousActiveElement.focus) {
+    globalState.previousActiveElement.focus()
+    globalState.previousActiveElement = null
+  } else if (document.body) {
+    document.body.focus()
+  }
+}
+
+// Restore previous active (focused) element
+const restoreActiveElement = (returnFocus) => {
+  return new Promise(resolve => {
+    if (!returnFocus) {
+      return resolve()
     }
-  };
+    const x = window.scrollX
+    const y = window.scrollY
+    globalState.restoreFocusTimeout = setTimeout(() => {
+      focusPreviousActiveElement()
+      resolve()
+    }, _constants_js__WEBPACK_IMPORTED_MODULE_0__.RESTORE_FOCUS_TIMEOUT) // issues/900
+    if (typeof x !== 'undefined' && typeof y !== 'undefined') { // IE doesn't have scrollX/scrollY support
+      window.scrollTo(x, y)
+    }
+  })
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/instanceMethods.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/sweetalert2/src/instanceMethods.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "disableLoading": () => (/* reexport safe */ _instanceMethods_hideLoading_js__WEBPACK_IMPORTED_MODULE_0__.disableLoading),
+/* harmony export */   "hideLoading": () => (/* reexport safe */ _instanceMethods_hideLoading_js__WEBPACK_IMPORTED_MODULE_0__.hideLoading),
+/* harmony export */   "getInput": () => (/* reexport safe */ _instanceMethods_getInput_js__WEBPACK_IMPORTED_MODULE_1__.getInput),
+/* harmony export */   "close": () => (/* reexport safe */ _instanceMethods_close_js__WEBPACK_IMPORTED_MODULE_2__.close),
+/* harmony export */   "closeModal": () => (/* reexport safe */ _instanceMethods_close_js__WEBPACK_IMPORTED_MODULE_2__.closeModal),
+/* harmony export */   "closePopup": () => (/* reexport safe */ _instanceMethods_close_js__WEBPACK_IMPORTED_MODULE_2__.closePopup),
+/* harmony export */   "closeToast": () => (/* reexport safe */ _instanceMethods_close_js__WEBPACK_IMPORTED_MODULE_2__.closeToast),
+/* harmony export */   "disableButtons": () => (/* reexport safe */ _instanceMethods_enable_disable_elements_js__WEBPACK_IMPORTED_MODULE_3__.disableButtons),
+/* harmony export */   "disableInput": () => (/* reexport safe */ _instanceMethods_enable_disable_elements_js__WEBPACK_IMPORTED_MODULE_3__.disableInput),
+/* harmony export */   "enableButtons": () => (/* reexport safe */ _instanceMethods_enable_disable_elements_js__WEBPACK_IMPORTED_MODULE_3__.enableButtons),
+/* harmony export */   "enableInput": () => (/* reexport safe */ _instanceMethods_enable_disable_elements_js__WEBPACK_IMPORTED_MODULE_3__.enableInput),
+/* harmony export */   "resetValidationMessage": () => (/* reexport safe */ _instanceMethods_validation_message_js__WEBPACK_IMPORTED_MODULE_4__.resetValidationMessage),
+/* harmony export */   "showValidationMessage": () => (/* reexport safe */ _instanceMethods_validation_message_js__WEBPACK_IMPORTED_MODULE_4__.showValidationMessage),
+/* harmony export */   "getProgressSteps": () => (/* reexport safe */ _instanceMethods_progress_steps_js__WEBPACK_IMPORTED_MODULE_5__.getProgressSteps),
+/* harmony export */   "_main": () => (/* reexport safe */ _instanceMethods_main_js__WEBPACK_IMPORTED_MODULE_6__._main),
+/* harmony export */   "update": () => (/* reexport safe */ _instanceMethods_update_js__WEBPACK_IMPORTED_MODULE_7__.update),
+/* harmony export */   "_destroy": () => (/* reexport safe */ _instanceMethods_destroy_js__WEBPACK_IMPORTED_MODULE_8__._destroy)
+/* harmony export */ });
+/* harmony import */ var _instanceMethods_hideLoading_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./instanceMethods/hideLoading.js */ "./node_modules/sweetalert2/src/instanceMethods/hideLoading.js");
+/* harmony import */ var _instanceMethods_getInput_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./instanceMethods/getInput.js */ "./node_modules/sweetalert2/src/instanceMethods/getInput.js");
+/* harmony import */ var _instanceMethods_close_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./instanceMethods/close.js */ "./node_modules/sweetalert2/src/instanceMethods/close.js");
+/* harmony import */ var _instanceMethods_enable_disable_elements_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./instanceMethods/enable-disable-elements.js */ "./node_modules/sweetalert2/src/instanceMethods/enable-disable-elements.js");
+/* harmony import */ var _instanceMethods_validation_message_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./instanceMethods/validation-message.js */ "./node_modules/sweetalert2/src/instanceMethods/validation-message.js");
+/* harmony import */ var _instanceMethods_progress_steps_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./instanceMethods/progress-steps.js */ "./node_modules/sweetalert2/src/instanceMethods/progress-steps.js");
+/* harmony import */ var _instanceMethods_main_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./instanceMethods/_main.js */ "./node_modules/sweetalert2/src/instanceMethods/_main.js");
+/* harmony import */ var _instanceMethods_update_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./instanceMethods/update.js */ "./node_modules/sweetalert2/src/instanceMethods/update.js");
+/* harmony import */ var _instanceMethods_destroy_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./instanceMethods/_destroy.js */ "./node_modules/sweetalert2/src/instanceMethods/_destroy.js");
 
 
 
-  var instanceMethods = /*#__PURE__*/Object.freeze({
-    hideLoading: hideLoading,
-    disableLoading: hideLoading,
-    getInput: getInput$1,
-    close: close,
-    closePopup: close,
-    closeModal: close,
-    closeToast: close,
-    enableButtons: enableButtons,
-    disableButtons: disableButtons,
-    enableInput: enableInput,
-    disableInput: disableInput,
-    showValidationMessage: showValidationMessage,
-    resetValidationMessage: resetValidationMessage$1,
-    getProgressSteps: getProgressSteps$1,
-    _main: _main,
-    update: update,
-    _destroy: _destroy
-  });
-
-  var currentInstance;
-
-  var SweetAlert = /*#__PURE__*/function () {
-    function SweetAlert() {
-      _classCallCheck(this, SweetAlert);
-
-      // Prevent run in Node env
-      if (typeof window === 'undefined') {
-        return;
-      } // Check for the existence of Promise
 
 
-      if (typeof Promise === 'undefined') {
-        error('This package requires a Promise library, please include a shim to enable it in this browser (See: https://github.com/sweetalert2/sweetalert2/wiki/Migration-from-SweetAlert-to-SweetAlert2#1-ie-support)');
-      }
 
-      currentInstance = this;
 
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
 
-      var outerParams = Object.freeze(this.constructor.argsToParams(args));
-      Object.defineProperties(this, {
-        params: {
-          value: outerParams,
-          writable: false,
-          enumerable: true,
-          configurable: true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/instanceMethods/_destroy.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/instanceMethods/_destroy.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "_destroy": () => (/* binding */ _destroy)
+/* harmony export */ });
+/* harmony import */ var _globalState_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../globalState.js */ "./node_modules/sweetalert2/src/globalState.js");
+/* harmony import */ var _privateProps_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../privateProps.js */ "./node_modules/sweetalert2/src/privateProps.js");
+/* harmony import */ var _privateMethods_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../privateMethods.js */ "./node_modules/sweetalert2/src/privateMethods.js");
+
+
+
+
+function _destroy () {
+  const domCache = _privateProps_js__WEBPACK_IMPORTED_MODULE_1__.default.domCache.get(this)
+  const innerParams = _privateProps_js__WEBPACK_IMPORTED_MODULE_1__.default.innerParams.get(this)
+
+  if (!innerParams) {
+    return // This instance has already been destroyed
+  }
+
+  // Check if there is another Swal closing
+  if (domCache.popup && _globalState_js__WEBPACK_IMPORTED_MODULE_0__.default.swalCloseEventFinishedCallback) {
+    _globalState_js__WEBPACK_IMPORTED_MODULE_0__.default.swalCloseEventFinishedCallback()
+    delete _globalState_js__WEBPACK_IMPORTED_MODULE_0__.default.swalCloseEventFinishedCallback
+  }
+
+  // Check if there is a swal disposal defer timer
+  if (_globalState_js__WEBPACK_IMPORTED_MODULE_0__.default.deferDisposalTimer) {
+    clearTimeout(_globalState_js__WEBPACK_IMPORTED_MODULE_0__.default.deferDisposalTimer)
+    delete _globalState_js__WEBPACK_IMPORTED_MODULE_0__.default.deferDisposalTimer
+  }
+
+  runDidDestroy(innerParams)
+
+  disposeSwal(this)
+}
+
+const runDidDestroy = (innerParams) => {
+  if (typeof innerParams.didDestroy === 'function') {
+    innerParams.didDestroy()
+  } else if (typeof innerParams.onDestroy === 'function') {
+    innerParams.onDestroy() // @deprecated
+  }
+}
+
+const disposeSwal = (instance) => {
+  // Unset this.params so GC will dispose it (#1569)
+  delete instance.params
+  // Unset globalState props so GC will dispose globalState (#1569)
+  delete _globalState_js__WEBPACK_IMPORTED_MODULE_0__.default.keydownHandler
+  delete _globalState_js__WEBPACK_IMPORTED_MODULE_0__.default.keydownTarget
+  // Unset WeakMaps so GC will be able to dispose them (#1569)
+  unsetWeakMaps(_privateProps_js__WEBPACK_IMPORTED_MODULE_1__.default)
+  unsetWeakMaps(_privateMethods_js__WEBPACK_IMPORTED_MODULE_2__.default)
+}
+
+const unsetWeakMaps = (obj) => {
+  for (const i in obj) {
+    obj[i] = new WeakMap()
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/instanceMethods/_main.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/instanceMethods/_main.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "_main": () => (/* binding */ _main)
+/* harmony export */ });
+/* harmony import */ var _utils_params_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/params.js */ "./node_modules/sweetalert2/src/utils/params.js");
+/* harmony import */ var _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _utils_classes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _utils_Timer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/Timer.js */ "./node_modules/sweetalert2/src/utils/Timer.js");
+/* harmony import */ var _utils_utils_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+/* harmony import */ var _utils_setParameters_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/setParameters.js */ "./node_modules/sweetalert2/src/utils/setParameters.js");
+/* harmony import */ var _utils_getTemplateParams_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/getTemplateParams.js */ "./node_modules/sweetalert2/src/utils/getTemplateParams.js");
+/* harmony import */ var _globalState_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../globalState.js */ "./node_modules/sweetalert2/src/globalState.js");
+/* harmony import */ var _utils_openPopup_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../utils/openPopup.js */ "./node_modules/sweetalert2/src/utils/openPopup.js");
+/* harmony import */ var _privateProps_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../privateProps.js */ "./node_modules/sweetalert2/src/privateProps.js");
+/* harmony import */ var _privateMethods_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../privateMethods.js */ "./node_modules/sweetalert2/src/privateMethods.js");
+/* harmony import */ var _utils_dom_inputUtils_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../utils/dom/inputUtils.js */ "./node_modules/sweetalert2/src/utils/dom/inputUtils.js");
+/* harmony import */ var _buttons_handlers_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./buttons-handlers.js */ "./node_modules/sweetalert2/src/instanceMethods/buttons-handlers.js");
+/* harmony import */ var _keydown_handler_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./keydown-handler.js */ "./node_modules/sweetalert2/src/instanceMethods/keydown-handler.js");
+/* harmony import */ var _popup_click_handler_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./popup-click-handler.js */ "./node_modules/sweetalert2/src/instanceMethods/popup-click-handler.js");
+/* harmony import */ var _utils_DismissReason_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../utils/DismissReason.js */ "./node_modules/sweetalert2/src/utils/DismissReason.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function _main (userParams, mixinParams = {}) {
+  (0,_utils_params_js__WEBPACK_IMPORTED_MODULE_0__.showWarningsForParams)(Object.assign({}, mixinParams, userParams))
+
+  if (_globalState_js__WEBPACK_IMPORTED_MODULE_7__.default.currentInstance) {
+    _globalState_js__WEBPACK_IMPORTED_MODULE_7__.default.currentInstance._destroy()
+  }
+  _globalState_js__WEBPACK_IMPORTED_MODULE_7__.default.currentInstance = this
+
+  const innerParams = prepareParams(userParams, mixinParams)
+  ;(0,_utils_setParameters_js__WEBPACK_IMPORTED_MODULE_5__.default)(innerParams)
+  Object.freeze(innerParams)
+
+  // clear the previous timer
+  if (_globalState_js__WEBPACK_IMPORTED_MODULE_7__.default.timeout) {
+    _globalState_js__WEBPACK_IMPORTED_MODULE_7__.default.timeout.stop()
+    delete _globalState_js__WEBPACK_IMPORTED_MODULE_7__.default.timeout
+  }
+
+  // clear the restore focus timeout
+  clearTimeout(_globalState_js__WEBPACK_IMPORTED_MODULE_7__.default.restoreFocusTimeout)
+
+  const domCache = populateDomCache(this)
+
+  _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.render(this, innerParams)
+
+  _privateProps_js__WEBPACK_IMPORTED_MODULE_9__.default.innerParams.set(this, innerParams)
+
+  return swalPromise(this, domCache, innerParams)
+}
+
+const prepareParams = (userParams, mixinParams) => {
+  const templateParams = (0,_utils_getTemplateParams_js__WEBPACK_IMPORTED_MODULE_6__.getTemplateParams)(userParams)
+  const showClass = Object.assign({}, _utils_params_js__WEBPACK_IMPORTED_MODULE_0__.default.showClass, mixinParams.showClass, templateParams.showClass, userParams.showClass)
+  const hideClass = Object.assign({}, _utils_params_js__WEBPACK_IMPORTED_MODULE_0__.default.hideClass, mixinParams.hideClass, templateParams.hideClass, userParams.hideClass)
+  const params = Object.assign({}, _utils_params_js__WEBPACK_IMPORTED_MODULE_0__.default, mixinParams, templateParams, userParams) // precedence is described in #2131
+  params.showClass = showClass
+  params.hideClass = hideClass
+  // @deprecated
+  if (userParams.animation === false) {
+    params.showClass = {
+      popup: 'swal2-noanimation',
+      backdrop: 'swal2-noanimation'
+    }
+    params.hideClass = {}
+  }
+  return params
+}
+
+const swalPromise = (instance, domCache, innerParams) => {
+  return new Promise((resolve) => {
+    // functions to handle all closings/dismissals
+    const dismissWith = (dismiss) => {
+      instance.closePopup({ isDismissed: true, dismiss })
+    }
+
+    _privateMethods_js__WEBPACK_IMPORTED_MODULE_10__.default.swalPromiseResolve.set(instance, resolve)
+
+    domCache.confirmButton.onclick = () => (0,_buttons_handlers_js__WEBPACK_IMPORTED_MODULE_12__.handleConfirmButtonClick)(instance, innerParams)
+    domCache.denyButton.onclick = () => (0,_buttons_handlers_js__WEBPACK_IMPORTED_MODULE_12__.handleDenyButtonClick)(instance, innerParams)
+    domCache.cancelButton.onclick = () => (0,_buttons_handlers_js__WEBPACK_IMPORTED_MODULE_12__.handleCancelButtonClick)(instance, dismissWith)
+
+    domCache.closeButton.onclick = () => dismissWith(_utils_DismissReason_js__WEBPACK_IMPORTED_MODULE_15__.DismissReason.close)
+
+    ;(0,_popup_click_handler_js__WEBPACK_IMPORTED_MODULE_14__.handlePopupClick)(instance, domCache, dismissWith)
+
+    ;(0,_keydown_handler_js__WEBPACK_IMPORTED_MODULE_13__.addKeydownHandler)(instance, _globalState_js__WEBPACK_IMPORTED_MODULE_7__.default, innerParams, dismissWith)
+
+    if (innerParams.toast && (innerParams.input || innerParams.footer || innerParams.showCloseButton)) {
+      _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.addClass(document.body, _utils_classes_js__WEBPACK_IMPORTED_MODULE_2__.swalClasses["toast-column"])
+    } else {
+      _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.removeClass(document.body, _utils_classes_js__WEBPACK_IMPORTED_MODULE_2__.swalClasses["toast-column"])
+    }
+
+    (0,_utils_dom_inputUtils_js__WEBPACK_IMPORTED_MODULE_11__.handleInputOptionsAndValue)(instance, innerParams)
+
+    ;(0,_utils_openPopup_js__WEBPACK_IMPORTED_MODULE_8__.openPopup)(innerParams)
+
+    setupTimer(_globalState_js__WEBPACK_IMPORTED_MODULE_7__.default, innerParams, dismissWith)
+
+    initFocus(domCache, innerParams)
+
+    // Scroll container to top on open (#1247, #1946)
+    setTimeout(() => {
+      domCache.container.scrollTop = 0
+    })
+  })
+}
+
+const populateDomCache = (instance) => {
+  const domCache = {
+    popup: _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getPopup(),
+    container: _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getContainer(),
+    content: _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getContent(),
+    actions: _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getActions(),
+    confirmButton: _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getConfirmButton(),
+    denyButton: _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getDenyButton(),
+    cancelButton: _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getCancelButton(),
+    loader: _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getLoader(),
+    closeButton: _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getCloseButton(),
+    validationMessage: _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getValidationMessage(),
+    progressSteps: _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getProgressSteps()
+  }
+  _privateProps_js__WEBPACK_IMPORTED_MODULE_9__.default.domCache.set(instance, domCache)
+
+  return domCache
+}
+
+const setupTimer = (globalState, innerParams, dismissWith) => {
+  const timerProgressBar = _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getTimerProgressBar()
+  _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.hide(timerProgressBar)
+  if (innerParams.timer) {
+    globalState.timeout = new _utils_Timer_js__WEBPACK_IMPORTED_MODULE_3__.default(() => {
+      dismissWith('timer')
+      delete globalState.timeout
+    }, innerParams.timer)
+    if (innerParams.timerProgressBar) {
+      _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.show(timerProgressBar)
+      setTimeout(() => {
+        if (globalState.timeout && globalState.timeout.running) { // timer can be already stopped or unset at this point
+          _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.animateTimerProgressBar(innerParams.timer)
         }
-      });
+      })
+    }
+  }
+}
 
-      var promise = this._main(this.params);
+const initFocus = (domCache, innerParams) => {
+  if (innerParams.toast) {
+    return
+  }
 
-      privateProps.promise.set(this, promise);
-    } // `catch` cannot be the name of a module export, so we define our thenable methods here instead
+  if (!(0,_utils_utils_js__WEBPACK_IMPORTED_MODULE_4__.callIfFunction)(innerParams.allowEnterKey)) {
+    return blurActiveElement()
+  }
+
+  if (!focusButton(domCache, innerParams)) {
+    (0,_keydown_handler_js__WEBPACK_IMPORTED_MODULE_13__.setFocus)(innerParams, -1, 1)
+  }
+}
+
+const focusButton = (domCache, innerParams) => {
+  if (innerParams.focusDeny && _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.isVisible(domCache.denyButton)) {
+    domCache.denyButton.focus()
+    return true
+  }
+
+  if (innerParams.focusCancel && _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.isVisible(domCache.cancelButton)) {
+    domCache.cancelButton.focus()
+    return true
+  }
+
+  if (innerParams.focusConfirm && _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.isVisible(domCache.confirmButton)) {
+    domCache.confirmButton.focus()
+    return true
+  }
+
+  return false
+}
+
+const blurActiveElement = () => {
+  if (document.activeElement && typeof document.activeElement.blur === 'function') {
+    document.activeElement.blur()
+  }
+}
 
 
-    _createClass(SweetAlert, [{
-      key: "then",
-      value: function then(onFulfilled) {
-        var promise = privateProps.promise.get(this);
-        return promise.then(onFulfilled);
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/instanceMethods/buttons-handlers.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/instanceMethods/buttons-handlers.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "handleConfirmButtonClick": () => (/* binding */ handleConfirmButtonClick),
+/* harmony export */   "handleDenyButtonClick": () => (/* binding */ handleDenyButtonClick),
+/* harmony export */   "handleCancelButtonClick": () => (/* binding */ handleCancelButtonClick)
+/* harmony export */ });
+/* harmony import */ var _utils_dom_domUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/dom/domUtils.js */ "./node_modules/sweetalert2/src/utils/dom/domUtils.js");
+/* harmony import */ var _utils_dom_inputUtils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/dom/inputUtils.js */ "./node_modules/sweetalert2/src/utils/dom/inputUtils.js");
+/* harmony import */ var _utils_dom_getters_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/dom/getters.js */ "./node_modules/sweetalert2/src/utils/dom/getters.js");
+/* harmony import */ var _utils_utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+/* harmony import */ var _staticMethods_showLoading_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../staticMethods/showLoading.js */ "./node_modules/sweetalert2/src/staticMethods/showLoading.js");
+/* harmony import */ var _utils_DismissReason_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/DismissReason.js */ "./node_modules/sweetalert2/src/utils/DismissReason.js");
+
+
+
+
+
+
+
+const handleConfirmButtonClick = (instance, innerParams) => {
+  instance.disableButtons()
+  if (innerParams.input) {
+    handleConfirmOrDenyWithInput(instance, innerParams, 'confirm')
+  } else {
+    confirm(instance, innerParams, true)
+  }
+}
+
+const handleDenyButtonClick = (instance, innerParams) => {
+  instance.disableButtons()
+  if (innerParams.returnInputValueOnDeny) {
+    handleConfirmOrDenyWithInput(instance, innerParams, 'deny')
+  } else {
+    deny(instance, innerParams, false)
+  }
+}
+
+const handleCancelButtonClick = (instance, dismissWith) => {
+  instance.disableButtons()
+  dismissWith(_utils_DismissReason_js__WEBPACK_IMPORTED_MODULE_5__.DismissReason.cancel)
+}
+
+const handleConfirmOrDenyWithInput = (instance, innerParams, type /* type is either 'confirm' or 'deny' */) => {
+  const inputValue = (0,_utils_dom_inputUtils_js__WEBPACK_IMPORTED_MODULE_1__.getInputValue)(instance, innerParams)
+  if (innerParams.inputValidator) {
+    handleInputValidator(instance, innerParams, inputValue)
+  } else if (!instance.getInput().checkValidity()) {
+    instance.enableButtons()
+    instance.showValidationMessage(innerParams.validationMessage)
+  } else if (type === 'deny') {
+    deny(instance, innerParams, inputValue)
+  } else {
+    confirm(instance, innerParams, inputValue)
+  }
+}
+
+const handleInputValidator = (instance, innerParams, inputValue) => {
+  instance.disableInput()
+  const validationPromise = Promise.resolve().then(() => (0,_utils_utils_js__WEBPACK_IMPORTED_MODULE_3__.asPromise)(
+    innerParams.inputValidator(inputValue, innerParams.validationMessage))
+  )
+  validationPromise.then(
+    (validationMessage) => {
+      instance.enableButtons()
+      instance.enableInput()
+      if (validationMessage) {
+        instance.showValidationMessage(validationMessage)
+      } else {
+        confirm(instance, innerParams, inputValue)
       }
-    }, {
-      key: "finally",
-      value: function _finally(onFinally) {
-        var promise = privateProps.promise.get(this);
-        return promise["finally"](onFinally);
+    }
+  )
+}
+
+const deny = (instance, innerParams, value) => {
+  if (innerParams.showLoaderOnDeny) {
+    (0,_staticMethods_showLoading_js__WEBPACK_IMPORTED_MODULE_4__.showLoading)((0,_utils_dom_getters_js__WEBPACK_IMPORTED_MODULE_2__.getDenyButton)())
+  }
+
+  if (innerParams.preDeny) {
+    const preDenyPromise = Promise.resolve().then(() => (0,_utils_utils_js__WEBPACK_IMPORTED_MODULE_3__.asPromise)(
+      innerParams.preDeny(value, innerParams.validationMessage))
+    )
+    preDenyPromise.then(
+      (preDenyValue) => {
+        if (preDenyValue === false) {
+          instance.hideLoading()
+        } else {
+          instance.closePopup({ isDenied: true, value: typeof preDenyValue === 'undefined' ? value : preDenyValue })
+        }
       }
-    }]);
+    )
+  } else {
+    instance.closePopup({ isDenied: true, value })
+  }
+}
 
-    return SweetAlert;
-  }(); // Assign instance methods from src/instanceMethods/*.js to prototype
+const succeedWith = (instance, value) => {
+  instance.closePopup({ isConfirmed: true, value })
+}
 
+const confirm = (instance, innerParams, value) => {
+  if (innerParams.showLoaderOnConfirm) {
+    (0,_staticMethods_showLoading_js__WEBPACK_IMPORTED_MODULE_4__.showLoading)() // TODO: make showLoading an *instance* method
+  }
 
-  _extends(SweetAlert.prototype, instanceMethods); // Assign static methods from src/staticMethods/*.js to constructor
-
-
-  _extends(SweetAlert, staticMethods); // Proxy to instance methods to constructor, for now, for backwards compatibility
-
-
-  Object.keys(instanceMethods).forEach(function (key) {
-    SweetAlert[key] = function () {
-      if (currentInstance) {
-        var _currentInstance;
-
-        return (_currentInstance = currentInstance)[key].apply(_currentInstance, arguments);
+  if (innerParams.preConfirm) {
+    instance.resetValidationMessage()
+    const preConfirmPromise = Promise.resolve().then(() => (0,_utils_utils_js__WEBPACK_IMPORTED_MODULE_3__.asPromise)(
+      innerParams.preConfirm(value, innerParams.validationMessage))
+    )
+    preConfirmPromise.then(
+      (preConfirmValue) => {
+        if ((0,_utils_dom_domUtils_js__WEBPACK_IMPORTED_MODULE_0__.isVisible)((0,_utils_dom_getters_js__WEBPACK_IMPORTED_MODULE_2__.getValidationMessage)()) || preConfirmValue === false) {
+          instance.hideLoading()
+        } else {
+          succeedWith(instance, typeof preConfirmValue === 'undefined' ? value : preConfirmValue)
+        }
       }
-    };
-  });
-  SweetAlert.DismissReason = DismissReason;
-  SweetAlert.version = '10.16.0';
+    )
+  } else {
+    succeedWith(instance, value)
+  }
+}
 
-  var Swal = SweetAlert;
-  Swal["default"] = Swal;
 
-  return Swal;
+/***/ }),
 
-}));
-if (typeof this !== 'undefined' && this.Sweetalert2){  this.swal = this.sweetAlert = this.Swal = this.SweetAlert = this.Sweetalert2}
+/***/ "./node_modules/sweetalert2/src/instanceMethods/close.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/instanceMethods/close.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"undefined"!=typeof document&&function(e,t){var n=e.createElement("style");if(e.getElementsByTagName("head")[0].appendChild(n),n.styleSheet)n.styleSheet.disabled||(n.styleSheet.cssText=t);else try{n.innerHTML=t}catch(e){n.innerText=t}}(document,".swal2-popup.swal2-toast{flex-direction:row;align-items:center;width:auto;padding:.625em;overflow-y:hidden;background:#fff;box-shadow:0 0 .625em #d9d9d9}.swal2-popup.swal2-toast .swal2-header{flex-direction:row;padding:0}.swal2-popup.swal2-toast .swal2-title{flex-grow:1;justify-content:flex-start;margin:0 .6em;font-size:1em}.swal2-popup.swal2-toast .swal2-footer{margin:.5em 0 0;padding:.5em 0 0;font-size:.8em}.swal2-popup.swal2-toast .swal2-close{position:static;width:.8em;height:.8em;line-height:.8}.swal2-popup.swal2-toast .swal2-content{justify-content:flex-start;padding:0;font-size:1em}.swal2-popup.swal2-toast .swal2-icon{width:2em;min-width:2em;height:2em;margin:0}.swal2-popup.swal2-toast .swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:1.8em;font-weight:700}@media all and (-ms-high-contrast:none),(-ms-high-contrast:active){.swal2-popup.swal2-toast .swal2-icon .swal2-icon-content{font-size:.25em}}.swal2-popup.swal2-toast .swal2-icon.swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line]{top:.875em;width:1.375em}.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:.3125em}.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:.3125em}.swal2-popup.swal2-toast .swal2-actions{flex-basis:auto!important;width:auto;height:auto;margin:0 .3125em;padding:0}.swal2-popup.swal2-toast .swal2-styled{margin:.125em .3125em;padding:.3125em .625em;font-size:1em}.swal2-popup.swal2-toast .swal2-styled:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(100,150,200,.5)}.swal2-popup.swal2-toast .swal2-success{border-color:#a5dc86}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-circular-line]{position:absolute;width:1.6em;height:3em;transform:rotate(45deg);border-radius:50%}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=left]{top:-.8em;left:-.5em;transform:rotate(-45deg);transform-origin:2em 2em;border-radius:4em 0 0 4em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=right]{top:-.25em;left:.9375em;transform-origin:0 1.5em;border-radius:0 4em 4em 0}.swal2-popup.swal2-toast .swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-popup.swal2-toast .swal2-success .swal2-success-fix{top:0;left:.4375em;width:.4375em;height:2.6875em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-line]{height:.3125em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-line][class$=tip]{top:1.125em;left:.1875em;width:.75em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-line][class$=long]{top:.9375em;right:.1875em;width:1.375em}.swal2-popup.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-tip{-webkit-animation:swal2-toast-animate-success-line-tip .75s;animation:swal2-toast-animate-success-line-tip .75s}.swal2-popup.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-long{-webkit-animation:swal2-toast-animate-success-line-long .75s;animation:swal2-toast-animate-success-line-long .75s}.swal2-popup.swal2-toast.swal2-show{-webkit-animation:swal2-toast-show .5s;animation:swal2-toast-show .5s}.swal2-popup.swal2-toast.swal2-hide{-webkit-animation:swal2-toast-hide .1s forwards;animation:swal2-toast-hide .1s forwards}.swal2-container{display:flex;position:fixed;z-index:1060;top:0;right:0;bottom:0;left:0;flex-direction:row;align-items:center;justify-content:center;padding:.625em;overflow-x:hidden;transition:background-color .1s;-webkit-overflow-scrolling:touch}.swal2-container.swal2-backdrop-show,.swal2-container.swal2-noanimation{background:rgba(0,0,0,.4)}.swal2-container.swal2-backdrop-hide{background:0 0!important}.swal2-container.swal2-top{align-items:flex-start}.swal2-container.swal2-top-left,.swal2-container.swal2-top-start{align-items:flex-start;justify-content:flex-start}.swal2-container.swal2-top-end,.swal2-container.swal2-top-right{align-items:flex-start;justify-content:flex-end}.swal2-container.swal2-center{align-items:center}.swal2-container.swal2-center-left,.swal2-container.swal2-center-start{align-items:center;justify-content:flex-start}.swal2-container.swal2-center-end,.swal2-container.swal2-center-right{align-items:center;justify-content:flex-end}.swal2-container.swal2-bottom{align-items:flex-end}.swal2-container.swal2-bottom-left,.swal2-container.swal2-bottom-start{align-items:flex-end;justify-content:flex-start}.swal2-container.swal2-bottom-end,.swal2-container.swal2-bottom-right{align-items:flex-end;justify-content:flex-end}.swal2-container.swal2-bottom-end>:first-child,.swal2-container.swal2-bottom-left>:first-child,.swal2-container.swal2-bottom-right>:first-child,.swal2-container.swal2-bottom-start>:first-child,.swal2-container.swal2-bottom>:first-child{margin-top:auto}.swal2-container.swal2-grow-fullscreen>.swal2-modal{display:flex!important;flex:1;align-self:stretch;justify-content:center}.swal2-container.swal2-grow-row>.swal2-modal{display:flex!important;flex:1;align-content:center;justify-content:center}.swal2-container.swal2-grow-column{flex:1;flex-direction:column}.swal2-container.swal2-grow-column.swal2-bottom,.swal2-container.swal2-grow-column.swal2-center,.swal2-container.swal2-grow-column.swal2-top{align-items:center}.swal2-container.swal2-grow-column.swal2-bottom-left,.swal2-container.swal2-grow-column.swal2-bottom-start,.swal2-container.swal2-grow-column.swal2-center-left,.swal2-container.swal2-grow-column.swal2-center-start,.swal2-container.swal2-grow-column.swal2-top-left,.swal2-container.swal2-grow-column.swal2-top-start{align-items:flex-start}.swal2-container.swal2-grow-column.swal2-bottom-end,.swal2-container.swal2-grow-column.swal2-bottom-right,.swal2-container.swal2-grow-column.swal2-center-end,.swal2-container.swal2-grow-column.swal2-center-right,.swal2-container.swal2-grow-column.swal2-top-end,.swal2-container.swal2-grow-column.swal2-top-right{align-items:flex-end}.swal2-container.swal2-grow-column>.swal2-modal{display:flex!important;flex:1;align-content:center;justify-content:center}.swal2-container.swal2-no-transition{transition:none!important}.swal2-container:not(.swal2-top):not(.swal2-top-start):not(.swal2-top-end):not(.swal2-top-left):not(.swal2-top-right):not(.swal2-center-start):not(.swal2-center-end):not(.swal2-center-left):not(.swal2-center-right):not(.swal2-bottom):not(.swal2-bottom-start):not(.swal2-bottom-end):not(.swal2-bottom-left):not(.swal2-bottom-right):not(.swal2-grow-fullscreen)>.swal2-modal{margin:auto}@media all and (-ms-high-contrast:none),(-ms-high-contrast:active){.swal2-container .swal2-modal{margin:0!important}}.swal2-popup{display:none;position:relative;box-sizing:border-box;flex-direction:column;justify-content:center;width:32em;max-width:100%;padding:1.25em;border:none;border-radius:5px;background:#fff;font-family:inherit;font-size:1rem}.swal2-popup:focus{outline:0}.swal2-popup.swal2-loading{overflow-y:hidden}.swal2-header{display:flex;flex-direction:column;align-items:center;padding:0 1.8em}.swal2-title{position:relative;max-width:100%;margin:0 0 .4em;padding:0;color:#595959;font-size:1.875em;font-weight:600;text-align:center;text-transform:none;word-wrap:break-word}.swal2-actions{display:flex;z-index:1;box-sizing:border-box;flex-wrap:wrap;align-items:center;justify-content:center;width:100%;margin:1.25em auto 0;padding:0 1.6em}.swal2-actions:not(.swal2-loading) .swal2-styled[disabled]{opacity:.4}.swal2-actions:not(.swal2-loading) .swal2-styled:hover{background-image:linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1))}.swal2-actions:not(.swal2-loading) .swal2-styled:active{background-image:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2))}.swal2-loader{display:none;align-items:center;justify-content:center;width:2.2em;height:2.2em;margin:0 1.875em;-webkit-animation:swal2-rotate-loading 1.5s linear 0s infinite normal;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;border-width:.25em;border-style:solid;border-radius:100%;border-color:#2778c4 transparent #2778c4 transparent}.swal2-styled{margin:.3125em;padding:.625em 1.1em;box-shadow:none;font-weight:500}.swal2-styled:not([disabled]){cursor:pointer}.swal2-styled.swal2-confirm{border:0;border-radius:.25em;background:initial;background-color:#2778c4;color:#fff;font-size:1.0625em}.swal2-styled.swal2-deny{border:0;border-radius:.25em;background:initial;background-color:#d14529;color:#fff;font-size:1.0625em}.swal2-styled.swal2-cancel{border:0;border-radius:.25em;background:initial;background-color:#757575;color:#fff;font-size:1.0625em}.swal2-styled:focus{outline:0;box-shadow:0 0 0 3px rgba(100,150,200,.5)}.swal2-styled::-moz-focus-inner{border:0}.swal2-footer{justify-content:center;margin:1.25em 0 0;padding:1em 0 0;border-top:1px solid #eee;color:#545454;font-size:1em}.swal2-timer-progress-bar-container{position:absolute;right:0;bottom:0;left:0;height:.25em;overflow:hidden;border-bottom-right-radius:5px;border-bottom-left-radius:5px}.swal2-timer-progress-bar{width:100%;height:.25em;background:rgba(0,0,0,.2)}.swal2-image{max-width:100%;margin:1.25em auto}.swal2-close{position:absolute;z-index:2;top:0;right:0;align-items:center;justify-content:center;width:1.2em;height:1.2em;padding:0;overflow:hidden;transition:color .1s ease-out;border:none;border-radius:5px;background:0 0;color:#ccc;font-family:serif;font-size:2.5em;line-height:1.2;cursor:pointer}.swal2-close:hover{transform:none;background:0 0;color:#f27474}.swal2-close:focus{outline:0;box-shadow:inset 0 0 0 3px rgba(100,150,200,.5)}.swal2-close::-moz-focus-inner{border:0}.swal2-content{z-index:1;justify-content:center;margin:0;padding:0 1.6em;color:#545454;font-size:1.125em;font-weight:400;line-height:normal;text-align:center;word-wrap:break-word}.swal2-checkbox,.swal2-file,.swal2-input,.swal2-radio,.swal2-select,.swal2-textarea{margin:1em auto}.swal2-file,.swal2-input,.swal2-textarea{box-sizing:border-box;width:100%;transition:border-color .3s,box-shadow .3s;border:1px solid #d9d9d9;border-radius:.1875em;background:inherit;box-shadow:inset 0 1px 1px rgba(0,0,0,.06);color:inherit;font-size:1.125em}.swal2-file.swal2-inputerror,.swal2-input.swal2-inputerror,.swal2-textarea.swal2-inputerror{border-color:#f27474!important;box-shadow:0 0 2px #f27474!important}.swal2-file:focus,.swal2-input:focus,.swal2-textarea:focus{border:1px solid #b4dbed;outline:0;box-shadow:0 0 0 3px rgba(100,150,200,.5)}.swal2-file::-moz-placeholder,.swal2-input::-moz-placeholder,.swal2-textarea::-moz-placeholder{color:#ccc}.swal2-file:-ms-input-placeholder,.swal2-input:-ms-input-placeholder,.swal2-textarea:-ms-input-placeholder{color:#ccc}.swal2-file::placeholder,.swal2-input::placeholder,.swal2-textarea::placeholder{color:#ccc}.swal2-range{margin:1em auto;background:#fff}.swal2-range input{width:80%}.swal2-range output{width:20%;color:inherit;font-weight:600;text-align:center}.swal2-range input,.swal2-range output{height:2.625em;padding:0;font-size:1.125em;line-height:2.625em}.swal2-input{height:2.625em;padding:0 .75em}.swal2-input[type=number]{max-width:10em}.swal2-file{background:inherit;font-size:1.125em}.swal2-textarea{height:6.75em;padding:.75em}.swal2-select{min-width:50%;max-width:100%;padding:.375em .625em;background:inherit;color:inherit;font-size:1.125em}.swal2-checkbox,.swal2-radio{align-items:center;justify-content:center;background:#fff;color:inherit}.swal2-checkbox label,.swal2-radio label{margin:0 .6em;font-size:1.125em}.swal2-checkbox input,.swal2-radio input{margin:0 .4em}.swal2-input-label{display:flex;justify-content:center;margin:1em auto}.swal2-validation-message{align-items:center;justify-content:center;margin:0 -2.7em;padding:.625em;overflow:hidden;background:#f0f0f0;color:#666;font-size:1em;font-weight:300}.swal2-validation-message::before{content:\"!\";display:inline-block;width:1.5em;min-width:1.5em;height:1.5em;margin:0 .625em;border-radius:50%;background-color:#f27474;color:#fff;font-weight:600;line-height:1.5em;text-align:center}.swal2-icon{position:relative;box-sizing:content-box;justify-content:center;width:5em;height:5em;margin:1.25em auto 1.875em;border:.25em solid transparent;border-radius:50%;border-color:#000;font-family:inherit;line-height:5em;cursor:default;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:3.75em}.swal2-icon.swal2-error{border-color:#f27474;color:#f27474}.swal2-icon.swal2-error .swal2-x-mark{position:relative;flex-grow:1}.swal2-icon.swal2-error [class^=swal2-x-mark-line]{display:block;position:absolute;top:2.3125em;width:2.9375em;height:.3125em;border-radius:.125em;background-color:#f27474}.swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:1.0625em;transform:rotate(45deg)}.swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:1em;transform:rotate(-45deg)}.swal2-icon.swal2-error.swal2-icon-show{-webkit-animation:swal2-animate-error-icon .5s;animation:swal2-animate-error-icon .5s}.swal2-icon.swal2-error.swal2-icon-show .swal2-x-mark{-webkit-animation:swal2-animate-error-x-mark .5s;animation:swal2-animate-error-x-mark .5s}.swal2-icon.swal2-warning{border-color:#facea8;color:#f8bb86}.swal2-icon.swal2-info{border-color:#9de0f6;color:#3fc3ee}.swal2-icon.swal2-question{border-color:#c9dae1;color:#87adbd}.swal2-icon.swal2-success{border-color:#a5dc86;color:#a5dc86}.swal2-icon.swal2-success [class^=swal2-success-circular-line]{position:absolute;width:3.75em;height:7.5em;transform:rotate(45deg);border-radius:50%}.swal2-icon.swal2-success [class^=swal2-success-circular-line][class$=left]{top:-.4375em;left:-2.0635em;transform:rotate(-45deg);transform-origin:3.75em 3.75em;border-radius:7.5em 0 0 7.5em}.swal2-icon.swal2-success [class^=swal2-success-circular-line][class$=right]{top:-.6875em;left:1.875em;transform:rotate(-45deg);transform-origin:0 3.75em;border-radius:0 7.5em 7.5em 0}.swal2-icon.swal2-success .swal2-success-ring{position:absolute;z-index:2;top:-.25em;left:-.25em;box-sizing:content-box;width:100%;height:100%;border:.25em solid rgba(165,220,134,.3);border-radius:50%}.swal2-icon.swal2-success .swal2-success-fix{position:absolute;z-index:1;top:.5em;left:1.625em;width:.4375em;height:5.625em;transform:rotate(-45deg)}.swal2-icon.swal2-success [class^=swal2-success-line]{display:block;position:absolute;z-index:2;height:.3125em;border-radius:.125em;background-color:#a5dc86}.swal2-icon.swal2-success [class^=swal2-success-line][class$=tip]{top:2.875em;left:.8125em;width:1.5625em;transform:rotate(45deg)}.swal2-icon.swal2-success [class^=swal2-success-line][class$=long]{top:2.375em;right:.5em;width:2.9375em;transform:rotate(-45deg)}.swal2-icon.swal2-success.swal2-icon-show .swal2-success-line-tip{-webkit-animation:swal2-animate-success-line-tip .75s;animation:swal2-animate-success-line-tip .75s}.swal2-icon.swal2-success.swal2-icon-show .swal2-success-line-long{-webkit-animation:swal2-animate-success-line-long .75s;animation:swal2-animate-success-line-long .75s}.swal2-icon.swal2-success.swal2-icon-show .swal2-success-circular-line-right{-webkit-animation:swal2-rotate-success-circular-line 4.25s ease-in;animation:swal2-rotate-success-circular-line 4.25s ease-in}.swal2-progress-steps{flex-wrap:wrap;align-items:center;max-width:100%;margin:0 0 1.25em;padding:0;background:inherit;font-weight:600}.swal2-progress-steps li{display:inline-block;position:relative}.swal2-progress-steps .swal2-progress-step{z-index:20;flex-shrink:0;width:2em;height:2em;border-radius:2em;background:#2778c4;color:#fff;line-height:2em;text-align:center}.swal2-progress-steps .swal2-progress-step.swal2-active-progress-step{background:#2778c4}.swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step{background:#add8e6;color:#fff}.swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line{background:#add8e6}.swal2-progress-steps .swal2-progress-step-line{z-index:10;flex-shrink:0;width:2.5em;height:.4em;margin:0 -1px;background:#2778c4}[class^=swal2]{-webkit-tap-highlight-color:transparent}.swal2-show{-webkit-animation:swal2-show .3s;animation:swal2-show .3s}.swal2-hide{-webkit-animation:swal2-hide .15s forwards;animation:swal2-hide .15s forwards}.swal2-noanimation{transition:none}.swal2-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.swal2-rtl .swal2-close{right:auto;left:0}.swal2-rtl .swal2-timer-progress-bar{right:0;left:auto}@supports (-ms-accelerator:true){.swal2-range input{width:100%!important}.swal2-range output{display:none}}@media all and (-ms-high-contrast:none),(-ms-high-contrast:active){.swal2-range input{width:100%!important}.swal2-range output{display:none}}@-webkit-keyframes swal2-toast-show{0%{transform:translateY(-.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0)}}@keyframes swal2-toast-show{0%{transform:translateY(-.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0)}}@-webkit-keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@-webkit-keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@-webkit-keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}@keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}@-webkit-keyframes swal2-show{0%{transform:scale(.7)}45%{transform:scale(1.05)}80%{transform:scale(.95)}100%{transform:scale(1)}}@keyframes swal2-show{0%{transform:scale(.7)}45%{transform:scale(1.05)}80%{transform:scale(.95)}100%{transform:scale(1)}}@-webkit-keyframes swal2-hide{0%{transform:scale(1);opacity:1}100%{transform:scale(.5);opacity:0}}@keyframes swal2-hide{0%{transform:scale(1);opacity:1}100%{transform:scale(.5);opacity:0}}@-webkit-keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@-webkit-keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@-webkit-keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@-webkit-keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(.4);opacity:0}50%{margin-top:1.625em;transform:scale(.4);opacity:0}80%{margin-top:-.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(.4);opacity:0}50%{margin-top:1.625em;transform:scale(.4);opacity:0}80%{margin-top:-.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@-webkit-keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0);opacity:1}}@keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0);opacity:1}}@-webkit-keyframes swal2-rotate-loading{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes swal2-rotate-loading{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){overflow:hidden}body.swal2-height-auto{height:auto!important}body.swal2-no-backdrop .swal2-container{top:auto;right:auto;bottom:auto;left:auto;max-width:calc(100% - .625em * 2);background-color:transparent!important}body.swal2-no-backdrop .swal2-container>.swal2-modal{box-shadow:0 0 10px rgba(0,0,0,.4)}body.swal2-no-backdrop .swal2-container.swal2-top{top:0;left:50%;transform:translateX(-50%)}body.swal2-no-backdrop .swal2-container.swal2-top-left,body.swal2-no-backdrop .swal2-container.swal2-top-start{top:0;left:0}body.swal2-no-backdrop .swal2-container.swal2-top-end,body.swal2-no-backdrop .swal2-container.swal2-top-right{top:0;right:0}body.swal2-no-backdrop .swal2-container.swal2-center{top:50%;left:50%;transform:translate(-50%,-50%)}body.swal2-no-backdrop .swal2-container.swal2-center-left,body.swal2-no-backdrop .swal2-container.swal2-center-start{top:50%;left:0;transform:translateY(-50%)}body.swal2-no-backdrop .swal2-container.swal2-center-end,body.swal2-no-backdrop .swal2-container.swal2-center-right{top:50%;right:0;transform:translateY(-50%)}body.swal2-no-backdrop .swal2-container.swal2-bottom{bottom:0;left:50%;transform:translateX(-50%)}body.swal2-no-backdrop .swal2-container.swal2-bottom-left,body.swal2-no-backdrop .swal2-container.swal2-bottom-start{bottom:0;left:0}body.swal2-no-backdrop .swal2-container.swal2-bottom-end,body.swal2-no-backdrop .swal2-container.swal2-bottom-right{right:0;bottom:0}@media print{body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){overflow-y:scroll!important}body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown)>[aria-hidden=true]{display:none}body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) .swal2-container{position:static!important}}body.swal2-toast-shown .swal2-container{background-color:transparent}body.swal2-toast-shown .swal2-container.swal2-top{top:0;right:auto;bottom:auto;left:50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-top-end,body.swal2-toast-shown .swal2-container.swal2-top-right{top:0;right:0;bottom:auto;left:auto}body.swal2-toast-shown .swal2-container.swal2-top-left,body.swal2-toast-shown .swal2-container.swal2-top-start{top:0;right:auto;bottom:auto;left:0}body.swal2-toast-shown .swal2-container.swal2-center-left,body.swal2-toast-shown .swal2-container.swal2-center-start{top:50%;right:auto;bottom:auto;left:0;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-center{top:50%;right:auto;bottom:auto;left:50%;transform:translate(-50%,-50%)}body.swal2-toast-shown .swal2-container.swal2-center-end,body.swal2-toast-shown .swal2-container.swal2-center-right{top:50%;right:0;bottom:auto;left:auto;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-left,body.swal2-toast-shown .swal2-container.swal2-bottom-start{top:auto;right:auto;bottom:0;left:0}body.swal2-toast-shown .swal2-container.swal2-bottom{top:auto;right:auto;bottom:0;left:50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown .swal2-container.swal2-bottom-right{top:auto;right:0;bottom:0;left:auto}body.swal2-toast-column .swal2-toast{flex-direction:column;align-items:stretch}body.swal2-toast-column .swal2-toast .swal2-actions{flex:1;align-self:stretch;height:2.2em;margin-top:.3125em}body.swal2-toast-column .swal2-toast .swal2-loading{justify-content:center}body.swal2-toast-column .swal2-toast .swal2-input{height:2em;margin:.3125em auto;font-size:1em}body.swal2-toast-column .swal2-toast .swal2-validation-message{font-size:1em}");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "close": () => (/* binding */ close),
+/* harmony export */   "closePopup": () => (/* binding */ close),
+/* harmony export */   "closeModal": () => (/* binding */ close),
+/* harmony export */   "closeToast": () => (/* binding */ close)
+/* harmony export */ });
+/* harmony import */ var _utils_scrollbarFix_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/scrollbarFix.js */ "./node_modules/sweetalert2/src/utils/scrollbarFix.js");
+/* harmony import */ var _utils_iosFix_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/iosFix.js */ "./node_modules/sweetalert2/src/utils/iosFix.js");
+/* harmony import */ var _utils_ieFix_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/ieFix.js */ "./node_modules/sweetalert2/src/utils/ieFix.js");
+/* harmony import */ var _utils_aria_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/aria.js */ "./node_modules/sweetalert2/src/utils/aria.js");
+/* harmony import */ var _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _utils_classes_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _globalState_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../globalState.js */ "./node_modules/sweetalert2/src/globalState.js");
+/* harmony import */ var _privateProps_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../privateProps.js */ "./node_modules/sweetalert2/src/privateProps.js");
+/* harmony import */ var _privateMethods_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../privateMethods.js */ "./node_modules/sweetalert2/src/privateMethods.js");
+
+
+
+
+
+
+
+
+
+
+/*
+ * Instance method to close sweetAlert
+ */
+
+function removePopupAndResetState (instance, container, returnFocus, didClose) {
+  if (_utils_dom_index_js__WEBPACK_IMPORTED_MODULE_4__.isToast()) {
+    triggerDidCloseAndDispose(instance, didClose)
+  } else {
+    (0,_globalState_js__WEBPACK_IMPORTED_MODULE_6__.restoreActiveElement)(returnFocus).then(() => triggerDidCloseAndDispose(instance, didClose))
+    _globalState_js__WEBPACK_IMPORTED_MODULE_6__.default.keydownTarget.removeEventListener('keydown', _globalState_js__WEBPACK_IMPORTED_MODULE_6__.default.keydownHandler, { capture: _globalState_js__WEBPACK_IMPORTED_MODULE_6__.default.keydownListenerCapture })
+    _globalState_js__WEBPACK_IMPORTED_MODULE_6__.default.keydownHandlerAdded = false
+  }
+
+  if (container.parentNode && !document.body.getAttribute('data-swal2-queue-step')) {
+    container.parentNode.removeChild(container)
+  }
+
+  if (_utils_dom_index_js__WEBPACK_IMPORTED_MODULE_4__.isModal()) {
+    (0,_utils_scrollbarFix_js__WEBPACK_IMPORTED_MODULE_0__.undoScrollbar)()
+    ;(0,_utils_iosFix_js__WEBPACK_IMPORTED_MODULE_1__.undoIOSfix)()
+    ;(0,_utils_ieFix_js__WEBPACK_IMPORTED_MODULE_2__.undoIEfix)()
+    ;(0,_utils_aria_js__WEBPACK_IMPORTED_MODULE_3__.unsetAriaHidden)()
+  }
+
+  removeBodyClasses()
+}
+
+function removeBodyClasses () {
+  _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_4__.removeClass(
+    [document.documentElement, document.body],
+    [
+      _utils_classes_js__WEBPACK_IMPORTED_MODULE_5__.swalClasses.shown,
+      _utils_classes_js__WEBPACK_IMPORTED_MODULE_5__.swalClasses["height-auto"],
+      _utils_classes_js__WEBPACK_IMPORTED_MODULE_5__.swalClasses["no-backdrop"],
+      _utils_classes_js__WEBPACK_IMPORTED_MODULE_5__.swalClasses["toast-shown"],
+      _utils_classes_js__WEBPACK_IMPORTED_MODULE_5__.swalClasses["toast-column"]
+    ]
+  )
+}
+
+function close (resolveValue) {
+  const popup = _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_4__.getPopup()
+
+  if (!popup) {
+    return
+  }
+
+  resolveValue = prepareResolveValue(resolveValue)
+
+  const innerParams = _privateProps_js__WEBPACK_IMPORTED_MODULE_7__.default.innerParams.get(this)
+  if (!innerParams || _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_4__.hasClass(popup, innerParams.hideClass.popup)) {
+    return
+  }
+  const swalPromiseResolve = _privateMethods_js__WEBPACK_IMPORTED_MODULE_8__.default.swalPromiseResolve.get(this)
+
+  _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_4__.removeClass(popup, innerParams.showClass.popup)
+  _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_4__.addClass(popup, innerParams.hideClass.popup)
+
+  const backdrop = _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_4__.getContainer()
+  _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_4__.removeClass(backdrop, innerParams.showClass.backdrop)
+  _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_4__.addClass(backdrop, innerParams.hideClass.backdrop)
+
+  handlePopupAnimation(this, popup, innerParams)
+
+  // Resolve Swal promise
+  swalPromiseResolve(resolveValue)
+}
+
+const prepareResolveValue = (resolveValue) => {
+  // When user calls Swal.close()
+  if (typeof resolveValue === 'undefined') {
+    return {
+      isConfirmed: false,
+      isDenied: false,
+      isDismissed: true,
+    }
+  }
+
+  return Object.assign({
+    isConfirmed: false,
+    isDenied: false,
+    isDismissed: false,
+  }, resolveValue)
+}
+
+const handlePopupAnimation = (instance, popup, innerParams) => {
+  const container = _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_4__.getContainer()
+  // If animation is supported, animate
+  const animationIsSupported = _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_4__.animationEndEvent && _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_4__.hasCssAnimation(popup)
+
+  const {
+    onClose, onAfterClose, // @deprecated
+    willClose, didClose
+  } = innerParams
+
+  runDidClose(popup, willClose, onClose)
+
+  if (animationIsSupported) {
+    animatePopup(instance, popup, container, innerParams.returnFocus, didClose || onAfterClose)
+  } else {
+    // Otherwise, remove immediately
+    removePopupAndResetState(instance, container, innerParams.returnFocus, didClose || onAfterClose)
+  }
+}
+
+const runDidClose = (popup, willClose, onClose) => {
+  if (willClose !== null && typeof willClose === 'function') {
+    willClose(popup)
+  } else if (onClose !== null && typeof onClose === 'function') {
+    onClose(popup) // @deprecated
+  }
+}
+
+const animatePopup = (instance, popup, container, returnFocus, didClose) => {
+  _globalState_js__WEBPACK_IMPORTED_MODULE_6__.default.swalCloseEventFinishedCallback = removePopupAndResetState.bind(null, instance, container, returnFocus, didClose)
+  popup.addEventListener(_utils_dom_index_js__WEBPACK_IMPORTED_MODULE_4__.animationEndEvent, function (e) {
+    if (e.target === popup) {
+      _globalState_js__WEBPACK_IMPORTED_MODULE_6__.default.swalCloseEventFinishedCallback()
+      delete _globalState_js__WEBPACK_IMPORTED_MODULE_6__.default.swalCloseEventFinishedCallback
+    }
+  })
+}
+
+const triggerDidCloseAndDispose = (instance, didClose) => {
+  setTimeout(() => {
+    if (typeof didClose === 'function') {
+      didClose()
+    }
+    instance._destroy()
+  })
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/instanceMethods/enable-disable-elements.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/instanceMethods/enable-disable-elements.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "enableButtons": () => (/* binding */ enableButtons),
+/* harmony export */   "disableButtons": () => (/* binding */ disableButtons),
+/* harmony export */   "enableInput": () => (/* binding */ enableInput),
+/* harmony export */   "disableInput": () => (/* binding */ disableInput)
+/* harmony export */ });
+/* harmony import */ var _privateProps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../privateProps.js */ "./node_modules/sweetalert2/src/privateProps.js");
+
+
+function setButtonsDisabled (instance, buttons, disabled) {
+  const domCache = _privateProps_js__WEBPACK_IMPORTED_MODULE_0__.default.domCache.get(instance)
+  buttons.forEach(button => {
+    domCache[button].disabled = disabled
+  })
+}
+
+function setInputDisabled (input, disabled) {
+  if (!input) {
+    return false
+  }
+  if (input.type === 'radio') {
+    const radiosContainer = input.parentNode.parentNode
+    const radios = radiosContainer.querySelectorAll('input')
+    for (let i = 0; i < radios.length; i++) {
+      radios[i].disabled = disabled
+    }
+  } else {
+    input.disabled = disabled
+  }
+}
+
+function enableButtons () {
+  setButtonsDisabled(this, ['confirmButton', 'denyButton', 'cancelButton'], false)
+}
+
+function disableButtons () {
+  setButtonsDisabled(this, ['confirmButton', 'denyButton', 'cancelButton'], true)
+}
+
+function enableInput () {
+  return setInputDisabled(this.getInput(), false)
+}
+
+function disableInput () {
+  return setInputDisabled(this.getInput(), true)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/instanceMethods/getInput.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/instanceMethods/getInput.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getInput": () => (/* binding */ getInput)
+/* harmony export */ });
+/* harmony import */ var _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _privateProps_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../privateProps.js */ "./node_modules/sweetalert2/src/privateProps.js");
+
+
+
+// Get input element by specified type or, if type isn't specified, by params.input
+function getInput (instance) {
+  const innerParams = _privateProps_js__WEBPACK_IMPORTED_MODULE_1__.default.innerParams.get(instance || this)
+  const domCache = _privateProps_js__WEBPACK_IMPORTED_MODULE_1__.default.domCache.get(instance || this)
+  if (!domCache) {
+    return null
+  }
+  return _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getInput(domCache.content, innerParams.input)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/instanceMethods/hideLoading.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/instanceMethods/hideLoading.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "hideLoading": () => (/* binding */ hideLoading),
+/* harmony export */   "disableLoading": () => (/* binding */ hideLoading)
+/* harmony export */ });
+/* harmony import */ var _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _utils_classes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _privateProps_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../privateProps.js */ "./node_modules/sweetalert2/src/privateProps.js");
+
+
+
+
+/**
+ * Hides loader and shows back the button which was hidden by .showLoading()
+ */
+function hideLoading () {
+  // do nothing if popup is closed
+  const innerParams = _privateProps_js__WEBPACK_IMPORTED_MODULE_2__.default.innerParams.get(this)
+  if (!innerParams) {
+    return
+  }
+  const domCache = _privateProps_js__WEBPACK_IMPORTED_MODULE_2__.default.domCache.get(this)
+  _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.hide(domCache.loader)
+  const buttonToReplace = domCache.popup.getElementsByClassName(domCache.loader.getAttribute('data-button-to-replace'))
+  if (buttonToReplace.length) {
+    _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.show(buttonToReplace[0], 'inline-block')
+  } else if (_utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.allButtonsAreHidden()) {
+    _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.hide(domCache.actions)
+  }
+  _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.removeClass([domCache.popup, domCache.actions], _utils_classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.loading)
+  domCache.popup.removeAttribute('aria-busy')
+  domCache.popup.removeAttribute('data-loading')
+  domCache.confirmButton.disabled = false
+  domCache.denyButton.disabled = false
+  domCache.cancelButton.disabled = false
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/instanceMethods/keydown-handler.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/instanceMethods/keydown-handler.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addKeydownHandler": () => (/* binding */ addKeydownHandler),
+/* harmony export */   "setFocus": () => (/* binding */ setFocus)
+/* harmony export */ });
+/* harmony import */ var _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _utils_DismissReason_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/DismissReason.js */ "./node_modules/sweetalert2/src/utils/DismissReason.js");
+/* harmony import */ var _utils_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+/* harmony import */ var _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../staticMethods/dom.js */ "./node_modules/sweetalert2/src/staticMethods/dom.js");
+/* harmony import */ var _privateProps_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../privateProps.js */ "./node_modules/sweetalert2/src/privateProps.js");
+
+
+
+
+
+
+const addKeydownHandler = (instance, globalState, innerParams, dismissWith) => {
+  if (globalState.keydownTarget && globalState.keydownHandlerAdded) {
+    globalState.keydownTarget.removeEventListener('keydown', globalState.keydownHandler, { capture: globalState.keydownListenerCapture })
+    globalState.keydownHandlerAdded = false
+  }
+
+  if (!innerParams.toast) {
+    globalState.keydownHandler = (e) => keydownHandler(instance, e, dismissWith)
+    globalState.keydownTarget = innerParams.keydownListenerCapture ? window : _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getPopup()
+    globalState.keydownListenerCapture = innerParams.keydownListenerCapture
+    globalState.keydownTarget.addEventListener('keydown', globalState.keydownHandler, { capture: globalState.keydownListenerCapture })
+    globalState.keydownHandlerAdded = true
+  }
+}
+
+// Focus handling
+const setFocus = (innerParams, index, increment) => {
+  const focusableElements = _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getFocusableElements()
+  // search for visible elements and select the next possible match
+  if (focusableElements.length) {
+    index = index + increment
+
+    // rollover to first item
+    if (index === focusableElements.length) {
+      index = 0
+
+      // go to last item
+    } else if (index === -1) {
+      index = focusableElements.length - 1
+    }
+
+    return focusableElements[index].focus()
+  }
+  // no visible focusable elements, focus the popup
+  _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getPopup().focus()
+}
+
+const arrowKeysNextButton = [
+  'ArrowRight', 'ArrowDown',
+  'Right', 'Down' // IE11
+]
+
+const arrowKeysPreviousButton = [
+  'ArrowLeft', 'ArrowUp',
+  'Left', 'Up' // IE11
+]
+
+const escKeys = [
+  'Escape',
+  'Esc' // IE11
+]
+
+const keydownHandler = (instance, e, dismissWith) => {
+  const innerParams = _privateProps_js__WEBPACK_IMPORTED_MODULE_4__.default.innerParams.get(instance)
+
+  if (!innerParams) {
+    return // This instance has already been destroyed
+  }
+
+  if (innerParams.stopKeydownPropagation) {
+    e.stopPropagation()
+  }
+
+  // ENTER
+  if (e.key === 'Enter') {
+    handleEnter(instance, e, innerParams)
+
+  // TAB
+  } else if (e.key === 'Tab') {
+    handleTab(e, innerParams)
+
+  // ARROWS - switch focus between buttons
+  } else if ([...arrowKeysNextButton, ...arrowKeysPreviousButton].includes(e.key)) {
+    handleArrows(e.key)
+
+  // ESC
+  } else if (escKeys.includes(e.key)) {
+    handleEsc(e, innerParams, dismissWith)
+  }
+}
+
+const handleEnter = (instance, e, innerParams) => {
+  // #720 #721
+  if (e.isComposing) {
+    return
+  }
+
+  if (e.target && instance.getInput() && e.target.outerHTML === instance.getInput().outerHTML) {
+    if (['textarea', 'file'].includes(innerParams.input)) {
+      return // do not submit
+    }
+
+    (0,_staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_3__.clickConfirm)()
+    e.preventDefault()
+  }
+}
+
+const handleTab = (e, innerParams) => {
+  const targetElement = e.target
+
+  const focusableElements = _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getFocusableElements()
+  let btnIndex = -1
+  for (let i = 0; i < focusableElements.length; i++) {
+    if (targetElement === focusableElements[i]) {
+      btnIndex = i
+      break
+    }
+  }
+
+  if (!e.shiftKey) {
+    // Cycle to the next button
+    setFocus(innerParams, btnIndex, 1)
+  } else {
+    // Cycle to the prev button
+    setFocus(innerParams, btnIndex, -1)
+  }
+  e.stopPropagation()
+  e.preventDefault()
+}
+
+const handleArrows = (key) => {
+  const confirmButton = _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getConfirmButton()
+  const denyButton = _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getDenyButton()
+  const cancelButton = _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getCancelButton()
+  if (![confirmButton, denyButton, cancelButton].includes(document.activeElement)) {
+    return
+  }
+  const sibling = arrowKeysNextButton.includes(key) ? 'nextElementSibling' : 'previousElementSibling'
+  const buttonToFocus = document.activeElement[sibling]
+  if (buttonToFocus) {
+    buttonToFocus.focus()
+  }
+}
+
+const handleEsc = (e, innerParams, dismissWith) => {
+  if ((0,_utils_utils_js__WEBPACK_IMPORTED_MODULE_2__.callIfFunction)(innerParams.allowEscapeKey)) {
+    e.preventDefault()
+    dismissWith(_utils_DismissReason_js__WEBPACK_IMPORTED_MODULE_1__.DismissReason.esc)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/instanceMethods/popup-click-handler.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/instanceMethods/popup-click-handler.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "handlePopupClick": () => (/* binding */ handlePopupClick)
+/* harmony export */ });
+/* harmony import */ var _utils_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+/* harmony import */ var _utils_DismissReason_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/DismissReason.js */ "./node_modules/sweetalert2/src/utils/DismissReason.js");
+/* harmony import */ var _privateProps_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../privateProps.js */ "./node_modules/sweetalert2/src/privateProps.js");
+
+
+
+
+const handlePopupClick = (instance, domCache, dismissWith) => {
+  const innerParams = _privateProps_js__WEBPACK_IMPORTED_MODULE_2__.default.innerParams.get(instance)
+  if (innerParams.toast) {
+    handleToastClick(instance, domCache, dismissWith)
+  } else {
+    // Ignore click events that had mousedown on the popup but mouseup on the container
+    // This can happen when the user drags a slider
+    handleModalMousedown(domCache)
+
+    // Ignore click events that had mousedown on the container but mouseup on the popup
+    handleContainerMousedown(domCache)
+
+    handleModalClick(instance, domCache, dismissWith)
+  }
+}
+
+const handleToastClick = (instance, domCache, dismissWith) => {
+  // Closing toast by internal click
+  domCache.popup.onclick = () => {
+    const innerParams = _privateProps_js__WEBPACK_IMPORTED_MODULE_2__.default.innerParams.get(instance)
+    if (
+      innerParams.showConfirmButton ||
+      innerParams.showDenyButton ||
+      innerParams.showCancelButton ||
+      innerParams.showCloseButton ||
+      innerParams.timer ||
+      innerParams.input
+    ) {
+      return
+    }
+    dismissWith(_utils_DismissReason_js__WEBPACK_IMPORTED_MODULE_1__.DismissReason.close)
+  }
+}
+
+let ignoreOutsideClick = false
+
+const handleModalMousedown = (domCache) => {
+  domCache.popup.onmousedown = () => {
+    domCache.container.onmouseup = function (e) {
+      domCache.container.onmouseup = undefined
+      // We only check if the mouseup target is the container because usually it doesn't
+      // have any other direct children aside of the popup
+      if (e.target === domCache.container) {
+        ignoreOutsideClick = true
+      }
+    }
+  }
+}
+
+const handleContainerMousedown = (domCache) => {
+  domCache.container.onmousedown = () => {
+    domCache.popup.onmouseup = function (e) {
+      domCache.popup.onmouseup = undefined
+      // We also need to check if the mouseup target is a child of the popup
+      if (e.target === domCache.popup || domCache.popup.contains(e.target)) {
+        ignoreOutsideClick = true
+      }
+    }
+  }
+}
+
+const handleModalClick = (instance, domCache, dismissWith) => {
+  domCache.container.onclick = (e) => {
+    const innerParams = _privateProps_js__WEBPACK_IMPORTED_MODULE_2__.default.innerParams.get(instance)
+    if (ignoreOutsideClick) {
+      ignoreOutsideClick = false
+      return
+    }
+    if (e.target === domCache.container && (0,_utils_utils_js__WEBPACK_IMPORTED_MODULE_0__.callIfFunction)(innerParams.allowOutsideClick)) {
+      dismissWith(_utils_DismissReason_js__WEBPACK_IMPORTED_MODULE_1__.DismissReason.backdrop)
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/instanceMethods/progress-steps.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/instanceMethods/progress-steps.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getProgressSteps": () => (/* binding */ getProgressSteps)
+/* harmony export */ });
+/* harmony import */ var _privateProps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../privateProps.js */ "./node_modules/sweetalert2/src/privateProps.js");
+
+
+function getProgressSteps () {
+  const domCache = _privateProps_js__WEBPACK_IMPORTED_MODULE_0__.default.domCache.get(this)
+  return domCache.progressSteps
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/instanceMethods/update.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/instanceMethods/update.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "update": () => (/* binding */ update)
+/* harmony export */ });
+/* harmony import */ var _src_utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../src/utils/dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _src_utils_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../src/utils/utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+/* harmony import */ var _sweetalert2_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../sweetalert2.js */ "./node_modules/sweetalert2/src/sweetalert2.js");
+/* harmony import */ var _privateProps_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../privateProps.js */ "./node_modules/sweetalert2/src/privateProps.js");
+
+
+
+
+
+/**
+ * Updates popup parameters.
+ */
+function update (params) {
+  const popup = _src_utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getPopup()
+  const innerParams = _privateProps_js__WEBPACK_IMPORTED_MODULE_3__.default.innerParams.get(this)
+
+  if (!popup || _src_utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.hasClass(popup, innerParams.hideClass.popup)) {
+    return (0,_src_utils_utils_js__WEBPACK_IMPORTED_MODULE_1__.warn)(`You're trying to update the closed or closing popup, that won't work. Use the update() method in preConfirm parameter or show a new popup.`)
+  }
+
+  const validUpdatableParams = {}
+
+  // assign valid params from `params` to `defaults`
+  Object.keys(params).forEach(param => {
+    if (_sweetalert2_js__WEBPACK_IMPORTED_MODULE_2__.default.isUpdatableParameter(param)) {
+      validUpdatableParams[param] = params[param]
+    } else {
+      (0,_src_utils_utils_js__WEBPACK_IMPORTED_MODULE_1__.warn)(`Invalid parameter to update: "${param}". Updatable params are listed here: https://github.com/sweetalert2/sweetalert2/blob/master/src/utils/params.js\n\nIf you think this parameter should be updatable, request it here: https://github.com/sweetalert2/sweetalert2/issues/new?template=02_feature_request.md`)
+    }
+  })
+
+  const updatedParams = Object.assign({}, innerParams, validUpdatableParams)
+
+  _src_utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.render(this, updatedParams)
+
+  _privateProps_js__WEBPACK_IMPORTED_MODULE_3__.default.innerParams.set(this, updatedParams)
+  Object.defineProperties(this, {
+    params: {
+      value: Object.assign({}, this.params, params),
+      writable: false,
+      enumerable: true
+    }
+  })
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/instanceMethods/validation-message.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/instanceMethods/validation-message.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "showValidationMessage": () => (/* binding */ showValidationMessage),
+/* harmony export */   "resetValidationMessage": () => (/* binding */ resetValidationMessage)
+/* harmony export */ });
+/* harmony import */ var _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _utils_classes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _privateProps_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../privateProps.js */ "./node_modules/sweetalert2/src/privateProps.js");
+
+
+
+
+// Show block with validation message
+function showValidationMessage (error) {
+  const domCache = _privateProps_js__WEBPACK_IMPORTED_MODULE_2__.default.domCache.get(this)
+  const params = _privateProps_js__WEBPACK_IMPORTED_MODULE_2__.default.innerParams.get(this)
+  _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.setInnerHtml(domCache.validationMessage, error)
+  domCache.validationMessage.className = _utils_classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses["validation-message"]
+  if (params.customClass && params.customClass.validationMessage) {
+    _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.addClass(domCache.validationMessage, params.customClass.validationMessage)
+  }
+  _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.show(domCache.validationMessage)
+
+  const input = this.getInput()
+  if (input) {
+    input.setAttribute('aria-invalid', true)
+    input.setAttribute('aria-describedBy', _utils_classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses["validation-message"])
+    _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.focusInput(input)
+    _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.addClass(input, _utils_classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.inputerror)
+  }
+}
+
+// Hide block with validation message
+function resetValidationMessage () {
+  const domCache = _privateProps_js__WEBPACK_IMPORTED_MODULE_2__.default.domCache.get(this)
+  if (domCache.validationMessage) {
+    _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.hide(domCache.validationMessage)
+  }
+
+  const input = this.getInput()
+  if (input) {
+    input.removeAttribute('aria-invalid')
+    input.removeAttribute('aria-describedBy')
+    _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.removeClass(input, _utils_classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.inputerror)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/privateMethods.js":
+/*!********************************************************!*\
+  !*** ./node_modules/sweetalert2/src/privateMethods.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * This module containts `WeakMap`s for each effectively-"private  property" that a `Swal` has.
+ * For example, to set the private property "foo" of `this` to "bar", you can `privateProps.foo.set(this, 'bar')`
+ * This is the approach that Babel will probably take to implement private methods/fields
+ *   https://github.com/tc39/proposal-private-methods
+ *   https://github.com/babel/babel/pull/7555
+ * Once we have the changes from that PR in Babel, and our core class fits reasonable in *one module*
+ *   then we can use that language feature.
+ */
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  swalPromiseResolve: new WeakMap()
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/privateProps.js":
+/*!******************************************************!*\
+  !*** ./node_modules/sweetalert2/src/privateProps.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * This module containts `WeakMap`s for each effectively-"private  property" that a `Swal` has.
+ * For example, to set the private property "foo" of `this` to "bar", you can `privateProps.foo.set(this, 'bar')`
+ * This is the approach that Babel will probably take to implement private methods/fields
+ *   https://github.com/tc39/proposal-private-methods
+ *   https://github.com/babel/babel/pull/7555
+ * Once we have the changes from that PR in Babel, and our core class fits reasonable in *one module*
+ *   then we can use that language feature.
+ */
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  promise: new WeakMap(),
+  innerParams: new WeakMap(),
+  domCache: new WeakMap()
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/staticMethods.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/sweetalert2/src/staticMethods.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "argsToParams": () => (/* reexport safe */ _staticMethods_argsToParams_js__WEBPACK_IMPORTED_MODULE_0__.argsToParams),
+/* harmony export */   "clickCancel": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.clickCancel),
+/* harmony export */   "clickConfirm": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.clickConfirm),
+/* harmony export */   "clickDeny": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.clickDeny),
+/* harmony export */   "getActions": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getActions),
+/* harmony export */   "getCancelButton": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getCancelButton),
+/* harmony export */   "getCloseButton": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getCloseButton),
+/* harmony export */   "getConfirmButton": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getConfirmButton),
+/* harmony export */   "getContainer": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getContainer),
+/* harmony export */   "getContent": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getContent),
+/* harmony export */   "getDenyButton": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getDenyButton),
+/* harmony export */   "getFocusableElements": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getFocusableElements),
+/* harmony export */   "getFooter": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getFooter),
+/* harmony export */   "getHeader": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getHeader),
+/* harmony export */   "getHtmlContainer": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getHtmlContainer),
+/* harmony export */   "getIcon": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getIcon),
+/* harmony export */   "getImage": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getImage),
+/* harmony export */   "getInputLabel": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getInputLabel),
+/* harmony export */   "getLoader": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getLoader),
+/* harmony export */   "getPopup": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getPopup),
+/* harmony export */   "getTimerProgressBar": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getTimerProgressBar),
+/* harmony export */   "getTitle": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getTitle),
+/* harmony export */   "getValidationMessage": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.getValidationMessage),
+/* harmony export */   "isLoading": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.isLoading),
+/* harmony export */   "isVisible": () => (/* reexport safe */ _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__.isVisible),
+/* harmony export */   "fire": () => (/* reexport safe */ _staticMethods_fire_js__WEBPACK_IMPORTED_MODULE_2__.fire),
+/* harmony export */   "mixin": () => (/* reexport safe */ _staticMethods_mixin_js__WEBPACK_IMPORTED_MODULE_3__.mixin),
+/* harmony export */   "deleteQueueStep": () => (/* reexport safe */ _staticMethods_queue_js__WEBPACK_IMPORTED_MODULE_4__.deleteQueueStep),
+/* harmony export */   "getQueueStep": () => (/* reexport safe */ _staticMethods_queue_js__WEBPACK_IMPORTED_MODULE_4__.getQueueStep),
+/* harmony export */   "insertQueueStep": () => (/* reexport safe */ _staticMethods_queue_js__WEBPACK_IMPORTED_MODULE_4__.insertQueueStep),
+/* harmony export */   "queue": () => (/* reexport safe */ _staticMethods_queue_js__WEBPACK_IMPORTED_MODULE_4__.queue),
+/* harmony export */   "enableLoading": () => (/* reexport safe */ _staticMethods_showLoading_js__WEBPACK_IMPORTED_MODULE_5__.enableLoading),
+/* harmony export */   "showLoading": () => (/* reexport safe */ _staticMethods_showLoading_js__WEBPACK_IMPORTED_MODULE_5__.showLoading),
+/* harmony export */   "getTimerLeft": () => (/* reexport safe */ _staticMethods_timer_js__WEBPACK_IMPORTED_MODULE_6__.getTimerLeft),
+/* harmony export */   "increaseTimer": () => (/* reexport safe */ _staticMethods_timer_js__WEBPACK_IMPORTED_MODULE_6__.increaseTimer),
+/* harmony export */   "isTimerRunning": () => (/* reexport safe */ _staticMethods_timer_js__WEBPACK_IMPORTED_MODULE_6__.isTimerRunning),
+/* harmony export */   "resumeTimer": () => (/* reexport safe */ _staticMethods_timer_js__WEBPACK_IMPORTED_MODULE_6__.resumeTimer),
+/* harmony export */   "stopTimer": () => (/* reexport safe */ _staticMethods_timer_js__WEBPACK_IMPORTED_MODULE_6__.stopTimer),
+/* harmony export */   "toggleTimer": () => (/* reexport safe */ _staticMethods_timer_js__WEBPACK_IMPORTED_MODULE_6__.toggleTimer),
+/* harmony export */   "bindClickHandler": () => (/* reexport safe */ _staticMethods_bindClickHandler_js__WEBPACK_IMPORTED_MODULE_7__.bindClickHandler),
+/* harmony export */   "isValidParameter": () => (/* reexport safe */ _utils_params_js__WEBPACK_IMPORTED_MODULE_8__.isValidParameter),
+/* harmony export */   "isUpdatableParameter": () => (/* reexport safe */ _utils_params_js__WEBPACK_IMPORTED_MODULE_8__.isUpdatableParameter),
+/* harmony export */   "isDeprecatedParameter": () => (/* reexport safe */ _utils_params_js__WEBPACK_IMPORTED_MODULE_8__.isDeprecatedParameter)
+/* harmony export */ });
+/* harmony import */ var _staticMethods_argsToParams_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./staticMethods/argsToParams.js */ "./node_modules/sweetalert2/src/staticMethods/argsToParams.js");
+/* harmony import */ var _staticMethods_dom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./staticMethods/dom.js */ "./node_modules/sweetalert2/src/staticMethods/dom.js");
+/* harmony import */ var _staticMethods_fire_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./staticMethods/fire.js */ "./node_modules/sweetalert2/src/staticMethods/fire.js");
+/* harmony import */ var _staticMethods_mixin_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./staticMethods/mixin.js */ "./node_modules/sweetalert2/src/staticMethods/mixin.js");
+/* harmony import */ var _staticMethods_queue_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./staticMethods/queue.js */ "./node_modules/sweetalert2/src/staticMethods/queue.js");
+/* harmony import */ var _staticMethods_showLoading_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./staticMethods/showLoading.js */ "./node_modules/sweetalert2/src/staticMethods/showLoading.js");
+/* harmony import */ var _staticMethods_timer_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./staticMethods/timer.js */ "./node_modules/sweetalert2/src/staticMethods/timer.js");
+/* harmony import */ var _staticMethods_bindClickHandler_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./staticMethods/bindClickHandler.js */ "./node_modules/sweetalert2/src/staticMethods/bindClickHandler.js");
+/* harmony import */ var _utils_params_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils/params.js */ "./node_modules/sweetalert2/src/utils/params.js");
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/staticMethods/argsToParams.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/staticMethods/argsToParams.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "argsToParams": () => (/* binding */ argsToParams)
+/* harmony export */ });
+/* harmony import */ var _utils_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+
+
+const isJqueryElement = (elem) => typeof elem === 'object' && elem.jquery
+const isElement = (elem) => elem instanceof Element || isJqueryElement(elem)
+
+const argsToParams = (args) => {
+  const params = {}
+  if (typeof args[0] === 'object' && !isElement(args[0])) {
+    Object.assign(params, args[0])
+  } else {
+    ['title', 'html', 'icon'].forEach((name, index) => {
+      const arg = args[index]
+      if (typeof arg === 'string' || isElement(arg)) {
+        params[name] = arg
+      } else if (arg !== undefined) {
+        (0,_utils_utils_js__WEBPACK_IMPORTED_MODULE_0__.error)(`Unexpected type of ${name}! Expected "string" or "Element", got ${typeof arg}`)
+      }
+    })
+  }
+  return params
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/staticMethods/bindClickHandler.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/staticMethods/bindClickHandler.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "bindClickHandler": () => (/* binding */ bindClickHandler)
+/* harmony export */ });
+let bodyClickListenerAdded = false
+const clickHandlers = {}
+
+function bindClickHandler (attr = 'data-swal-template') {
+  clickHandlers[attr] = this
+
+  if (!bodyClickListenerAdded) {
+    document.body.addEventListener('click', bodyClickListener)
+    bodyClickListenerAdded = true
+  }
+}
+
+const bodyClickListener = (event) => {
+  // 1. using .parentNode instead of event.path because of better support by old browsers https://stackoverflow.com/a/39245638
+  // 2. using .parentNode instead of .parentElement because of IE11 + SVG https://stackoverflow.com/a/36270354
+  for (let el = event.target; el && el !== document; el = el.parentNode) {
+    for (const attr in clickHandlers) {
+      const template = el.getAttribute(attr)
+      if (template) {
+        clickHandlers[attr].fire({ template })
+        return
+      }
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/staticMethods/dom.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/sweetalert2/src/staticMethods/dom.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getContainer": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getContainer),
+/* harmony export */   "getPopup": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getPopup),
+/* harmony export */   "getTitle": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getTitle),
+/* harmony export */   "getContent": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getContent),
+/* harmony export */   "getHtmlContainer": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getHtmlContainer),
+/* harmony export */   "getImage": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getImage),
+/* harmony export */   "getIcon": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getIcon),
+/* harmony export */   "getInputLabel": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getInputLabel),
+/* harmony export */   "getCloseButton": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getCloseButton),
+/* harmony export */   "getActions": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getActions),
+/* harmony export */   "getConfirmButton": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getConfirmButton),
+/* harmony export */   "getDenyButton": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getDenyButton),
+/* harmony export */   "getCancelButton": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getCancelButton),
+/* harmony export */   "getLoader": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getLoader),
+/* harmony export */   "getHeader": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getHeader),
+/* harmony export */   "getFooter": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getFooter),
+/* harmony export */   "getTimerProgressBar": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getTimerProgressBar),
+/* harmony export */   "getFocusableElements": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getFocusableElements),
+/* harmony export */   "getValidationMessage": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getValidationMessage),
+/* harmony export */   "isLoading": () => (/* reexport safe */ _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.isLoading),
+/* harmony export */   "isVisible": () => (/* binding */ isVisible),
+/* harmony export */   "clickConfirm": () => (/* binding */ clickConfirm),
+/* harmony export */   "clickDeny": () => (/* binding */ clickDeny),
+/* harmony export */   "clickCancel": () => (/* binding */ clickCancel)
+/* harmony export */ });
+/* harmony import */ var _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _utils_dom_domUtils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/dom/domUtils.js */ "./node_modules/sweetalert2/src/utils/dom/domUtils.js");
+
+
+
+
+
+/*
+ * Global function to determine if SweetAlert2 popup is shown
+ */
+const isVisible = () => {
+  return _utils_dom_domUtils_js__WEBPACK_IMPORTED_MODULE_1__.isVisible(_utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getPopup())
+}
+
+/*
+ * Global function to click 'Confirm' button
+ */
+const clickConfirm = () => _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getConfirmButton() && _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getConfirmButton().click()
+
+/*
+ * Global function to click 'Deny' button
+ */
+const clickDeny = () => _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getDenyButton() && _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getDenyButton().click()
+
+/*
+ * Global function to click 'Cancel' button
+ */
+const clickCancel = () => _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getCancelButton() && _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getCancelButton().click()
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/staticMethods/fire.js":
+/*!************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/staticMethods/fire.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fire": () => (/* binding */ fire)
+/* harmony export */ });
+function fire (...args) {
+  const Swal = this
+  return new Swal(...args)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/staticMethods/mixin.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/staticMethods/mixin.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "mixin": () => (/* binding */ mixin)
+/* harmony export */ });
+/**
+ * Returns an extended version of `Swal` containing `params` as defaults.
+ * Useful for reusing Swal configuration.
+ *
+ * For example:
+ *
+ * Before:
+ * const textPromptOptions = { input: 'text', showCancelButton: true }
+ * const {value: firstName} = await Swal.fire({ ...textPromptOptions, title: 'What is your first name?' })
+ * const {value: lastName} = await Swal.fire({ ...textPromptOptions, title: 'What is your last name?' })
+ *
+ * After:
+ * const TextPrompt = Swal.mixin({ input: 'text', showCancelButton: true })
+ * const {value: firstName} = await TextPrompt('What is your first name?')
+ * const {value: lastName} = await TextPrompt('What is your last name?')
+ *
+ * @param mixinParams
+ */
+function mixin (mixinParams) {
+  class MixinSwal extends this {
+    _main (params, priorityMixinParams) {
+      return super._main(params, Object.assign({}, mixinParams, priorityMixinParams))
+    }
+  }
+
+  return MixinSwal
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/staticMethods/queue.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/staticMethods/queue.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "queue": () => (/* binding */ queue),
+/* harmony export */   "getQueueStep": () => (/* binding */ getQueueStep),
+/* harmony export */   "insertQueueStep": () => (/* binding */ insertQueueStep),
+/* harmony export */   "deleteQueueStep": () => (/* binding */ deleteQueueStep)
+/* harmony export */ });
+/* harmony import */ var _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+
+
+// private global state for the queue feature
+let currentSteps = []
+
+/*
+ * Global function for chaining sweetAlert popups
+ */
+const queue = function (steps) {
+  const Swal = this
+  currentSteps = steps
+
+  const resetAndResolve = (resolve, value) => {
+    currentSteps = []
+    resolve(value)
+  }
+
+  const queueResult = []
+  return new Promise((resolve) => {
+    (function step (i, callback) {
+      if (i < currentSteps.length) {
+        document.body.setAttribute('data-swal2-queue-step', i)
+        Swal.fire(currentSteps[i]).then((result) => {
+          if (typeof result.value !== 'undefined') {
+            queueResult.push(result.value)
+            step(i + 1, callback)
+          } else {
+            resetAndResolve(resolve, { dismiss: result.dismiss })
+          }
+        })
+      } else {
+        resetAndResolve(resolve, { value: queueResult })
+      }
+    })(0)
+  })
+}
+
+/*
+ * Global function for getting the index of current popup in queue
+ */
+const getQueueStep = () => _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getContainer() && _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getContainer().getAttribute('data-queue-step')
+
+/*
+ * Global function for inserting a popup to the queue
+ */
+const insertQueueStep = (step, index) => {
+  if (index && index < currentSteps.length) {
+    return currentSteps.splice(index, 0, step)
+  }
+  return currentSteps.push(step)
+}
+
+/*
+ * Global function for deleting a popup from the queue
+ */
+const deleteQueueStep = (index) => {
+  if (typeof currentSteps[index] !== 'undefined') {
+    currentSteps.splice(index, 1)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/staticMethods/showLoading.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/staticMethods/showLoading.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "showLoading": () => (/* binding */ showLoading),
+/* harmony export */   "enableLoading": () => (/* binding */ showLoading)
+/* harmony export */ });
+/* harmony import */ var _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _sweetalert2_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../sweetalert2.js */ "./node_modules/sweetalert2/src/sweetalert2.js");
+/* harmony import */ var _utils_classes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+
+
+
+
+/**
+ * Shows loader (spinner), this is useful with AJAX requests.
+ * By default the loader be shown instead of the "Confirm" button.
+ */
+const showLoading = (buttonToReplace) => {
+  let popup = _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getPopup()
+  if (!popup) {
+    _sweetalert2_js__WEBPACK_IMPORTED_MODULE_1__.default.fire()
+  }
+  popup = _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getPopup()
+  const actions = _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getActions()
+  const loader = _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getLoader()
+
+  if (!buttonToReplace && _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.isVisible(_utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getConfirmButton())) {
+    buttonToReplace = _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getConfirmButton()
+  }
+
+  _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.show(actions)
+  if (buttonToReplace) {
+    _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.hide(buttonToReplace)
+    loader.setAttribute('data-button-to-replace', buttonToReplace.className)
+  }
+  loader.parentNode.insertBefore(loader, buttonToReplace)
+  _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.addClass([popup, actions], _utils_classes_js__WEBPACK_IMPORTED_MODULE_2__.swalClasses.loading)
+
+  _utils_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.show(loader)
+
+  popup.setAttribute('data-loading', true)
+  popup.setAttribute('aria-busy', true)
+  popup.focus()
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/staticMethods/timer.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/staticMethods/timer.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getTimerLeft": () => (/* binding */ getTimerLeft),
+/* harmony export */   "stopTimer": () => (/* binding */ stopTimer),
+/* harmony export */   "resumeTimer": () => (/* binding */ resumeTimer),
+/* harmony export */   "toggleTimer": () => (/* binding */ toggleTimer),
+/* harmony export */   "increaseTimer": () => (/* binding */ increaseTimer),
+/* harmony export */   "isTimerRunning": () => (/* binding */ isTimerRunning)
+/* harmony export */ });
+/* harmony import */ var _utils_dom_domUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/dom/domUtils.js */ "./node_modules/sweetalert2/src/utils/dom/domUtils.js");
+/* harmony import */ var _globalState_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../globalState.js */ "./node_modules/sweetalert2/src/globalState.js");
+
+
+
+/**
+ * If `timer` parameter is set, returns number of milliseconds of timer remained.
+ * Otherwise, returns undefined.
+ */
+const getTimerLeft = () => {
+  return _globalState_js__WEBPACK_IMPORTED_MODULE_1__.default.timeout && _globalState_js__WEBPACK_IMPORTED_MODULE_1__.default.timeout.getTimerLeft()
+}
+
+/**
+ * Stop timer. Returns number of milliseconds of timer remained.
+ * If `timer` parameter isn't set, returns undefined.
+ */
+const stopTimer = () => {
+  if (_globalState_js__WEBPACK_IMPORTED_MODULE_1__.default.timeout) {
+    (0,_utils_dom_domUtils_js__WEBPACK_IMPORTED_MODULE_0__.stopTimerProgressBar)()
+    return _globalState_js__WEBPACK_IMPORTED_MODULE_1__.default.timeout.stop()
+  }
+}
+
+/**
+ * Resume timer. Returns number of milliseconds of timer remained.
+ * If `timer` parameter isn't set, returns undefined.
+ */
+const resumeTimer = () => {
+  if (_globalState_js__WEBPACK_IMPORTED_MODULE_1__.default.timeout) {
+    const remaining = _globalState_js__WEBPACK_IMPORTED_MODULE_1__.default.timeout.start()
+    ;(0,_utils_dom_domUtils_js__WEBPACK_IMPORTED_MODULE_0__.animateTimerProgressBar)(remaining)
+    return remaining
+  }
+}
+
+/**
+ * Resume timer. Returns number of milliseconds of timer remained.
+ * If `timer` parameter isn't set, returns undefined.
+ */
+const toggleTimer = () => {
+  const timer = _globalState_js__WEBPACK_IMPORTED_MODULE_1__.default.timeout
+  return timer && (timer.running ? stopTimer() : resumeTimer())
+}
+
+/**
+ * Increase timer. Returns number of milliseconds of an updated timer.
+ * If `timer` parameter isn't set, returns undefined.
+ */
+const increaseTimer = (n) => {
+  if (_globalState_js__WEBPACK_IMPORTED_MODULE_1__.default.timeout) {
+    const remaining = _globalState_js__WEBPACK_IMPORTED_MODULE_1__.default.timeout.increase(n)
+    ;(0,_utils_dom_domUtils_js__WEBPACK_IMPORTED_MODULE_0__.animateTimerProgressBar)(remaining, true)
+    return remaining
+  }
+}
+
+/**
+ * Check if timer is running. Returns true if timer is running
+ * or false if timer is paused or stopped.
+ * If `timer` parameter isn't set, returns undefined
+ */
+const isTimerRunning = () => {
+  return _globalState_js__WEBPACK_IMPORTED_MODULE_1__.default.timeout && _globalState_js__WEBPACK_IMPORTED_MODULE_1__.default.timeout.isRunning()
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/sweetalert2.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/sweetalert2/src/sweetalert2.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _SweetAlert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SweetAlert.js */ "./node_modules/sweetalert2/src/SweetAlert.js");
+
+
+const Swal = _SweetAlert_js__WEBPACK_IMPORTED_MODULE_0__.default
+Swal.default = Swal
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Swal);
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/DismissReason.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/DismissReason.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "DismissReason": () => (/* binding */ DismissReason)
+/* harmony export */ });
+const DismissReason = Object.freeze({
+  cancel: 'cancel',
+  backdrop: 'backdrop',
+  close: 'close',
+  esc: 'esc',
+  timer: 'timer'
+})
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/Timer.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/Timer.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Timer)
+/* harmony export */ });
+class Timer {
+  constructor (callback, delay) {
+    this.callback = callback
+    this.remaining = delay
+    this.running = false
+
+    this.start()
+  }
+
+  start () {
+    if (!this.running) {
+      this.running = true
+      this.started = new Date()
+      this.id = setTimeout(this.callback, this.remaining)
+    }
+    return this.remaining
+  }
+
+  stop () {
+    if (this.running) {
+      this.running = false
+      clearTimeout(this.id)
+      this.remaining -= new Date() - this.started
+    }
+    return this.remaining
+  }
+
+  increase (n) {
+    const running = this.running
+    if (running) {
+      this.stop()
+    }
+    this.remaining += n
+    if (running) {
+      this.start()
+    }
+    return this.remaining
+  }
+
+  getTimerLeft () {
+    if (this.running) {
+      this.stop()
+      this.start()
+    }
+    return this.remaining
+  }
+
+  isRunning () {
+    return this.running
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/aria.js":
+/*!****************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/aria.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "setAriaHidden": () => (/* binding */ setAriaHidden),
+/* harmony export */   "unsetAriaHidden": () => (/* binding */ unsetAriaHidden)
+/* harmony export */ });
+/* harmony import */ var _dom_getters_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom/getters.js */ "./node_modules/sweetalert2/src/utils/dom/getters.js");
+/* harmony import */ var _dom_domUtils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom/domUtils.js */ "./node_modules/sweetalert2/src/utils/dom/domUtils.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+
+
+
+
+// From https://developer.paciellogroup.com/blog/2018/06/the-current-state-of-modal-dialog-accessibility/
+// Adding aria-hidden="true" to elements outside of the active modal dialog ensures that
+// elements not within the active modal dialog will not be surfaced if a user opens a screen
+// reader’s list of elements (headings, form controls, landmarks, etc.) in the document.
+
+const setAriaHidden = () => {
+  const bodyChildren = (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.toArray)(document.body.children)
+  bodyChildren.forEach(el => {
+    if (el === (0,_dom_getters_js__WEBPACK_IMPORTED_MODULE_0__.getContainer)() || (0,_dom_domUtils_js__WEBPACK_IMPORTED_MODULE_1__.contains)(el, (0,_dom_getters_js__WEBPACK_IMPORTED_MODULE_0__.getContainer)())) {
+      return
+    }
+
+    if (el.hasAttribute('aria-hidden')) {
+      el.setAttribute('data-previous-aria-hidden', el.getAttribute('aria-hidden'))
+    }
+    el.setAttribute('aria-hidden', 'true')
+  })
+}
+
+const unsetAriaHidden = () => {
+  const bodyChildren = (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.toArray)(document.body.children)
+  bodyChildren.forEach(el => {
+    if (el.hasAttribute('data-previous-aria-hidden')) {
+      el.setAttribute('aria-hidden', el.getAttribute('data-previous-aria-hidden'))
+      el.removeAttribute('data-previous-aria-hidden')
+    } else {
+      el.removeAttribute('aria-hidden')
+    }
+  })
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/classes.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/classes.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "swalPrefix": () => (/* binding */ swalPrefix),
+/* harmony export */   "prefix": () => (/* binding */ prefix),
+/* harmony export */   "swalClasses": () => (/* binding */ swalClasses),
+/* harmony export */   "iconTypes": () => (/* binding */ iconTypes)
+/* harmony export */ });
+const swalPrefix = 'swal2-'
+
+const prefix = (items) => {
+  const result = {}
+  for (const i in items) {
+    result[items[i]] = swalPrefix + items[i]
+  }
+  return result
+}
+
+const swalClasses = prefix([
+  'container',
+  'shown',
+  'height-auto',
+  'iosfix',
+  'popup',
+  'modal',
+  'no-backdrop',
+  'no-transition',
+  'toast',
+  'toast-shown',
+  'toast-column',
+  'show',
+  'hide',
+  'close',
+  'title',
+  'header',
+  'content',
+  'html-container',
+  'actions',
+  'confirm',
+  'deny',
+  'cancel',
+  'footer',
+  'icon',
+  'icon-content',
+  'image',
+  'input',
+  'file',
+  'range',
+  'select',
+  'radio',
+  'checkbox',
+  'label',
+  'textarea',
+  'inputerror',
+  'input-label',
+  'validation-message',
+  'progress-steps',
+  'active-progress-step',
+  'progress-step',
+  'progress-step-line',
+  'loader',
+  'loading',
+  'styled',
+  'top',
+  'top-start',
+  'top-end',
+  'top-left',
+  'top-right',
+  'center',
+  'center-start',
+  'center-end',
+  'center-left',
+  'center-right',
+  'bottom',
+  'bottom-start',
+  'bottom-end',
+  'bottom-left',
+  'bottom-right',
+  'grow-row',
+  'grow-column',
+  'grow-fullscreen',
+  'rtl',
+  'timer-progress-bar',
+  'timer-progress-bar-container',
+  'scrollbar-measure',
+  'icon-success',
+  'icon-warning',
+  'icon-info',
+  'icon-question',
+  'icon-error',
+])
+
+const iconTypes = prefix([
+  'success',
+  'warning',
+  'info',
+  'question',
+  'error'
+])
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/defaultInputValidators.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/defaultInputValidators.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  email: (string, validationMessage) => {
+    return /^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9-]{2,24}$/.test(string)
+      ? Promise.resolve()
+      : Promise.resolve(validationMessage || 'Invalid email address')
+  },
+  url: (string, validationMessage) => {
+    // taken from https://stackoverflow.com/a/3809435 with a small change from #1306 and #2013
+    return /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)$/.test(string)
+      ? Promise.resolve()
+      : Promise.resolve(validationMessage || 'Invalid URL')
+  }
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/animationEndEvent.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/animationEndEvent.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "animationEndEvent": () => (/* binding */ animationEndEvent)
+/* harmony export */ });
+/* harmony import */ var _isNodeEnv_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../isNodeEnv.js */ "./node_modules/sweetalert2/src/utils/isNodeEnv.js");
+
+
+const animationEndEvent = (() => {
+  // Prevent run in Node env
+  /* istanbul ignore if */
+  if ((0,_isNodeEnv_js__WEBPACK_IMPORTED_MODULE_0__.isNodeEnv)()) {
+    return false
+  }
+
+  const testEl = document.createElement('div')
+  const transEndEventNames = {
+    WebkitAnimation: 'webkitAnimationEnd',
+    OAnimation: 'oAnimationEnd oanimationend',
+    animation: 'animationend'
+  }
+  for (const i in transEndEventNames) {
+    if (Object.prototype.hasOwnProperty.call(transEndEventNames, i) && typeof testEl.style[i] !== 'undefined') {
+      return transEndEventNames[i]
+    }
+  }
+
+  return false
+})()
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/domUtils.js":
+/*!************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/domUtils.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "states": () => (/* binding */ states),
+/* harmony export */   "setInnerHtml": () => (/* binding */ setInnerHtml),
+/* harmony export */   "hasClass": () => (/* binding */ hasClass),
+/* harmony export */   "applyCustomClass": () => (/* binding */ applyCustomClass),
+/* harmony export */   "getInput": () => (/* binding */ getInput),
+/* harmony export */   "focusInput": () => (/* binding */ focusInput),
+/* harmony export */   "toggleClass": () => (/* binding */ toggleClass),
+/* harmony export */   "addClass": () => (/* binding */ addClass),
+/* harmony export */   "removeClass": () => (/* binding */ removeClass),
+/* harmony export */   "getChildByClass": () => (/* binding */ getChildByClass),
+/* harmony export */   "applyNumericalStyle": () => (/* binding */ applyNumericalStyle),
+/* harmony export */   "show": () => (/* binding */ show),
+/* harmony export */   "hide": () => (/* binding */ hide),
+/* harmony export */   "setStyle": () => (/* binding */ setStyle),
+/* harmony export */   "toggle": () => (/* binding */ toggle),
+/* harmony export */   "isVisible": () => (/* binding */ isVisible),
+/* harmony export */   "allButtonsAreHidden": () => (/* binding */ allButtonsAreHidden),
+/* harmony export */   "isScrollable": () => (/* binding */ isScrollable),
+/* harmony export */   "hasCssAnimation": () => (/* binding */ hasCssAnimation),
+/* harmony export */   "contains": () => (/* binding */ contains),
+/* harmony export */   "animateTimerProgressBar": () => (/* binding */ animateTimerProgressBar),
+/* harmony export */   "stopTimerProgressBar": () => (/* binding */ stopTimerProgressBar)
+/* harmony export */ });
+/* harmony import */ var _getters_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getters.js */ "./node_modules/sweetalert2/src/utils/dom/getters.js");
+/* harmony import */ var _classes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+
+
+
+
+// Remember state in cases where opening and handling a modal will fiddle with it.
+const states = {
+  previousBodyPadding: null
+}
+
+const setInnerHtml = (elem, html) => { // #1926
+  elem.textContent = ''
+  if (html) {
+    const parser = new DOMParser()
+    const parsed = parser.parseFromString(html, `text/html`)
+    ;(0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.toArray)(parsed.querySelector('head').childNodes).forEach((child) => {
+      elem.appendChild(child)
+    })
+    ;(0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.toArray)(parsed.querySelector('body').childNodes).forEach((child) => {
+      elem.appendChild(child)
+    })
+  }
+}
+
+const hasClass = (elem, className) => {
+  if (!className) {
+    return false
+  }
+  const classList = className.split(/\s+/)
+  for (let i = 0; i < classList.length; i++) {
+    if (!elem.classList.contains(classList[i])) {
+      return false
+    }
+  }
+  return true
+}
+
+const removeCustomClasses = (elem, params) => {
+  ;(0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.toArray)(elem.classList).forEach(className => {
+    if (
+      !(0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.objectValues)(_classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses).includes(className) &&
+      !(0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.objectValues)(_classes_js__WEBPACK_IMPORTED_MODULE_1__.iconTypes).includes(className) &&
+      !(0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.objectValues)(params.showClass).includes(className)
+    ) {
+      elem.classList.remove(className)
+    }
+  })
+}
+
+const applyCustomClass = (elem, params, className) => {
+  removeCustomClasses(elem, params)
+
+  if (params.customClass && params.customClass[className]) {
+    if (typeof params.customClass[className] !== 'string' && !params.customClass[className].forEach) {
+      return (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.warn)(`Invalid type of customClass.${className}! Expected string or iterable object, got "${typeof params.customClass[className]}"`)
+    }
+
+    addClass(elem, params.customClass[className])
+  }
+}
+
+function getInput (content, inputType) {
+  if (!inputType) {
+    return null
+  }
+  switch (inputType) {
+    case 'select':
+    case 'textarea':
+    case 'file':
+      return getChildByClass(content, _classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses[inputType])
+    case 'checkbox':
+      return content.querySelector(`.${_classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.checkbox} input`)
+    case 'radio':
+      return content.querySelector(`.${_classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.radio} input:checked`) ||
+        content.querySelector(`.${_classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.radio} input:first-child`)
+    case 'range':
+      return content.querySelector(`.${_classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.range} input`)
+    default:
+      return getChildByClass(content, _classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.input)
+  }
+}
+
+const focusInput = (input) => {
+  input.focus()
+
+  // place cursor at end of text in text input
+  if (input.type !== 'file') {
+    // http://stackoverflow.com/a/2345915
+    const val = input.value
+    input.value = ''
+    input.value = val
+  }
+}
+
+const toggleClass = (target, classList, condition) => {
+  if (!target || !classList) {
+    return
+  }
+  if (typeof classList === 'string') {
+    classList = classList.split(/\s+/).filter(Boolean)
+  }
+  classList.forEach((className) => {
+    if (target.forEach) {
+      target.forEach((elem) => {
+        condition ? elem.classList.add(className) : elem.classList.remove(className)
+      })
+    } else {
+      condition ? target.classList.add(className) : target.classList.remove(className)
+    }
+  })
+}
+
+const addClass = (target, classList) => {
+  toggleClass(target, classList, true)
+}
+
+const removeClass = (target, classList) => {
+  toggleClass(target, classList, false)
+}
+
+const getChildByClass = (elem, className) => {
+  for (let i = 0; i < elem.childNodes.length; i++) {
+    if (hasClass(elem.childNodes[i], className)) {
+      return elem.childNodes[i]
+    }
+  }
+}
+
+const applyNumericalStyle = (elem, property, value) => {
+  if (value === `${parseInt(value)}`) {
+    value = parseInt(value)
+  }
+  if (value || parseInt(value) === 0) {
+    elem.style[property] = (typeof value === 'number') ? `${value}px` : value
+  } else {
+    elem.style.removeProperty(property)
+  }
+}
+
+const show = (elem, display = 'flex') => {
+  elem.style.display = display
+}
+
+const hide = (elem) => {
+  elem.style.display = 'none'
+}
+
+const setStyle = (parent, selector, property, value) => {
+  const el = parent.querySelector(selector)
+  if (el) {
+    el.style[property] = value
+  }
+}
+
+const toggle = (elem, condition, display) => {
+  condition ? show(elem, display) : hide(elem)
+}
+
+// borrowed from jquery $(elem).is(':visible') implementation
+const isVisible = (elem) => !!(elem && (elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length))
+
+const allButtonsAreHidden = () => !isVisible((0,_getters_js__WEBPACK_IMPORTED_MODULE_0__.getConfirmButton)()) && !isVisible((0,_getters_js__WEBPACK_IMPORTED_MODULE_0__.getDenyButton)()) && !isVisible((0,_getters_js__WEBPACK_IMPORTED_MODULE_0__.getCancelButton)())
+
+const isScrollable = (elem) => !!(elem.scrollHeight > elem.clientHeight)
+
+// borrowed from https://stackoverflow.com/a/46352119
+const hasCssAnimation = (elem) => {
+  const style = window.getComputedStyle(elem)
+
+  const animDuration = parseFloat(style.getPropertyValue('animation-duration') || '0')
+  const transDuration = parseFloat(style.getPropertyValue('transition-duration') || '0')
+
+  return animDuration > 0 || transDuration > 0
+}
+
+const contains = (haystack, needle) => {
+  if (typeof haystack.contains === 'function') {
+    return haystack.contains(needle)
+  }
+}
+
+const animateTimerProgressBar = (timer, reset = false) => {
+  const timerProgressBar = (0,_getters_js__WEBPACK_IMPORTED_MODULE_0__.getTimerProgressBar)()
+  if (isVisible(timerProgressBar)) {
+    if (reset) {
+      timerProgressBar.style.transition = 'none'
+      timerProgressBar.style.width = '100%'
+    }
+    setTimeout(() => {
+      timerProgressBar.style.transition = `width ${timer / 1000}s linear`
+      timerProgressBar.style.width = '0%'
+    }, 10)
+  }
+}
+
+const stopTimerProgressBar = () => {
+  const timerProgressBar = (0,_getters_js__WEBPACK_IMPORTED_MODULE_0__.getTimerProgressBar)()
+  const timerProgressBarWidth = parseInt(window.getComputedStyle(timerProgressBar).width)
+  timerProgressBar.style.removeProperty('transition')
+  timerProgressBar.style.width = '100%'
+  const timerProgressBarFullWidth = parseInt(window.getComputedStyle(timerProgressBar).width)
+  const timerProgressBarPercent = parseInt(timerProgressBarWidth / timerProgressBarFullWidth * 100)
+  timerProgressBar.style.removeProperty('transition')
+  timerProgressBar.style.width = `${timerProgressBarPercent}%`
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/getters.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/getters.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getContainer": () => (/* binding */ getContainer),
+/* harmony export */   "elementBySelector": () => (/* binding */ elementBySelector),
+/* harmony export */   "getPopup": () => (/* binding */ getPopup),
+/* harmony export */   "getIcon": () => (/* binding */ getIcon),
+/* harmony export */   "getTitle": () => (/* binding */ getTitle),
+/* harmony export */   "getContent": () => (/* binding */ getContent),
+/* harmony export */   "getHtmlContainer": () => (/* binding */ getHtmlContainer),
+/* harmony export */   "getImage": () => (/* binding */ getImage),
+/* harmony export */   "getProgressSteps": () => (/* binding */ getProgressSteps),
+/* harmony export */   "getValidationMessage": () => (/* binding */ getValidationMessage),
+/* harmony export */   "getConfirmButton": () => (/* binding */ getConfirmButton),
+/* harmony export */   "getDenyButton": () => (/* binding */ getDenyButton),
+/* harmony export */   "getInputLabel": () => (/* binding */ getInputLabel),
+/* harmony export */   "getLoader": () => (/* binding */ getLoader),
+/* harmony export */   "getCancelButton": () => (/* binding */ getCancelButton),
+/* harmony export */   "getActions": () => (/* binding */ getActions),
+/* harmony export */   "getHeader": () => (/* binding */ getHeader),
+/* harmony export */   "getFooter": () => (/* binding */ getFooter),
+/* harmony export */   "getTimerProgressBar": () => (/* binding */ getTimerProgressBar),
+/* harmony export */   "getCloseButton": () => (/* binding */ getCloseButton),
+/* harmony export */   "getFocusableElements": () => (/* binding */ getFocusableElements),
+/* harmony export */   "isModal": () => (/* binding */ isModal),
+/* harmony export */   "isToast": () => (/* binding */ isToast),
+/* harmony export */   "isLoading": () => (/* binding */ isLoading)
+/* harmony export */ });
+/* harmony import */ var _classes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+/* harmony import */ var _domUtils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./domUtils.js */ "./node_modules/sweetalert2/src/utils/dom/domUtils.js");
+
+
+
+
+const getContainer = () => document.body.querySelector(`.${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.container}`)
+
+const elementBySelector = (selectorString) => {
+  const container = getContainer()
+  return container ? container.querySelector(selectorString) : null
+}
+
+const elementByClass = (className) => {
+  return elementBySelector(`.${className}`)
+}
+
+const getPopup = () => elementByClass(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.popup)
+
+const getIcon = () => elementByClass(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.icon)
+
+const getTitle = () => elementByClass(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.title)
+
+const getContent = () => elementByClass(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.content)
+
+const getHtmlContainer = () => elementByClass(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["html-container"])
+
+const getImage = () => elementByClass(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.image)
+
+const getProgressSteps = () => elementByClass(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["progress-steps"])
+
+const getValidationMessage = () => elementByClass(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["validation-message"])
+
+const getConfirmButton = () => elementBySelector(`.${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.actions} .${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.confirm}`)
+
+const getDenyButton = () => elementBySelector(`.${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.actions} .${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.deny}`)
+
+const getInputLabel = () => elementByClass(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["input-label"])
+
+const getLoader = () => elementBySelector(`.${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.loader}`)
+
+const getCancelButton = () => elementBySelector(`.${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.actions} .${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.cancel}`)
+
+const getActions = () => elementByClass(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.actions)
+
+const getHeader = () => elementByClass(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.header)
+
+const getFooter = () => elementByClass(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.footer)
+
+const getTimerProgressBar = () => elementByClass(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["timer-progress-bar"])
+
+const getCloseButton = () => elementByClass(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.close)
+
+// https://github.com/jkup/focusable/blob/master/index.js
+const focusable = `
+  a[href],
+  area[href],
+  input:not([disabled]),
+  select:not([disabled]),
+  textarea:not([disabled]),
+  button:not([disabled]),
+  iframe,
+  object,
+  embed,
+  [tabindex="0"],
+  [contenteditable],
+  audio[controls],
+  video[controls],
+  summary
+`
+
+const getFocusableElements = () => {
+  const focusableElementsWithTabindex = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.toArray)(
+    getPopup().querySelectorAll('[tabindex]:not([tabindex="-1"]):not([tabindex="0"])')
+  )
+  // sort according to tabindex
+    .sort((a, b) => {
+      a = parseInt(a.getAttribute('tabindex'))
+      b = parseInt(b.getAttribute('tabindex'))
+      if (a > b) {
+        return 1
+      } else if (a < b) {
+        return -1
+      }
+      return 0
+    })
+
+  const otherFocusableElements = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.toArray)(
+    getPopup().querySelectorAll(focusable)
+  ).filter(el => el.getAttribute('tabindex') !== '-1')
+
+  return (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.uniqueArray)(focusableElementsWithTabindex.concat(otherFocusableElements)).filter(el => (0,_domUtils_js__WEBPACK_IMPORTED_MODULE_2__.isVisible)(el))
+}
+
+const isModal = () => {
+  return !isToast() && !document.body.classList.contains(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["no-backdrop"])
+}
+
+const isToast = () => {
+  return document.body.classList.contains(_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["toast-shown"])
+}
+
+const isLoading = () => {
+  return getPopup().hasAttribute('data-loading')
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/index.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addClass": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.addClass),
+/* harmony export */   "allButtonsAreHidden": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.allButtonsAreHidden),
+/* harmony export */   "animateTimerProgressBar": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.animateTimerProgressBar),
+/* harmony export */   "applyCustomClass": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.applyCustomClass),
+/* harmony export */   "applyNumericalStyle": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.applyNumericalStyle),
+/* harmony export */   "contains": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.contains),
+/* harmony export */   "focusInput": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.focusInput),
+/* harmony export */   "getChildByClass": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.getChildByClass),
+/* harmony export */   "getInput": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.getInput),
+/* harmony export */   "hasClass": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.hasClass),
+/* harmony export */   "hasCssAnimation": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.hasCssAnimation),
+/* harmony export */   "hide": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.hide),
+/* harmony export */   "isScrollable": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.isScrollable),
+/* harmony export */   "isVisible": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.isVisible),
+/* harmony export */   "removeClass": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.removeClass),
+/* harmony export */   "setInnerHtml": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.setInnerHtml),
+/* harmony export */   "setStyle": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.setStyle),
+/* harmony export */   "show": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.show),
+/* harmony export */   "states": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.states),
+/* harmony export */   "stopTimerProgressBar": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.stopTimerProgressBar),
+/* harmony export */   "toggle": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.toggle),
+/* harmony export */   "toggleClass": () => (/* reexport safe */ _domUtils_js__WEBPACK_IMPORTED_MODULE_0__.toggleClass),
+/* harmony export */   "init": () => (/* reexport safe */ _init_js__WEBPACK_IMPORTED_MODULE_1__.init),
+/* harmony export */   "elementBySelector": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.elementBySelector),
+/* harmony export */   "getActions": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getActions),
+/* harmony export */   "getCancelButton": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getCancelButton),
+/* harmony export */   "getCloseButton": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getCloseButton),
+/* harmony export */   "getConfirmButton": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getConfirmButton),
+/* harmony export */   "getContainer": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getContainer),
+/* harmony export */   "getContent": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getContent),
+/* harmony export */   "getDenyButton": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getDenyButton),
+/* harmony export */   "getFocusableElements": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getFocusableElements),
+/* harmony export */   "getFooter": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getFooter),
+/* harmony export */   "getHeader": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getHeader),
+/* harmony export */   "getHtmlContainer": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getHtmlContainer),
+/* harmony export */   "getIcon": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getIcon),
+/* harmony export */   "getImage": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getImage),
+/* harmony export */   "getInputLabel": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getInputLabel),
+/* harmony export */   "getLoader": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getLoader),
+/* harmony export */   "getPopup": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getPopup),
+/* harmony export */   "getProgressSteps": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getProgressSteps),
+/* harmony export */   "getTimerProgressBar": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getTimerProgressBar),
+/* harmony export */   "getTitle": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getTitle),
+/* harmony export */   "getValidationMessage": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.getValidationMessage),
+/* harmony export */   "isLoading": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.isLoading),
+/* harmony export */   "isModal": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.isModal),
+/* harmony export */   "isToast": () => (/* reexport safe */ _getters_js__WEBPACK_IMPORTED_MODULE_2__.isToast),
+/* harmony export */   "parseHtmlToContainer": () => (/* reexport safe */ _parseHtmlToContainer_js__WEBPACK_IMPORTED_MODULE_3__.parseHtmlToContainer),
+/* harmony export */   "animationEndEvent": () => (/* reexport safe */ _animationEndEvent_js__WEBPACK_IMPORTED_MODULE_4__.animationEndEvent),
+/* harmony export */   "measureScrollbar": () => (/* reexport safe */ _measureScrollbar_js__WEBPACK_IMPORTED_MODULE_5__.measureScrollbar),
+/* harmony export */   "render": () => (/* reexport safe */ _renderers_render_js__WEBPACK_IMPORTED_MODULE_6__.render)
+/* harmony export */ });
+/* harmony import */ var _domUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./domUtils.js */ "./node_modules/sweetalert2/src/utils/dom/domUtils.js");
+/* harmony import */ var _init_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./init.js */ "./node_modules/sweetalert2/src/utils/dom/init.js");
+/* harmony import */ var _getters_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getters.js */ "./node_modules/sweetalert2/src/utils/dom/getters.js");
+/* harmony import */ var _parseHtmlToContainer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./parseHtmlToContainer.js */ "./node_modules/sweetalert2/src/utils/dom/parseHtmlToContainer.js");
+/* harmony import */ var _animationEndEvent_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./animationEndEvent.js */ "./node_modules/sweetalert2/src/utils/dom/animationEndEvent.js");
+/* harmony import */ var _measureScrollbar_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./measureScrollbar.js */ "./node_modules/sweetalert2/src/utils/dom/measureScrollbar.js");
+/* harmony import */ var _renderers_render_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./renderers/render.js */ "./node_modules/sweetalert2/src/utils/dom/renderers/render.js");
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/init.js":
+/*!********************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/init.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "init": () => (/* binding */ init)
+/* harmony export */ });
+/* harmony import */ var _classes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _getters_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getters.js */ "./node_modules/sweetalert2/src/utils/dom/getters.js");
+/* harmony import */ var _domUtils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./domUtils.js */ "./node_modules/sweetalert2/src/utils/dom/domUtils.js");
+/* harmony import */ var _isNodeEnv_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../isNodeEnv.js */ "./node_modules/sweetalert2/src/utils/isNodeEnv.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+/* harmony import */ var _sweetalert2_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../sweetalert2.js */ "./node_modules/sweetalert2/src/sweetalert2.js");
+
+
+
+
+
+
+
+const sweetHTML = `
+ <div aria-labelledby="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.title}" aria-describedby="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.content}" class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.popup}" tabindex="-1">
+   <div class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.header}">
+     <ul class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["progress-steps"]}"></ul>
+     <div class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.icon}"></div>
+     <img class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.image}" />
+     <h2 class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.title}" id="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.title}"></h2>
+     <button type="button" class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.close}"></button>
+   </div>
+   <div class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.content}">
+     <div id="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.content}" class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["html-container"]}"></div>
+     <input class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.input}" />
+     <input type="file" class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.file}" />
+     <div class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.range}">
+       <input type="range" />
+       <output></output>
+     </div>
+     <select class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.select}"></select>
+     <div class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.radio}"></div>
+     <label for="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.checkbox}" class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.checkbox}">
+       <input type="checkbox" />
+       <span class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.label}"></span>
+     </label>
+     <textarea class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.textarea}"></textarea>
+     <div class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["validation-message"]}" id="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["validation-message"]}"></div>
+   </div>
+   <div class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.actions}">
+     <div class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.loader}"></div>
+     <button type="button" class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.confirm}"></button>
+     <button type="button" class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.deny}"></button>
+     <button type="button" class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.cancel}"></button>
+   </div>
+   <div class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.footer}"></div>
+   <div class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["timer-progress-bar-container"]}">
+     <div class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["timer-progress-bar"]}"></div>
+   </div>
+ </div>
+`.replace(/(^|\n)\s*/g, '')
+
+const resetOldContainer = () => {
+  const oldContainer = (0,_getters_js__WEBPACK_IMPORTED_MODULE_1__.getContainer)()
+  if (!oldContainer) {
+    return false
+  }
+
+  oldContainer.parentNode.removeChild(oldContainer)
+  ;(0,_domUtils_js__WEBPACK_IMPORTED_MODULE_2__.removeClass)(
+    [document.documentElement, document.body],
+    [
+      _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["no-backdrop"],
+      _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["toast-shown"],
+      _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["has-column"]
+    ]
+  )
+
+  return true
+}
+
+let oldInputVal // IE11 workaround, see #1109 for details
+const resetValidationMessage = (e) => {
+  if (_sweetalert2_js__WEBPACK_IMPORTED_MODULE_5__.default.isVisible() && oldInputVal !== e.target.value) {
+    _sweetalert2_js__WEBPACK_IMPORTED_MODULE_5__.default.resetValidationMessage()
+  }
+  oldInputVal = e.target.value
+}
+
+const addInputChangeListeners = () => {
+  const content = (0,_getters_js__WEBPACK_IMPORTED_MODULE_1__.getContent)()
+
+  const input = (0,_domUtils_js__WEBPACK_IMPORTED_MODULE_2__.getChildByClass)(content, _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.input)
+  const file = (0,_domUtils_js__WEBPACK_IMPORTED_MODULE_2__.getChildByClass)(content, _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.file)
+  const range = content.querySelector(`.${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.range} input`)
+  const rangeOutput = content.querySelector(`.${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.range} output`)
+  const select = (0,_domUtils_js__WEBPACK_IMPORTED_MODULE_2__.getChildByClass)(content, _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.select)
+  const checkbox = content.querySelector(`.${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.checkbox} input`)
+  const textarea = (0,_domUtils_js__WEBPACK_IMPORTED_MODULE_2__.getChildByClass)(content, _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.textarea)
+
+  input.oninput = resetValidationMessage
+  file.onchange = resetValidationMessage
+  select.onchange = resetValidationMessage
+  checkbox.onchange = resetValidationMessage
+  textarea.oninput = resetValidationMessage
+
+  range.oninput = (e) => {
+    resetValidationMessage(e)
+    rangeOutput.value = range.value
+  }
+
+  range.onchange = (e) => {
+    resetValidationMessage(e)
+    range.nextSibling.value = range.value
+  }
+}
+
+const getTarget = (target) => typeof target === 'string' ? document.querySelector(target) : target
+
+const setupAccessibility = (params) => {
+  const popup = (0,_getters_js__WEBPACK_IMPORTED_MODULE_1__.getPopup)()
+
+  popup.setAttribute('role', params.toast ? 'alert' : 'dialog')
+  popup.setAttribute('aria-live', params.toast ? 'polite' : 'assertive')
+  if (!params.toast) {
+    popup.setAttribute('aria-modal', 'true')
+  }
+}
+
+const setupRTL = (targetElement) => {
+  if (window.getComputedStyle(targetElement).direction === 'rtl') {
+    (0,_domUtils_js__WEBPACK_IMPORTED_MODULE_2__.addClass)((0,_getters_js__WEBPACK_IMPORTED_MODULE_1__.getContainer)(), _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.rtl)
+  }
+}
+
+/*
+ * Add modal + backdrop to DOM
+ */
+const init = (params) => {
+  // Clean up the old popup container if it exists
+  const oldContainerExisted = resetOldContainer()
+
+  /* istanbul ignore if */
+  if ((0,_isNodeEnv_js__WEBPACK_IMPORTED_MODULE_3__.isNodeEnv)()) {
+    (0,_utils_js__WEBPACK_IMPORTED_MODULE_4__.error)('SweetAlert2 requires document to initialize')
+    return
+  }
+
+  const container = document.createElement('div')
+  container.className = _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.container
+  if (oldContainerExisted) {
+    (0,_domUtils_js__WEBPACK_IMPORTED_MODULE_2__.addClass)(container, _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["no-transition"])
+  }
+  (0,_domUtils_js__WEBPACK_IMPORTED_MODULE_2__.setInnerHtml)(container, sweetHTML)
+
+  const targetElement = getTarget(params.target)
+  targetElement.appendChild(container)
+
+  setupAccessibility(params)
+  setupRTL(targetElement)
+  addInputChangeListeners()
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/inputUtils.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/inputUtils.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "handleInputOptionsAndValue": () => (/* binding */ handleInputOptionsAndValue),
+/* harmony export */   "getInputValue": () => (/* binding */ getInputValue)
+/* harmony export */ });
+/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _classes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _domUtils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./domUtils.js */ "./node_modules/sweetalert2/src/utils/dom/domUtils.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+/* harmony import */ var _staticMethods_showLoading_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../staticMethods/showLoading.js */ "./node_modules/sweetalert2/src/staticMethods/showLoading.js");
+
+
+
+
+
+
+const handleInputOptionsAndValue = (instance, params) => {
+  if (params.input === 'select' || params.input === 'radio') {
+    handleInputOptions(instance, params)
+  } else if (['text', 'email', 'number', 'tel', 'textarea'].includes(params.input) &&
+    ((0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.hasToPromiseFn)(params.inputValue) || (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.isPromise)(params.inputValue))) {
+    handleInputValue(instance, params)
+  }
+}
+
+const getInputValue = (instance, innerParams) => {
+  const input = instance.getInput()
+  if (!input) {
+    return null
+  }
+  switch (innerParams.input) {
+    case 'checkbox':
+      return getCheckboxValue(input)
+    case 'radio':
+      return getRadioValue(input)
+    case 'file':
+      return getFileValue(input)
+    default:
+      return innerParams.inputAutoTrim ? input.value.trim() : input.value
+  }
+}
+
+const getCheckboxValue = (input) => input.checked ? 1 : 0
+
+const getRadioValue = (input) => input.checked ? input.value : null
+
+const getFileValue = (input) => input.files.length ? (input.getAttribute('multiple') !== null ? input.files : input.files[0]) : null
+
+const handleInputOptions = (instance, params) => {
+  const content = _index_js__WEBPACK_IMPORTED_MODULE_0__.getContent()
+  const processInputOptions = (inputOptions) => populateInputOptions[params.input](content, formatInputOptions(inputOptions), params)
+  if ((0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.hasToPromiseFn)(params.inputOptions) || (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.isPromise)(params.inputOptions)) {
+    (0,_staticMethods_showLoading_js__WEBPACK_IMPORTED_MODULE_4__.showLoading)(_index_js__WEBPACK_IMPORTED_MODULE_0__.getConfirmButton())
+    ;(0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.asPromise)(params.inputOptions).then((inputOptions) => {
+      instance.hideLoading()
+      processInputOptions(inputOptions)
+    })
+  } else if (typeof params.inputOptions === 'object') {
+    processInputOptions(params.inputOptions)
+  } else {
+    (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.error)(`Unexpected type of inputOptions! Expected object, Map or Promise, got ${typeof params.inputOptions}`)
+  }
+}
+
+const handleInputValue = (instance, params) => {
+  const input = instance.getInput()
+  _index_js__WEBPACK_IMPORTED_MODULE_0__.hide(input)
+  ;(0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.asPromise)(params.inputValue).then((inputValue) => {
+    input.value = params.input === 'number' ? parseFloat(inputValue) || 0 : `${inputValue}`
+    _index_js__WEBPACK_IMPORTED_MODULE_0__.show(input)
+    input.focus()
+    instance.hideLoading()
+  })
+    .catch((err) => {
+      (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.error)(`Error in inputValue promise: ${err}`)
+      input.value = ''
+      _index_js__WEBPACK_IMPORTED_MODULE_0__.show(input)
+      input.focus()
+      instance.hideLoading()
+    })
+}
+
+const populateInputOptions = {
+  select: (content, inputOptions, params) => {
+    const select = (0,_domUtils_js__WEBPACK_IMPORTED_MODULE_2__.getChildByClass)(content, _classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.select)
+    const renderOption = (parent, optionLabel, optionValue) => {
+      const option = document.createElement('option')
+      option.value = optionValue
+      _index_js__WEBPACK_IMPORTED_MODULE_0__.setInnerHtml(option, optionLabel)
+      option.selected = isSelected(optionValue, params.inputValue)
+      parent.appendChild(option)
+    }
+    inputOptions.forEach(inputOption => {
+      const optionValue = inputOption[0]
+      const optionLabel = inputOption[1]
+      // <optgroup> spec:
+      // https://www.w3.org/TR/html401/interact/forms.html#h-17.6
+      // "...all OPTGROUP elements must be specified directly within a SELECT element (i.e., groups may not be nested)..."
+      // check whether this is a <optgroup>
+      if (Array.isArray(optionLabel)) { // if it is an array, then it is an <optgroup>
+        const optgroup = document.createElement('optgroup')
+        optgroup.label = optionValue
+        optgroup.disabled = false // not configurable for now
+        select.appendChild(optgroup)
+        optionLabel.forEach(o => renderOption(optgroup, o[1], o[0]))
+      } else { // case of <option>
+        renderOption(select, optionLabel, optionValue)
+      }
+    })
+    select.focus()
+  },
+
+  radio: (content, inputOptions, params) => {
+    const radio = (0,_domUtils_js__WEBPACK_IMPORTED_MODULE_2__.getChildByClass)(content, _classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.radio)
+    inputOptions.forEach(inputOption => {
+      const radioValue = inputOption[0]
+      const radioLabel = inputOption[1]
+      const radioInput = document.createElement('input')
+      const radioLabelElement = document.createElement('label')
+      radioInput.type = 'radio'
+      radioInput.name = _classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.radio
+      radioInput.value = radioValue
+      if (isSelected(radioValue, params.inputValue)) {
+        radioInput.checked = true
+      }
+      const label = document.createElement('span')
+      _index_js__WEBPACK_IMPORTED_MODULE_0__.setInnerHtml(label, radioLabel)
+      label.className = _classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.label
+      radioLabelElement.appendChild(radioInput)
+      radioLabelElement.appendChild(label)
+      radio.appendChild(radioLabelElement)
+    })
+    const radios = radio.querySelectorAll('input')
+    if (radios.length) {
+      radios[0].focus()
+    }
+  }
+}
+
+/**
+ * Converts `inputOptions` into an array of `[value, label]`s
+ * @param inputOptions
+ */
+const formatInputOptions = (inputOptions) => {
+  const result = []
+  if (typeof Map !== 'undefined' && inputOptions instanceof Map) {
+    inputOptions.forEach((value, key) => {
+      let valueFormatted = value
+      if (typeof valueFormatted === 'object') { // case of <optgroup>
+        valueFormatted = formatInputOptions(valueFormatted)
+      }
+      result.push([key, valueFormatted])
+    })
+  } else {
+    Object.keys(inputOptions).forEach(key => {
+      let valueFormatted = inputOptions[key]
+      if (typeof valueFormatted === 'object') { // case of <optgroup>
+        valueFormatted = formatInputOptions(valueFormatted)
+      }
+      result.push([key, valueFormatted])
+    })
+  }
+  return result
+}
+
+const isSelected = (optionValue, inputValue) => {
+  return inputValue && inputValue.toString() === optionValue.toString()
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/measureScrollbar.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/measureScrollbar.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "measureScrollbar": () => (/* binding */ measureScrollbar)
+/* harmony export */ });
+/* harmony import */ var _classes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+
+
+// Measure scrollbar width for padding body during modal show/hide
+// https://github.com/twbs/bootstrap/blob/master/js/src/modal.js
+const measureScrollbar = () => {
+  const scrollDiv = document.createElement('div')
+  scrollDiv.className = _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["scrollbar-measure"]
+  document.body.appendChild(scrollDiv)
+  const scrollbarWidth = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth
+  document.body.removeChild(scrollDiv)
+  return scrollbarWidth
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/parseHtmlToContainer.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/parseHtmlToContainer.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "parseHtmlToContainer": () => (/* binding */ parseHtmlToContainer)
+/* harmony export */ });
+/* harmony import */ var _domUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./domUtils.js */ "./node_modules/sweetalert2/src/utils/dom/domUtils.js");
+
+
+const parseHtmlToContainer = (param, target) => {
+  // DOM element
+  if (param instanceof HTMLElement) {
+    target.appendChild(param)
+
+  // Object
+  } else if (typeof param === 'object') {
+    handleObject(param, target)
+
+  // Plain string
+  } else if (param) {
+    (0,_domUtils_js__WEBPACK_IMPORTED_MODULE_0__.setInnerHtml)(target, param)
+  }
+}
+
+const handleObject = (param, target) => {
+  // JQuery element(s)
+  if (param.jquery) {
+    handleJqueryElem(target, param)
+
+  // For other objects use their string representation
+  } else {
+    (0,_domUtils_js__WEBPACK_IMPORTED_MODULE_0__.setInnerHtml)(target, param.toString())
+  }
+}
+
+const handleJqueryElem = (target, elem) => {
+  target.textContent = ''
+  if (0 in elem) {
+    for (let i = 0; i in elem; i++) {
+      target.appendChild(elem[i].cloneNode(true))
+    }
+  } else {
+    target.appendChild(elem.cloneNode(true))
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/renderers/render.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/renderers/render.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var _getters_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../getters.js */ "./node_modules/sweetalert2/src/utils/dom/getters.js");
+/* harmony import */ var _renderActions_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./renderActions.js */ "./node_modules/sweetalert2/src/utils/dom/renderers/renderActions.js");
+/* harmony import */ var _renderContainer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./renderContainer.js */ "./node_modules/sweetalert2/src/utils/dom/renderers/renderContainer.js");
+/* harmony import */ var _renderContent_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./renderContent.js */ "./node_modules/sweetalert2/src/utils/dom/renderers/renderContent.js");
+/* harmony import */ var _renderFooter_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./renderFooter.js */ "./node_modules/sweetalert2/src/utils/dom/renderers/renderFooter.js");
+/* harmony import */ var _renderHeader_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./renderHeader.js */ "./node_modules/sweetalert2/src/utils/dom/renderers/renderHeader.js");
+/* harmony import */ var _renderPopup_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./renderPopup.js */ "./node_modules/sweetalert2/src/utils/dom/renderers/renderPopup.js");
+
+
+
+
+
+
+
+
+const render = (instance, params) => {
+  (0,_renderPopup_js__WEBPACK_IMPORTED_MODULE_6__.renderPopup)(instance, params)
+  ;(0,_renderContainer_js__WEBPACK_IMPORTED_MODULE_2__.renderContainer)(instance, params)
+
+  ;(0,_renderHeader_js__WEBPACK_IMPORTED_MODULE_5__.renderHeader)(instance, params)
+  ;(0,_renderContent_js__WEBPACK_IMPORTED_MODULE_3__.renderContent)(instance, params)
+  ;(0,_renderActions_js__WEBPACK_IMPORTED_MODULE_1__.renderActions)(instance, params)
+  ;(0,_renderFooter_js__WEBPACK_IMPORTED_MODULE_4__.renderFooter)(instance, params)
+
+  if (typeof params.didRender === 'function') {
+    params.didRender((0,_getters_js__WEBPACK_IMPORTED_MODULE_0__.getPopup)())
+  } else if (typeof params.onRender === 'function') {
+    params.onRender((0,_getters_js__WEBPACK_IMPORTED_MODULE_0__.getPopup)()) // @deprecated
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/renderers/renderActions.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/renderers/renderActions.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderActions": () => (/* binding */ renderActions)
+/* harmony export */ });
+/* harmony import */ var _classes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+
+
+
+
+const renderActions = (instance, params) => {
+  const actions = _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getActions()
+  const loader = _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getLoader()
+  const confirmButton = _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getConfirmButton()
+  const denyButton = _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getDenyButton()
+  const cancelButton = _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getCancelButton()
+
+  // Actions (buttons) wrapper
+  if (!params.showConfirmButton && !params.showDenyButton && !params.showCancelButton) {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.hide(actions)
+  }
+
+  // Custom class
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.applyCustomClass(actions, params, 'actions')
+
+  // Render buttons
+  renderButton(confirmButton, 'confirm', params)
+  renderButton(denyButton, 'deny', params)
+  renderButton(cancelButton, 'cancel', params)
+  handleButtonsStyling(confirmButton, denyButton, cancelButton, params)
+
+  if (params.reverseButtons) {
+    actions.insertBefore(cancelButton, loader)
+    actions.insertBefore(denyButton, loader)
+    actions.insertBefore(confirmButton, loader)
+  }
+
+  // Loader
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.setInnerHtml(loader, params.loaderHtml)
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.applyCustomClass(loader, params, 'loader')
+}
+
+function handleButtonsStyling (confirmButton, denyButton, cancelButton, params) {
+  if (!params.buttonsStyling) {
+    return _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.removeClass([confirmButton, denyButton, cancelButton], _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.styled)
+  }
+
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.addClass([confirmButton, denyButton, cancelButton], _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.styled)
+
+  // Buttons background colors
+  if (params.confirmButtonColor) {
+    confirmButton.style.backgroundColor = params.confirmButtonColor
+  }
+  if (params.denyButtonColor) {
+    denyButton.style.backgroundColor = params.denyButtonColor
+  }
+  if (params.cancelButtonColor) {
+    cancelButton.style.backgroundColor = params.cancelButtonColor
+  }
+}
+
+function renderButton (button, buttonType, params) {
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.toggle(button, params[`show${(0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.capitalizeFirstLetter)(buttonType)}Button`], 'inline-block')
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.setInnerHtml(button, params[`${buttonType}ButtonText`]) // Set caption text
+  button.setAttribute('aria-label', params[`${buttonType}ButtonAriaLabel`]) // ARIA label
+
+  // Add buttons custom classes
+  button.className = _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses[buttonType]
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.applyCustomClass(button, params, `${buttonType}Button`)
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.addClass(button, params[`${buttonType}ButtonClass`])
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/renderers/renderCloseButton.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/renderers/renderCloseButton.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderCloseButton": () => (/* binding */ renderCloseButton)
+/* harmony export */ });
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+
+
+const renderCloseButton = (instance, params) => {
+  const closeButton = _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getCloseButton()
+
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.setInnerHtml(closeButton, params.closeButtonHtml)
+
+  // Custom class
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.applyCustomClass(closeButton, params, 'closeButton')
+
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.toggle(closeButton, params.showCloseButton)
+  closeButton.setAttribute('aria-label', params.closeButtonAriaLabel)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/renderers/renderContainer.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/renderers/renderContainer.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderContainer": () => (/* binding */ renderContainer)
+/* harmony export */ });
+/* harmony import */ var _classes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+
+
+
+
+function handleBackdropParam (container, backdrop) {
+  if (typeof backdrop === 'string') {
+    container.style.background = backdrop
+  } else if (!backdrop) {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.addClass([document.documentElement, document.body], _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["no-backdrop"])
+  }
+}
+
+function handlePositionParam (container, position) {
+  if (position in _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses) {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.addClass(container, _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses[position])
+  } else {
+    (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.warn)('The "position" parameter is not valid, defaulting to "center"')
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.addClass(container, _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.center)
+  }
+}
+
+function handleGrowParam (container, grow) {
+  if (grow && typeof grow === 'string') {
+    const growClass = `grow-${grow}`
+    if (growClass in _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses) {
+      _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.addClass(container, _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses[growClass])
+    }
+  }
+}
+
+const renderContainer = (instance, params) => {
+  const container = _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getContainer()
+
+  if (!container) {
+    return
+  }
+
+  handleBackdropParam(container, params.backdrop)
+
+  if (!params.backdrop && params.allowOutsideClick) {
+    (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.warn)('"allowOutsideClick" parameter requires `backdrop` parameter to be set to `true`')
+  }
+
+  handlePositionParam(container, params.position)
+  handleGrowParam(container, params.grow)
+
+  // Custom class
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.applyCustomClass(container, params, 'container')
+
+  // Set queue step attribute for getQueueStep() method
+  const queueStep = document.body.getAttribute('data-swal2-queue-step')
+  if (queueStep) {
+    container.setAttribute('data-queue-step', queueStep)
+    document.body.removeAttribute('data-swal2-queue-step')
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/renderers/renderContent.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/renderers/renderContent.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderContent": () => (/* binding */ renderContent)
+/* harmony export */ });
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _renderInput_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./renderInput.js */ "./node_modules/sweetalert2/src/utils/dom/renderers/renderInput.js");
+
+
+
+const renderContent = (instance, params) => {
+  const htmlContainer = _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getHtmlContainer()
+
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.applyCustomClass(htmlContainer, params, 'htmlContainer')
+
+  // Content as HTML
+  if (params.html) {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.parseHtmlToContainer(params.html, htmlContainer)
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.show(htmlContainer, 'block')
+
+  // Content as plain text
+  } else if (params.text) {
+    htmlContainer.textContent = params.text
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.show(htmlContainer, 'block')
+
+  // No content
+  } else {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.hide(htmlContainer)
+  }
+
+  (0,_renderInput_js__WEBPACK_IMPORTED_MODULE_1__.renderInput)(instance, params)
+
+  // Custom class
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.applyCustomClass(_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getContent(), params, 'content')
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/renderers/renderFooter.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/renderers/renderFooter.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderFooter": () => (/* binding */ renderFooter)
+/* harmony export */ });
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+
+
+const renderFooter = (instance, params) => {
+  const footer = _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getFooter()
+
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.toggle(footer, params.footer)
+
+  if (params.footer) {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.parseHtmlToContainer(params.footer, footer)
+  }
+
+  // Custom class
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.applyCustomClass(footer, params, 'footer')
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/renderers/renderHeader.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/renderers/renderHeader.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderHeader": () => (/* binding */ renderHeader)
+/* harmony export */ });
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _renderCloseButton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./renderCloseButton.js */ "./node_modules/sweetalert2/src/utils/dom/renderers/renderCloseButton.js");
+/* harmony import */ var _renderIcon_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./renderIcon.js */ "./node_modules/sweetalert2/src/utils/dom/renderers/renderIcon.js");
+/* harmony import */ var _renderImage_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./renderImage.js */ "./node_modules/sweetalert2/src/utils/dom/renderers/renderImage.js");
+/* harmony import */ var _renderProgressSteps_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./renderProgressSteps.js */ "./node_modules/sweetalert2/src/utils/dom/renderers/renderProgressSteps.js");
+/* harmony import */ var _renderTitle_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./renderTitle.js */ "./node_modules/sweetalert2/src/utils/dom/renderers/renderTitle.js");
+
+
+
+
+
+
+
+const renderHeader = (instance, params) => {
+  const header = _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getHeader()
+
+  // Custom class
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.applyCustomClass(header, params, 'header')
+
+  // Progress steps
+  ;(0,_renderProgressSteps_js__WEBPACK_IMPORTED_MODULE_4__.renderProgressSteps)(instance, params)
+
+  // Icon
+  ;(0,_renderIcon_js__WEBPACK_IMPORTED_MODULE_2__.renderIcon)(instance, params)
+
+  // Image
+  ;(0,_renderImage_js__WEBPACK_IMPORTED_MODULE_3__.renderImage)(instance, params)
+
+  // Title
+  ;(0,_renderTitle_js__WEBPACK_IMPORTED_MODULE_5__.renderTitle)(instance, params)
+
+  // Close button
+  ;(0,_renderCloseButton_js__WEBPACK_IMPORTED_MODULE_1__.renderCloseButton)(instance, params)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/renderers/renderIcon.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/renderers/renderIcon.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderIcon": () => (/* binding */ renderIcon)
+/* harmony export */ });
+/* harmony import */ var _classes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _privateProps_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../privateProps.js */ "./node_modules/sweetalert2/src/privateProps.js");
+
+
+
+
+
+const renderIcon = (instance, params) => {
+  const innerParams = _privateProps_js__WEBPACK_IMPORTED_MODULE_3__.default.innerParams.get(instance)
+  const icon = _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getIcon()
+
+  // if the given icon already rendered, apply the styling without re-rendering the icon
+  if (innerParams && params.icon === innerParams.icon) {
+    // Custom or default content
+    setContent(icon, params)
+
+    applyStyles(icon, params)
+    return
+  }
+
+  if (!params.icon && !params.iconHtml) {
+    return _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.hide(icon)
+  }
+
+  if (params.icon && Object.keys(_classes_js__WEBPACK_IMPORTED_MODULE_0__.iconTypes).indexOf(params.icon) === -1) {
+    (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.error)(`Unknown icon! Expected "success", "error", "warning", "info" or "question", got "${params.icon}"`)
+    return _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.hide(icon)
+  }
+
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.show(icon)
+
+  // Custom or default content
+  setContent(icon, params)
+
+  applyStyles(icon, params)
+
+  // Animate icon
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.addClass(icon, params.showClass.icon)
+}
+
+const applyStyles = (icon, params) => {
+  for (const iconType in _classes_js__WEBPACK_IMPORTED_MODULE_0__.iconTypes) {
+    if (params.icon !== iconType) {
+      _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.removeClass(icon, _classes_js__WEBPACK_IMPORTED_MODULE_0__.iconTypes[iconType])
+    }
+  }
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.addClass(icon, _classes_js__WEBPACK_IMPORTED_MODULE_0__.iconTypes[params.icon])
+
+  // Icon color
+  setColor(icon, params)
+
+  // Success icon background color
+  adjustSuccessIconBackgoundColor()
+
+  // Custom class
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.applyCustomClass(icon, params, 'icon')
+}
+
+// Adjust success icon background color to match the popup background color
+const adjustSuccessIconBackgoundColor = () => {
+  const popup = _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getPopup()
+  const popupBackgroundColor = window.getComputedStyle(popup).getPropertyValue('background-color')
+  const successIconParts = popup.querySelectorAll('[class^=swal2-success-circular-line], .swal2-success-fix')
+  for (let i = 0; i < successIconParts.length; i++) {
+    successIconParts[i].style.backgroundColor = popupBackgroundColor
+  }
+}
+
+const setContent = (icon, params) => {
+  icon.textContent = ''
+
+  if (params.iconHtml) {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.setInnerHtml(icon, iconContent(params.iconHtml))
+  } else if (params.icon === 'success') {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.setInnerHtml(icon, `
+      <div class="swal2-success-circular-line-left"></div>
+      <span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span>
+      <div class="swal2-success-ring"></div> <div class="swal2-success-fix"></div>
+      <div class="swal2-success-circular-line-right"></div>
+    `)
+  } else if (params.icon === 'error') {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.setInnerHtml(icon, `
+      <span class="swal2-x-mark">
+        <span class="swal2-x-mark-line-left"></span>
+        <span class="swal2-x-mark-line-right"></span>
+      </span>
+    `)
+  } else {
+    const defaultIconHtml = {
+      question: '?',
+      warning: '!',
+      info: 'i'
+    }
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.setInnerHtml(icon, iconContent(defaultIconHtml[params.icon]))
+  }
+}
+
+const setColor = (icon, params) => {
+  if (!params.iconColor) {
+    return
+  }
+  icon.style.color = params.iconColor
+  icon.style.borderColor = params.iconColor
+  for (const sel of ['.swal2-success-line-tip', '.swal2-success-line-long', '.swal2-x-mark-line-left', '.swal2-x-mark-line-right']) {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.setStyle(icon, sel, 'backgroundColor', params.iconColor)
+  }
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.setStyle(icon, '.swal2-success-ring', 'borderColor', params.iconColor)
+}
+
+const iconContent = (content) => `<div class="${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["icon-content"]}">${content}</div>`
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/renderers/renderImage.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/renderers/renderImage.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderImage": () => (/* binding */ renderImage)
+/* harmony export */ });
+/* harmony import */ var _classes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+
+
+
+const renderImage = (instance, params) => {
+  const image = _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getImage()
+
+  if (!params.imageUrl) {
+    return _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.hide(image)
+  }
+
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.show(image, '')
+
+  // Src, alt
+  image.setAttribute('src', params.imageUrl)
+  image.setAttribute('alt', params.imageAlt)
+
+  // Width, height
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.applyNumericalStyle(image, 'width', params.imageWidth)
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.applyNumericalStyle(image, 'height', params.imageHeight)
+
+  // Class
+  image.className = _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.image
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.applyCustomClass(image, params, 'image')
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/renderers/renderInput.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/renderers/renderInput.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderInput": () => (/* binding */ renderInput)
+/* harmony export */ });
+/* harmony import */ var _classes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _privateProps_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../privateProps.js */ "./node_modules/sweetalert2/src/privateProps.js");
+
+
+
+
+
+const inputTypes = ['input', 'file', 'range', 'select', 'radio', 'checkbox', 'textarea']
+
+const renderInput = (instance, params) => {
+  const content = _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getContent()
+  const innerParams = _privateProps_js__WEBPACK_IMPORTED_MODULE_3__.default.innerParams.get(instance)
+  const rerender = !innerParams || params.input !== innerParams.input
+
+  inputTypes.forEach((inputType) => {
+    const inputClass = _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses[inputType]
+    const inputContainer = _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getChildByClass(content, inputClass)
+
+    // set attributes
+    setAttributes(inputType, params.inputAttributes)
+
+    // set class
+    inputContainer.className = inputClass
+
+    if (rerender) {
+      _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.hide(inputContainer)
+    }
+  })
+
+  if (params.input) {
+    if (rerender) {
+      showInput(params)
+    }
+    // set custom class
+    setCustomClass(params)
+  }
+}
+
+const showInput = (params) => {
+  if (!renderInputType[params.input]) {
+    return (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.error)(`Unexpected type of input! Expected "text", "email", "password", "number", "tel", "select", "radio", "checkbox", "textarea", "file" or "url", got "${params.input}"`)
+  }
+
+  const inputContainer = getInputContainer(params.input)
+  const input = renderInputType[params.input](inputContainer, params)
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.show(input)
+
+  // input autofocus
+  setTimeout(() => {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.focusInput(input)
+  })
+}
+
+const removeAttributes = (input) => {
+  for (let i = 0; i < input.attributes.length; i++) {
+    const attrName = input.attributes[i].name
+    if (!['type', 'value', 'style'].includes(attrName)) {
+      input.removeAttribute(attrName)
+    }
+  }
+}
+
+const setAttributes = (inputType, inputAttributes) => {
+  const input = _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getInput(_dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getContent(), inputType)
+  if (!input) {
+    return
+  }
+
+  removeAttributes(input)
+
+  for (const attr in inputAttributes) {
+    // Do not set a placeholder for <input type="range">
+    // it'll crash Edge, #1298
+    if (inputType === 'range' && attr === 'placeholder') {
+      continue
+    }
+
+    input.setAttribute(attr, inputAttributes[attr])
+  }
+}
+
+const setCustomClass = (params) => {
+  const inputContainer = getInputContainer(params.input)
+  if (params.customClass) {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.addClass(inputContainer, params.customClass.input)
+  }
+}
+
+const setInputPlaceholder = (input, params) => {
+  if (!input.placeholder || params.inputPlaceholder) {
+    input.placeholder = params.inputPlaceholder
+  }
+}
+
+const setInputLabel = (input, prependTo, params) => {
+  if (params.inputLabel) {
+    input.id = _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.input
+    const label = document.createElement('label')
+    const labelClass = _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["input-label"]
+    label.setAttribute('for', input.id)
+    label.className = labelClass
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.addClass(label, params.customClass.inputLabel)
+    label.innerText = params.inputLabel
+    prependTo.insertAdjacentElement('beforebegin', label)
+  }
+}
+
+const getInputContainer = (inputType) => {
+  const inputClass = _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses[inputType] ? _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses[inputType] : _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.input
+  return _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getChildByClass(_dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getContent(), inputClass)
+}
+
+const renderInputType = {}
+
+renderInputType.text =
+renderInputType.email =
+renderInputType.password =
+renderInputType.number =
+renderInputType.tel =
+renderInputType.url = (input, params) => {
+  if (typeof params.inputValue === 'string' || typeof params.inputValue === 'number') {
+    input.value = params.inputValue
+  } else if (!(0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.isPromise)(params.inputValue)) {
+    (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.warn)(`Unexpected type of inputValue! Expected "string", "number" or "Promise", got "${typeof params.inputValue}"`)
+  }
+  setInputLabel(input, input, params)
+  setInputPlaceholder(input, params)
+  input.type = params.input
+  return input
+}
+
+renderInputType.file = (input, params) => {
+  setInputLabel(input, input, params)
+  setInputPlaceholder(input, params)
+  return input
+}
+
+renderInputType.range = (range, params) => {
+  const rangeInput = range.querySelector('input')
+  const rangeOutput = range.querySelector('output')
+  rangeInput.value = params.inputValue
+  rangeInput.type = params.input
+  rangeOutput.value = params.inputValue
+  setInputLabel(rangeInput, range, params)
+  return range
+}
+
+renderInputType.select = (select, params) => {
+  select.textContent = ''
+  if (params.inputPlaceholder) {
+    const placeholder = document.createElement('option')
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.setInnerHtml(placeholder, params.inputPlaceholder)
+    placeholder.value = ''
+    placeholder.disabled = true
+    placeholder.selected = true
+    select.appendChild(placeholder)
+  }
+  setInputLabel(select, select, params)
+  return select
+}
+
+renderInputType.radio = (radio) => {
+  radio.textContent = ''
+  return radio
+}
+
+renderInputType.checkbox = (checkboxContainer, params) => {
+  const checkbox = _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getInput(_dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getContent(), 'checkbox')
+  checkbox.value = 1
+  checkbox.id = _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.checkbox
+  checkbox.checked = Boolean(params.inputValue)
+  const label = checkboxContainer.querySelector('span')
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.setInnerHtml(label, params.inputPlaceholder)
+  return checkboxContainer
+}
+
+renderInputType.textarea = (textarea, params) => {
+  textarea.value = params.inputValue
+  setInputPlaceholder(textarea, params)
+  setInputLabel(textarea, textarea, params)
+
+  const getPadding = (el) => parseInt(window.getComputedStyle(el).paddingLeft) + parseInt(window.getComputedStyle(el).paddingRight)
+
+  if ('MutationObserver' in window) { // #1699
+    const initialPopupWidth = parseInt(window.getComputedStyle(_dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getPopup()).width)
+    const outputsize = () => {
+      const contentWidth = textarea.offsetWidth + getPadding(_dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getPopup()) + getPadding(_dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getContent())
+      if (contentWidth > initialPopupWidth) {
+        _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getPopup().style.width = `${contentWidth}px`
+      } else {
+        _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getPopup().style.width = null
+      }
+    }
+    new MutationObserver(outputsize).observe(textarea, {
+      attributes: true, attributeFilter: ['style']
+    })
+  }
+
+  return textarea
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/renderers/renderPopup.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/renderers/renderPopup.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderPopup": () => (/* binding */ renderPopup)
+/* harmony export */ });
+/* harmony import */ var _classes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+
+
+
+const renderPopup = (instance, params) => {
+  const container = _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getContainer()
+  const popup = _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getPopup()
+
+  // Width
+  if (params.toast) { // #2170
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.applyNumericalStyle(container, 'width', params.width)
+    popup.style.width = '100%'
+  } else {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.applyNumericalStyle(popup, 'width', params.width)
+  }
+
+  // Padding
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.applyNumericalStyle(popup, 'padding', params.padding)
+
+  // Background
+  if (params.background) {
+    popup.style.background = params.background
+  }
+
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.hide(_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.getValidationMessage())
+
+  // Classes
+  addClasses(popup, params)
+}
+
+const addClasses = (popup, params) => {
+  // Default Class + showClass when updating Swal.update({})
+  popup.className = `${_classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.popup} ${_dom_index_js__WEBPACK_IMPORTED_MODULE_1__.isVisible(popup) ? params.showClass.popup : ''}`
+
+  if (params.toast) {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.addClass([document.documentElement, document.body], _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["toast-shown"])
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.addClass(popup, _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.toast)
+  } else {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.addClass(popup, _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses.modal)
+  }
+
+  // Custom class
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.applyCustomClass(popup, params, 'popup')
+  if (typeof params.customClass === 'string') {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.addClass(popup, params.customClass)
+  }
+
+  // Icon class (#1842)
+  if (params.icon) {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.addClass(popup, _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses[`icon-${params.icon}`])
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/renderers/renderProgressSteps.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/renderers/renderProgressSteps.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderProgressSteps": () => (/* binding */ renderProgressSteps)
+/* harmony export */ });
+/* harmony import */ var _classes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _staticMethods_queue_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../staticMethods/queue.js */ "./node_modules/sweetalert2/src/staticMethods/queue.js");
+
+
+
+
+
+const createStepElement = (step) => {
+  const stepEl = document.createElement('li')
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.addClass(stepEl, _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["progress-step"])
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.setInnerHtml(stepEl, step)
+  return stepEl
+}
+
+const createLineElement = (params) => {
+  const lineEl = document.createElement('li')
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.addClass(lineEl, _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["progress-step-line"])
+  if (params.progressStepsDistance) {
+    lineEl.style.width = params.progressStepsDistance
+  }
+  return lineEl
+}
+
+const renderProgressSteps = (instance, params) => {
+  const progressStepsContainer = _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.getProgressSteps()
+  if (!params.progressSteps || params.progressSteps.length === 0) {
+    return _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.hide(progressStepsContainer)
+  }
+
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.show(progressStepsContainer)
+  progressStepsContainer.textContent = ''
+  const currentProgressStep = parseInt(params.currentProgressStep === undefined ? (0,_staticMethods_queue_js__WEBPACK_IMPORTED_MODULE_3__.getQueueStep)() : params.currentProgressStep)
+  if (currentProgressStep >= params.progressSteps.length) {
+    (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.warn)(
+      'Invalid currentProgressStep parameter, it should be less than progressSteps.length ' +
+      '(currentProgressStep like JS arrays starts from 0)'
+    )
+  }
+
+  params.progressSteps.forEach((step, index) => {
+    const stepEl = createStepElement(step)
+    progressStepsContainer.appendChild(stepEl)
+    if (index === currentProgressStep) {
+      _dom_index_js__WEBPACK_IMPORTED_MODULE_2__.addClass(stepEl, _classes_js__WEBPACK_IMPORTED_MODULE_0__.swalClasses["active-progress-step"])
+    }
+
+    if (index !== params.progressSteps.length - 1) {
+      const lineEl = createLineElement(params)
+      progressStepsContainer.appendChild(lineEl)
+    }
+  })
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/dom/renderers/renderTitle.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/dom/renderers/renderTitle.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderTitle": () => (/* binding */ renderTitle)
+/* harmony export */ });
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+
+
+const renderTitle = (instance, params) => {
+  const title = _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getTitle()
+
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.toggle(title, params.title || params.titleText)
+
+  if (params.title) {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.parseHtmlToContainer(params.title, title)
+  }
+
+  if (params.titleText) {
+    title.innerText = params.titleText
+  }
+
+  // Custom class
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.applyCustomClass(title, params, 'title')
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/getTemplateParams.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/getTemplateParams.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getTemplateParams": () => (/* binding */ getTemplateParams)
+/* harmony export */ });
+/* harmony import */ var _params_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./params.js */ "./node_modules/sweetalert2/src/utils/params.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+
+
+
+const swalStringParams = ['swal-title', 'swal-html', 'swal-footer']
+
+const getTemplateParams = (params) => {
+  const template = typeof params.template === 'string' ? document.querySelector(params.template) : params.template
+  if (!template) {
+    return {}
+  }
+  const templateContent = template.content || template // IE11
+
+  showWarningsForElements(templateContent)
+
+  const result = Object.assign(
+    getSwalParams(templateContent),
+    getSwalButtons(templateContent),
+    getSwalImage(templateContent),
+    getSwalIcon(templateContent),
+    getSwalInput(templateContent),
+    getSwalStringParams(templateContent, swalStringParams),
+  )
+  return result
+}
+
+const getSwalParams = (templateContent) => {
+  const result = {}
+  ;(0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.toArray)(templateContent.querySelectorAll('swal-param')).forEach((param) => {
+    showWarningsForAttributes(param, ['name', 'value'])
+    const paramName = param.getAttribute('name')
+    let value = param.getAttribute('value')
+    if (typeof _params_js__WEBPACK_IMPORTED_MODULE_0__.default[paramName] === 'boolean' && value === 'false') {
+      value = false
+    }
+    if (typeof _params_js__WEBPACK_IMPORTED_MODULE_0__.default[paramName] === 'object') {
+      value = JSON.parse(value)
+    }
+    result[paramName] = value
+  })
+  return result
+}
+
+const getSwalButtons = (templateContent) => {
+  const result = {}
+  ;(0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.toArray)(templateContent.querySelectorAll('swal-button')).forEach((button) => {
+    showWarningsForAttributes(button, ['type', 'color', 'aria-label'])
+    const type = button.getAttribute('type')
+    result[`${type}ButtonText`] = button.innerHTML
+    result[`show${(0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.capitalizeFirstLetter)(type)}Button`] = true
+    if (button.hasAttribute('color')) {
+      result[`${type}ButtonColor`] = button.getAttribute('color')
+    }
+    if (button.hasAttribute('aria-label')) {
+      result[`${type}ButtonAriaLabel`] = button.getAttribute('aria-label')
+    }
+  })
+  return result
+}
+
+const getSwalImage = (templateContent) => {
+  const result = {}
+  const image = templateContent.querySelector('swal-image')
+  if (image) {
+    showWarningsForAttributes(image, ['src', 'width', 'height', 'alt'])
+    if (image.hasAttribute('src')) {
+      result.imageUrl = image.getAttribute('src')
+    }
+    if (image.hasAttribute('width')) {
+      result.imageWidth = image.getAttribute('width')
+    }
+    if (image.hasAttribute('height')) {
+      result.imageHeight = image.getAttribute('height')
+    }
+    if (image.hasAttribute('alt')) {
+      result.imageAlt = image.getAttribute('alt')
+    }
+  }
+  return result
+}
+
+const getSwalIcon = (templateContent) => {
+  const result = {}
+  const icon = templateContent.querySelector('swal-icon')
+  if (icon) {
+    showWarningsForAttributes(icon, ['type', 'color'])
+    if (icon.hasAttribute('type')) {
+      result.icon = icon.getAttribute('type')
+    }
+    if (icon.hasAttribute('color')) {
+      result.iconColor = icon.getAttribute('color')
+    }
+    result.iconHtml = icon.innerHTML
+  }
+  return result
+}
+
+const getSwalInput = (templateContent) => {
+  const result = {}
+  const input = templateContent.querySelector('swal-input')
+  if (input) {
+    showWarningsForAttributes(input, ['type', 'label', 'placeholder', 'value'])
+    result.input = input.getAttribute('type') || 'text'
+    if (input.hasAttribute('label')) {
+      result.inputLabel = input.getAttribute('label')
+    }
+    if (input.hasAttribute('placeholder')) {
+      result.inputPlaceholder = input.getAttribute('placeholder')
+    }
+    if (input.hasAttribute('value')) {
+      result.inputValue = input.getAttribute('value')
+    }
+  }
+  const inputOptions = templateContent.querySelectorAll('swal-input-option')
+  if (inputOptions.length) {
+    result.inputOptions = {}
+    ;(0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.toArray)(inputOptions).forEach((option) => {
+      showWarningsForAttributes(option, ['value'])
+      const optionValue = option.getAttribute('value')
+      const optionName = option.innerHTML
+      result.inputOptions[optionValue] = optionName
+    })
+  }
+  return result
+}
+
+const getSwalStringParams = (templateContent, paramNames) => {
+  const result = {}
+  for (const i in paramNames) {
+    const paramName = paramNames[i]
+    const tag = templateContent.querySelector(paramName)
+    if (tag) {
+      showWarningsForAttributes(tag, [])
+      result[paramName.replace(/^swal-/, '')] = tag.innerHTML
+    }
+  }
+  return result
+}
+
+const showWarningsForElements = (template) => {
+  const allowedElements = swalStringParams.concat([
+    'swal-param',
+    'swal-button',
+    'swal-image',
+    'swal-icon',
+    'swal-input',
+    'swal-input-option',
+  ])
+  ;(0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.toArray)(template.querySelectorAll('*')).forEach((el) => {
+    if (el.parentNode !== template) { // can't use template.children because of IE11
+      return
+    }
+    const tagName = el.tagName.toLowerCase()
+    if (allowedElements.indexOf(tagName) === -1) {
+      (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.warn)(`Unrecognized element <${tagName}>`)
+    }
+  })
+}
+
+const showWarningsForAttributes = (el, allowedAttributes) => {
+  ;(0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.toArray)(el.attributes).forEach((attribute) => {
+    if (allowedAttributes.indexOf(attribute.name) === -1) {
+      (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.warn)([
+        `Unrecognized attribute "${attribute.name}" on <${el.tagName.toLowerCase()}>.`,
+        `${allowedAttributes.length ? `Allowed attributes are: ${allowedAttributes.join(', ')}` : 'To set the value, use HTML within the element.'}`
+      ])
+    }
+  })
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/ieFix.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/ieFix.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "IEfix": () => (/* binding */ IEfix),
+/* harmony export */   "undoIEfix": () => (/* binding */ undoIEfix)
+/* harmony export */ });
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* istanbul ignore file */
+
+
+// https://stackoverflow.com/a/21825207
+const isIE11 = () => !!window.MSInputMethodContext && !!document.documentMode
+
+// Fix IE11 centering sweetalert2/issues/933
+const fixVerticalPositionIE = () => {
+  const container = _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getContainer()
+  const popup = _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getPopup()
+
+  container.style.removeProperty('align-items')
+  if (popup.offsetTop < 0) {
+    container.style.alignItems = 'flex-start'
+  }
+}
+
+const IEfix = () => {
+  if (typeof window !== 'undefined' && isIE11()) {
+    fixVerticalPositionIE()
+    window.addEventListener('resize', fixVerticalPositionIE)
+  }
+}
+
+const undoIEfix = () => {
+  if (typeof window !== 'undefined' && isIE11()) {
+    window.removeEventListener('resize', fixVerticalPositionIE)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/iosFix.js":
+/*!******************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/iosFix.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "iOSfix": () => (/* binding */ iOSfix),
+/* harmony export */   "undoIOSfix": () => (/* binding */ undoIOSfix)
+/* harmony export */ });
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _utils_classes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* istanbul ignore file */
+
+
+
+// Fix iOS scrolling http://stackoverflow.com/q/39626302
+
+const iOSfix = () => {
+  const iOS = (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+  if (iOS && !_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.hasClass(document.body, _utils_classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.iosfix)) {
+    const offset = document.body.scrollTop
+    document.body.style.top = `${offset * -1}px`
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.addClass(document.body, _utils_classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.iosfix)
+    lockBodyScroll()
+    addBottomPaddingForTallPopups() // #1948
+  }
+}
+
+const addBottomPaddingForTallPopups = () => {
+  const safari = !navigator.userAgent.match(/(CriOS|FxiOS|EdgiOS|YaBrowser|UCBrowser)/i)
+  if (safari) {
+    const bottomPanelHeight = 44
+    if (_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getPopup().scrollHeight > window.innerHeight - bottomPanelHeight) {
+      _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getContainer().style.paddingBottom = `${bottomPanelHeight}px`
+    }
+  }
+}
+
+const lockBodyScroll = () => { // #1246
+  const container = _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getContainer()
+  let preventTouchMove
+  container.ontouchstart = (e) => {
+    preventTouchMove = shouldPreventTouchMove(e)
+  }
+  container.ontouchmove = (e) => {
+    if (preventTouchMove) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
+  }
+}
+
+const shouldPreventTouchMove = (event) => {
+  const target = event.target
+  const container = _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getContainer()
+  if (isStylys(event) || isZoom(event)) {
+    return false
+  }
+  if (target === container) {
+    return true
+  }
+  if (
+    !_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.isScrollable(container) &&
+    target.tagName !== 'INPUT' && // #1603
+    !(
+      _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.isScrollable(_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getContent()) && // #1944
+      _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getContent().contains(target)
+    )
+  ) {
+    return true
+  }
+  return false
+}
+
+const isStylys = (event) => { // #1786
+  return event.touches && event.touches.length && event.touches[0].touchType === 'stylus'
+}
+
+const isZoom = (event) => { // #1891
+  return event.touches && event.touches.length > 1
+}
+
+const undoIOSfix = () => {
+  if (_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.hasClass(document.body, _utils_classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.iosfix)) {
+    const offset = parseInt(document.body.style.top, 10)
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.removeClass(document.body, _utils_classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.iosfix)
+    document.body.style.top = ''
+    document.body.scrollTop = (offset * -1)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/isNodeEnv.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/isNodeEnv.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isNodeEnv": () => (/* binding */ isNodeEnv)
+/* harmony export */ });
+// Detect Node env
+const isNodeEnv = () => typeof window === 'undefined' || typeof document === 'undefined'
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/openPopup.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/openPopup.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SHOW_CLASS_TIMEOUT": () => (/* binding */ SHOW_CLASS_TIMEOUT),
+/* harmony export */   "openPopup": () => (/* binding */ openPopup)
+/* harmony export */ });
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _classes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./classes.js */ "./node_modules/sweetalert2/src/utils/classes.js");
+/* harmony import */ var _scrollbarFix_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scrollbarFix.js */ "./node_modules/sweetalert2/src/utils/scrollbarFix.js");
+/* harmony import */ var _iosFix_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./iosFix.js */ "./node_modules/sweetalert2/src/utils/iosFix.js");
+/* harmony import */ var _ieFix_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ieFix.js */ "./node_modules/sweetalert2/src/utils/ieFix.js");
+/* harmony import */ var _aria_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./aria.js */ "./node_modules/sweetalert2/src/utils/aria.js");
+/* harmony import */ var _globalState_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../globalState.js */ "./node_modules/sweetalert2/src/globalState.js");
+
+
+
+
+
+
+
+
+const SHOW_CLASS_TIMEOUT = 10
+
+/**
+ * Open popup, add necessary classes and styles, fix scrollbar
+ *
+ * @param params
+ */
+const openPopup = (params) => {
+  const container = _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getContainer()
+  const popup = _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getPopup()
+
+  if (typeof params.willOpen === 'function') {
+    params.willOpen(popup)
+  } else if (typeof params.onBeforeOpen === 'function') {
+    params.onBeforeOpen(popup) // @deprecated
+  }
+
+  const bodyStyles = window.getComputedStyle(document.body)
+  const initialBodyOverflow = bodyStyles.overflowY
+  addClasses(container, popup, params)
+
+  // scrolling is 'hidden' until animation is done, after that 'auto'
+  setTimeout(() => {
+    setScrollingVisibility(container, popup)
+  }, SHOW_CLASS_TIMEOUT)
+
+  if (_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.isModal()) {
+    fixScrollContainer(container, params.scrollbarPadding, initialBodyOverflow)
+    ;(0,_aria_js__WEBPACK_IMPORTED_MODULE_5__.setAriaHidden)()
+  }
+
+  if (!_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.isToast() && !_globalState_js__WEBPACK_IMPORTED_MODULE_6__.default.previousActiveElement) {
+    _globalState_js__WEBPACK_IMPORTED_MODULE_6__.default.previousActiveElement = document.activeElement
+  }
+
+  runDidOpen(popup, params)
+
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.removeClass(container, _classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses["no-transition"])
+}
+
+const runDidOpen = (popup, params) => {
+  if (typeof params.didOpen === 'function') {
+    setTimeout(() => params.didOpen(popup))
+  } else if (typeof params.onOpen === 'function') {
+    setTimeout(() => params.onOpen(popup)) // @deprecated
+  }
+}
+
+const swalOpenAnimationFinished = (event) => {
+  const popup = _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getPopup()
+  if (event.target !== popup) {
+    return
+  }
+  const container = _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.getContainer()
+  popup.removeEventListener(_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.animationEndEvent, swalOpenAnimationFinished)
+  container.style.overflowY = 'auto'
+}
+
+const setScrollingVisibility = (container, popup) => {
+  if (_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.animationEndEvent && _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.hasCssAnimation(popup)) {
+    container.style.overflowY = 'hidden'
+    popup.addEventListener(_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.animationEndEvent, swalOpenAnimationFinished)
+  } else {
+    container.style.overflowY = 'auto'
+  }
+}
+
+const fixScrollContainer = (container, scrollbarPadding, initialBodyOverflow) => {
+  ;(0,_iosFix_js__WEBPACK_IMPORTED_MODULE_3__.iOSfix)()
+  ;(0,_ieFix_js__WEBPACK_IMPORTED_MODULE_4__.IEfix)()
+
+  if (scrollbarPadding && initialBodyOverflow !== 'hidden') {
+    (0,_scrollbarFix_js__WEBPACK_IMPORTED_MODULE_2__.fixScrollbar)()
+  }
+
+  // sweetalert2/issues/1247
+  setTimeout(() => {
+    container.scrollTop = 0
+  })
+}
+
+const addClasses = (container, popup, params) => {
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.addClass(container, params.showClass.backdrop)
+  // the workaround with setting/unsetting opacity is needed for #2019 and 2059
+  popup.style.setProperty('opacity', '0', 'important')
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.show(popup)
+  setTimeout(() => {
+    // Animate popup right after showing it
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.addClass(popup, params.showClass.popup)
+    // and remove the opacity workaround
+    popup.style.removeProperty('opacity')
+  }, SHOW_CLASS_TIMEOUT) // 10ms in order to fix #2062
+
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.addClass([document.documentElement, document.body], _classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses.shown)
+  if (params.heightAuto && params.backdrop && !params.toast) {
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.addClass([document.documentElement, document.body], _classes_js__WEBPACK_IMPORTED_MODULE_1__.swalClasses["height-auto"])
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/params.js":
+/*!******************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/params.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "defaultParams": () => (/* binding */ defaultParams),
+/* harmony export */   "updatableParams": () => (/* binding */ updatableParams),
+/* harmony export */   "deprecatedParams": () => (/* binding */ deprecatedParams),
+/* harmony export */   "isValidParameter": () => (/* binding */ isValidParameter),
+/* harmony export */   "isUpdatableParameter": () => (/* binding */ isUpdatableParameter),
+/* harmony export */   "isDeprecatedParameter": () => (/* binding */ isDeprecatedParameter),
+/* harmony export */   "showWarningsForParams": () => (/* binding */ showWarningsForParams),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+
+
+const defaultParams = {
+  title: '',
+  titleText: '',
+  text: '',
+  html: '',
+  footer: '',
+  icon: undefined,
+  iconColor: undefined,
+  iconHtml: undefined,
+  template: undefined,
+  toast: false,
+  animation: true,
+  showClass: {
+    popup: 'swal2-show',
+    backdrop: 'swal2-backdrop-show',
+    icon: 'swal2-icon-show',
+  },
+  hideClass: {
+    popup: 'swal2-hide',
+    backdrop: 'swal2-backdrop-hide',
+    icon: 'swal2-icon-hide',
+  },
+  customClass: {},
+  target: 'body',
+  backdrop: true,
+  heightAuto: true,
+  allowOutsideClick: true,
+  allowEscapeKey: true,
+  allowEnterKey: true,
+  stopKeydownPropagation: true,
+  keydownListenerCapture: false,
+  showConfirmButton: true,
+  showDenyButton: false,
+  showCancelButton: false,
+  preConfirm: undefined,
+  preDeny: undefined,
+  confirmButtonText: 'OK',
+  confirmButtonAriaLabel: '',
+  confirmButtonColor: undefined,
+  denyButtonText: 'No',
+  denyButtonAriaLabel: '',
+  denyButtonColor: undefined,
+  cancelButtonText: 'Cancel',
+  cancelButtonAriaLabel: '',
+  cancelButtonColor: undefined,
+  buttonsStyling: true,
+  reverseButtons: false,
+  focusConfirm: true,
+  focusDeny: false,
+  focusCancel: false,
+  returnFocus: true,
+  showCloseButton: false,
+  closeButtonHtml: '&times;',
+  closeButtonAriaLabel: 'Close this dialog',
+  loaderHtml: '',
+  showLoaderOnConfirm: false,
+  showLoaderOnDeny: false,
+  imageUrl: undefined,
+  imageWidth: undefined,
+  imageHeight: undefined,
+  imageAlt: '',
+  timer: undefined,
+  timerProgressBar: false,
+  width: undefined,
+  padding: undefined,
+  background: undefined,
+  input: undefined,
+  inputPlaceholder: '',
+  inputLabel: '',
+  inputValue: '',
+  inputOptions: {},
+  inputAutoTrim: true,
+  inputAttributes: {},
+  inputValidator: undefined,
+  returnInputValueOnDeny: false,
+  validationMessage: undefined,
+  grow: false,
+  position: 'center',
+  progressSteps: [],
+  currentProgressStep: undefined,
+  progressStepsDistance: undefined,
+  onBeforeOpen: undefined,
+  onOpen: undefined,
+  willOpen: undefined,
+  didOpen: undefined,
+  onRender: undefined,
+  didRender: undefined,
+  onClose: undefined,
+  onAfterClose: undefined,
+  willClose: undefined,
+  didClose: undefined,
+  onDestroy: undefined,
+  didDestroy: undefined,
+  scrollbarPadding: true
+}
+
+const updatableParams = [
+  'allowEscapeKey',
+  'allowOutsideClick',
+  'background',
+  'buttonsStyling',
+  'cancelButtonAriaLabel',
+  'cancelButtonColor',
+  'cancelButtonText',
+  'closeButtonAriaLabel',
+  'closeButtonHtml',
+  'confirmButtonAriaLabel',
+  'confirmButtonColor',
+  'confirmButtonText',
+  'currentProgressStep',
+  'customClass',
+  'denyButtonAriaLabel',
+  'denyButtonColor',
+  'denyButtonText',
+  'didClose',
+  'didDestroy',
+  'footer',
+  'hideClass',
+  'html',
+  'icon',
+  'iconColor',
+  'iconHtml',
+  'imageAlt',
+  'imageHeight',
+  'imageUrl',
+  'imageWidth',
+  'onAfterClose',
+  'onClose',
+  'onDestroy',
+  'progressSteps',
+  'returnFocus',
+  'reverseButtons',
+  'showCancelButton',
+  'showCloseButton',
+  'showConfirmButton',
+  'showDenyButton',
+  'text',
+  'title',
+  'titleText',
+  'willClose',
+]
+
+const deprecatedParams = {
+  animation: 'showClass" and "hideClass',
+  onBeforeOpen: 'willOpen',
+  onOpen: 'didOpen',
+  onRender: 'didRender',
+  onClose: 'willClose',
+  onAfterClose: 'didClose',
+  onDestroy: 'didDestroy',
+}
+
+const toastIncompatibleParams = [
+  'allowOutsideClick',
+  'allowEnterKey',
+  'backdrop',
+  'focusConfirm',
+  'focusDeny',
+  'focusCancel',
+  'returnFocus',
+  'heightAuto',
+  'keydownListenerCapture'
+]
+
+/**
+ * Is valid parameter
+ * @param {String} paramName
+ */
+const isValidParameter = (paramName) => {
+  return Object.prototype.hasOwnProperty.call(defaultParams, paramName)
+}
+
+/**
+ * Is valid parameter for Swal.update() method
+ * @param {String} paramName
+ */
+const isUpdatableParameter = (paramName) => {
+  return updatableParams.indexOf(paramName) !== -1
+}
+
+/**
+ * Is deprecated parameter
+ * @param {String} paramName
+ */
+const isDeprecatedParameter = (paramName) => {
+  return deprecatedParams[paramName]
+}
+
+const checkIfParamIsValid = (param) => {
+  if (!isValidParameter(param)) {
+    (0,_utils_utils_js__WEBPACK_IMPORTED_MODULE_0__.warn)(`Unknown parameter "${param}"`)
+  }
+}
+
+const checkIfToastParamIsValid = (param) => {
+  if (toastIncompatibleParams.includes(param)) {
+    (0,_utils_utils_js__WEBPACK_IMPORTED_MODULE_0__.warn)(`The parameter "${param}" is incompatible with toasts`)
+  }
+}
+
+const checkIfParamIsDeprecated = (param) => {
+  if (isDeprecatedParameter(param)) {
+    (0,_utils_utils_js__WEBPACK_IMPORTED_MODULE_0__.warnAboutDeprecation)(param, isDeprecatedParameter(param))
+  }
+}
+
+/**
+ * Show relevant warnings for given params
+ *
+ * @param params
+ */
+const showWarningsForParams = (params) => {
+  for (const param in params) {
+    checkIfParamIsValid(param)
+
+    if (params.toast) {
+      checkIfToastParamIsValid(param)
+    }
+
+    checkIfParamIsDeprecated(param)
+  }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (defaultParams);
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/scrollbarFix.js":
+/*!************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/scrollbarFix.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fixScrollbar": () => (/* binding */ fixScrollbar),
+/* harmony export */   "undoScrollbar": () => (/* binding */ undoScrollbar)
+/* harmony export */ });
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+
+
+const fixScrollbar = () => {
+  // for queues, do not do this more than once
+  if (_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.states.previousBodyPadding !== null) {
+    return
+  }
+  // if the body has overflow
+  if (document.body.scrollHeight > window.innerHeight) {
+    // add padding so the content doesn't shift after removal of scrollbar
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.states.previousBodyPadding = parseInt(window.getComputedStyle(document.body).getPropertyValue('padding-right'))
+    document.body.style.paddingRight = `${_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.states.previousBodyPadding + _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.measureScrollbar()}px`
+  }
+}
+
+const undoScrollbar = () => {
+  if (_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.states.previousBodyPadding !== null) {
+    document.body.style.paddingRight = `${_dom_index_js__WEBPACK_IMPORTED_MODULE_0__.states.previousBodyPadding}px`
+    _dom_index_js__WEBPACK_IMPORTED_MODULE_0__.states.previousBodyPadding = null
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/setParameters.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/setParameters.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ setParameters)
+/* harmony export */ });
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ "./node_modules/sweetalert2/src/utils/utils.js");
+/* harmony import */ var _dom_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom/index.js */ "./node_modules/sweetalert2/src/utils/dom/index.js");
+/* harmony import */ var _defaultInputValidators_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./defaultInputValidators.js */ "./node_modules/sweetalert2/src/utils/defaultInputValidators.js");
+
+
+
+
+function setDefaultInputValidators (params) {
+  // Use default `inputValidator` for supported input types if not provided
+  if (!params.inputValidator) {
+    Object.keys(_defaultInputValidators_js__WEBPACK_IMPORTED_MODULE_2__.default).forEach((key) => {
+      if (params.input === key) {
+        params.inputValidator = _defaultInputValidators_js__WEBPACK_IMPORTED_MODULE_2__.default[key]
+      }
+    })
+  }
+}
+
+function validateCustomTargetElement (params) {
+  // Determine if the custom target element is valid
+  if (
+    !params.target ||
+    (typeof params.target === 'string' && !document.querySelector(params.target)) ||
+    (typeof params.target !== 'string' && !params.target.appendChild)
+  ) {
+    (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.warn)('Target parameter is not valid, defaulting to "body"')
+    params.target = 'body'
+  }
+}
+
+/**
+ * Set type, text and actions on popup
+ *
+ * @param params
+ * @returns {boolean}
+ */
+function setParameters (params) {
+  setDefaultInputValidators(params)
+
+  // showLoaderOnConfirm && preConfirm
+  if (params.showLoaderOnConfirm && !params.preConfirm) {
+    (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.warn)(
+      'showLoaderOnConfirm is set to true, but preConfirm is not defined.\n' +
+      'showLoaderOnConfirm should be used together with preConfirm, see usage example:\n' +
+      'https://sweetalert2.github.io/#ajax-request'
+    )
+  }
+
+  // params.animation will be actually used in renderPopup.js
+  // but in case when params.animation is a function, we need to call that function
+  // before popup (re)initialization, so it'll be possible to check Swal.isVisible()
+  // inside the params.animation function
+  params.animation = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.callIfFunction)(params.animation)
+
+  validateCustomTargetElement(params)
+
+  // Replace newlines with <br> in title
+  if (typeof params.title === 'string') {
+    params.title = params.title.split('\n').join('<br />')
+  }
+
+  _dom_index_js__WEBPACK_IMPORTED_MODULE_1__.init(params)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sweetalert2/src/utils/utils.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/sweetalert2/src/utils/utils.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "consolePrefix": () => (/* binding */ consolePrefix),
+/* harmony export */   "uniqueArray": () => (/* binding */ uniqueArray),
+/* harmony export */   "capitalizeFirstLetter": () => (/* binding */ capitalizeFirstLetter),
+/* harmony export */   "objectValues": () => (/* binding */ objectValues),
+/* harmony export */   "toArray": () => (/* binding */ toArray),
+/* harmony export */   "warn": () => (/* binding */ warn),
+/* harmony export */   "error": () => (/* binding */ error),
+/* harmony export */   "warnOnce": () => (/* binding */ warnOnce),
+/* harmony export */   "warnAboutDeprecation": () => (/* binding */ warnAboutDeprecation),
+/* harmony export */   "callIfFunction": () => (/* binding */ callIfFunction),
+/* harmony export */   "hasToPromiseFn": () => (/* binding */ hasToPromiseFn),
+/* harmony export */   "asPromise": () => (/* binding */ asPromise),
+/* harmony export */   "isPromise": () => (/* binding */ isPromise)
+/* harmony export */ });
+const consolePrefix = 'SweetAlert2:'
+
+/**
+ * Filter the unique values into a new array
+ * @param arr
+ */
+const uniqueArray = (arr) => {
+  const result = []
+  for (let i = 0; i < arr.length; i++) {
+    if (result.indexOf(arr[i]) === -1) {
+      result.push(arr[i])
+    }
+  }
+  return result
+}
+
+/**
+ * Capitalize the first letter of a string
+ * @param str
+ */
+const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1)
+
+/**
+ * Returns the array of object values (Object.values isn't supported in IE11)
+ * @param obj
+ */
+const objectValues = (obj) => Object.keys(obj).map(key => obj[key])
+
+/**
+ * Convert NodeList to Array
+ * @param nodeList
+ */
+const toArray = (nodeList) => Array.prototype.slice.call(nodeList)
+
+/**
+ * Standardise console warnings
+ * @param message
+ */
+const warn = (message) => {
+  console.warn(`${consolePrefix} ${typeof message === 'object' ? message.join(' ') : message}`)
+}
+
+/**
+ * Standardise console errors
+ * @param message
+ */
+const error = (message) => {
+  console.error(`${consolePrefix} ${message}`)
+}
+
+/**
+ * Private global state for `warnOnce`
+ * @type {Array}
+ * @private
+ */
+const previousWarnOnceMessages = []
+
+/**
+ * Show a console warning, but only if it hasn't already been shown
+ * @param message
+ */
+const warnOnce = (message) => {
+  if (!previousWarnOnceMessages.includes(message)) {
+    previousWarnOnceMessages.push(message)
+    warn(message)
+  }
+}
+
+/**
+ * Show a one-time console warning about deprecated params/methods
+ */
+const warnAboutDeprecation = (deprecatedParam, useInstead) => {
+  warnOnce(`"${deprecatedParam}" is deprecated and will be removed in the next major release. Please use "${useInstead}" instead.`)
+}
+
+/**
+ * If `arg` is a function, call it (with no arguments or context) and return the result.
+ * Otherwise, just pass the value through
+ * @param arg
+ */
+const callIfFunction = (arg) => typeof arg === 'function' ? arg() : arg
+
+const hasToPromiseFn = (arg) => arg && typeof arg.toPromise === 'function'
+
+const asPromise = (arg) => hasToPromiseFn(arg) ? arg.toPromise() : Promise.resolve(arg)
+
+const isPromise = (arg) => arg && Promise.resolve(arg) === arg
+
 
 /***/ })
 
@@ -40873,18 +42197,6 @@ if (typeof this !== 'undefined' && this.Sweetalert2){  this.swal = this.sweetAle
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -40943,10 +42255,9 @@ var __webpack_exports__ = {};
   !*** ./resources/js/admin.js ***!
   \*******************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sweetalert2_src_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2/src/sweetalert2.js */ "./node_modules/sweetalert2/src/sweetalert2.js");
 
-window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_0___default());
+window.Swal = sweetalert2_src_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0__.default;
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
