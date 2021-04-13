@@ -3,47 +3,50 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Http\Requests\UrlStoreRequest;
-use App\Http\Resources\UrlResource;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Url;
 
+
 class UrlController extends Controller
 {
+    /**
+     * Display all the urls on the dashboard
+     *
+     * @return  view
+     */
+    public function show()
+    {
+        $user = User::findOrFail(Auth::user()->id);
+
+        return view('dashboard', [
+            'urls' => $user->urls()->get()
+        ]);
+    }
+
     /**
      * Get all the user's shortened urls
      *
      * @return  array
      */
-    public function index()
+    public function index(User $user)
     {
-        
+        return $user->urls()->get();
     }
 
+
     /**
-     * Store shortened URL and return true or false, depending on a successful save
-     * This method catches any MySQL exceptions and returns false if the query fails
+     * Store shortened URL. This method is triggered by a ajax call from the frontend
      *
      * @return  bool
      */
     public function store(UrlStoreRequest $request)
     {
-        $url = new Url;
-        $url->user_id = Auth::id();
-        $url->url = $request->url;
-        $url->short_url = Str::random(6);
-
-        try {    
-            if($url->save()) {
-                return true;
-            }
+        if (Url::create($request->validated())) {
+            return true;
         }
-        catch(\Illuminate\Database\QueryException) { 
-            return false;
-        }
-
         return false;
     }
 
