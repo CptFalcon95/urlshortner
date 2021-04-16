@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class Url extends Model
@@ -36,7 +35,7 @@ class Url extends Model
     protected static function booted()
     {
         static::creating(function ($url) {
-            $url->user_id = Auth::id();
+            $url->user_id = auth()->id();
             $url->short_url = Str::random(8);
         });
     }

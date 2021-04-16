@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Http\Requests\UrlStoreRequest;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Url;
 
@@ -19,7 +17,7 @@ class UrlController extends Controller
      */
     public function show()
     {
-        $user = User::findOrFail(Auth::user()->id);
+        $user = User::findOrFail(auth()->id());
 
         return view('dashboard', [
             'urls' => $user->urls()->get()
@@ -38,7 +36,7 @@ class UrlController extends Controller
 
 
     /**
-     * Store shortened URL. This method is triggered by a ajax call from the frontend
+     * Store shortened URL. This method is called by an ajax call from the frontend
      *
      * @return  bool
      */

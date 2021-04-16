@@ -3,15 +3,15 @@
 --}}
 
 <div class="creation-form card text-white bg-dark shadow-sm">
-    <div class="card-header bg-primary">{{ __('Nieuwe URL aanmaken') }}</div>
+    <div class="card-header bg-primary">{{ __('Create new short URL') }}</div>
 
     <div class="card-body pt-2">
         <form method="POST" action="#" id="url-creation-form">
-            <span class="mb-2 d-block">{{__('Vul hier een URL in om te verkorten')}}</span>
+            <span class="mb-2 d-block">{{__('Enter the url below')}}</span>
             <div class="input-group">
                 <input type="text" class="form-control" name="url" placeholder="URL" value="https://www.">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-success" type="submit">{{__('Opslaan')}}</button>
+                    <button class="btn btn-outline-success" type="submit">{{__('Save')}}</button>
                 </div>
             </div>
         </form>

@@ -2,16 +2,17 @@
     Template: List of user's shortened URL's
 --}}
 
+@if($urls->count())
 <div class="urls-list card text-white bg-dark mt-3 shadow-sm">
-    <div class="card-header bg-primary">{{ __("Jouw URL's") }}</div>
+    <div class="card-header bg-primary">{{ __("Your URL's") }}</div>
 
     <div class="card-body p-0 table-responsive">
         <table class="table table-striped table-dark mb-0">
             <thead>
                 <tr>
-                    <th scope="col">Bezoek</th>
-                    <th scope="col">Url</th>
-                    <th scope="col">Bezocht</th>
+                    <th scope="col">{{__('Go')}}</th>
+                    <th scope="col">{{__('Url')}}</th>
+                    <th scope="col">{{__('Visited')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,3 +27,4 @@
         </table>
     </div>
 </div>
+@endif

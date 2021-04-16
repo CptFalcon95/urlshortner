@@ -36,8 +36,8 @@ class UrlStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'url.required' => __('Het veld mag niet leeg zijn!'),
-            'url.regex' => __('Geen juiste URL opgegeven'),
+            'url.required' => __('You must enter an URL'),
+            'url.regex' => __('Please check if the provided URL is valid'),
         ];
     }
 }
