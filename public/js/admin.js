@@ -1892,11 +1892,7 @@ jQuery(function () {
     var data = {
       'url': $('input[name="url"]').val()
     };
-    axios.post(url, data, {
-      headers: {
-        'Authorization': "Basic ".concat(token)
-      }
-    }).then(function (res) {
+    axios.post(url, data).then(function (res) {
       if (res.data == true) {
         Swal.fire('Gelukt!', 'De URL is succesvol opgeslagen', 'success');
       } else {

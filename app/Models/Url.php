@@ -35,7 +35,7 @@ class Url extends Model
     protected static function booted()
     {
         static::creating(function ($url) {
-            $url->user_id = auth()->id();
+            $url->user_id = auth()->user()->id;
             $url->short_url = Str::random(8);
         });
     }

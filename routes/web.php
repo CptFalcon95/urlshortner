@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome')->name('welcome');
+Route::get('/u/{url}', 'App\Http\Controllers\UrlController@directUrl')->name('visit');
 
 Route::group(['middleware' => 'auth', 'as' => 'admin.'], function() {
     Route::get('dashboard', 'App\Http\Controllers\UrlController@show')->name('dashboard');

@@ -9,11 +9,7 @@ jQuery(function() {
             'url' : $('input[name="url"]').val()
         }
 
-        axios.post(url, data, {
-            headers: {
-                'Authorization': `Basic ${token}` 
-            }
-        })
+        axios.post(url, data)
         .then(res => {
             if(res.data == true) {
                 Swal.fire(

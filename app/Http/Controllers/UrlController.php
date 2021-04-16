@@ -17,11 +17,30 @@ class UrlController extends Controller
      */
     public function show()
     {
-        $user = User::findOrFail(auth()->id());
+        $user = User::findOrFail(auth()->user()->id);
 
         return view('dashboard', [
             'urls' => $user->urls()->get()
         ]);
+    }
+
+    /**
+     * Increment visit counter and redirect to URL
+     *
+     * @return  redirect
+     */
+    public function directUrl(Request $request)
+    {
+        try {
+            $url = Url::where('short_url', $request->url)->firstOrFail();
+            $url->visit_count++;
+    
+            $url->save();
+    
+            return redirect($url->url);
+        } catch(Exception $e) {
+            abort(403, $e->getMessage());
+        }
     }
 
     /**
@@ -45,6 +64,7 @@ class UrlController extends Controller
         if (Url::create($request->validated())) {
             return true;
         }
+
         return false;
     }
 
