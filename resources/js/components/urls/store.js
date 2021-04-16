@@ -3,12 +3,11 @@ jQuery(function() {
     $('#url-creation-form').on('submit', function(e) {
         e.preventDefault()
 
-        const url = '/urls'
         const data = {
             'url' : $('input[name="url"]').val()
         }
 
-        axios.post(url, data)
+        axios.post('/urls', data)
         .then(res => {
             if(res.data == true) {
                 Swal.fire(

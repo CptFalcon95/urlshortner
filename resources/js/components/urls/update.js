@@ -1,11 +1,13 @@
 jQuery(function() {
 
-    let shortUrl
+    // Store the short_url from currenty edited URL
+    let currentShortUrl;
 
     // Set modal data when modal is triggered.
     $('#url-edit-modal').on('shown.bs.modal', function (event) {
         const $button = $(event.relatedTarget)
-        shortUrl = $button.data('short-url')
+        // Set currentShortUrl to data attribute from edit button
+        currentShortUrl = $button.data('short-url')
 
         $('input#edit-url').trigger('focus')
         $('input#edit-url').val($button.data('url'))
@@ -16,13 +18,9 @@ jQuery(function() {
     $('#url-edit-form').on('submit', function(e) {
         e.preventDefault()
         
-        const url = '/urls/'+shortUrl
-        const data = {
-            'url' : $('input#edit-url').val(),
-            'short_url' : shortUrl
-        }
+        const url = '/urls/'+currentShortUrl
 
-        axios.put(url, data)
+        axios.put(url, { 'url' : $('input#edit-url').val() })
         .then(res => {
             if(res.data == true) {
                 Swal.fire(
@@ -39,7 +37,7 @@ jQuery(function() {
             }
         })
         .catch(error => {
-            if (error.response.status == 422) {
+            if (error.response.status === 422) {
                 console.log();
                 Swal.fire(
                     'Oeps!',

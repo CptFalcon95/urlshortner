@@ -51,7 +51,7 @@ class UrlController extends Controller
             return false;
         }
     }
-    
+
     /**
      * Update shortened URL
      *
@@ -59,16 +59,12 @@ class UrlController extends Controller
      */
     public function update(UrlStoreRequest $request, Url $url)
     {
-        $url->url = $request->url;
+        if ($this->authorize('update', $url)) {
+            $url->url = $request->url;
 
-        // if($url->url != $request->url || $url->user_id === auth()->user()->id) {
-        //     return response()->json([
-        //         'errors' => "hetzelfde",
-        //     ], 422);
-        // }
-
-        if($url->save()) {
-            return true;
+            if ($url->save()) {
+                return true;
+            }
         }
 
         return false;
@@ -81,7 +77,6 @@ class UrlController extends Controller
      */
     public function destroy(Url $url)
     {
-
     }
 
     /**
