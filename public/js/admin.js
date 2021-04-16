@@ -1888,7 +1888,7 @@ jQuery(function () {
   $('#url-creation-form').on('submit', function (e) {
     e.preventDefault();
     var token = $('meta[name="csrf-token"]').attr('content');
-    var url = '/url/store';
+    var url = '/urls';
     var data = {
       'url': $('input[name="url"]').val()
     };

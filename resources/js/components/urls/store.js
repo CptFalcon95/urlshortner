@@ -4,7 +4,7 @@ jQuery(function() {
         e.preventDefault()
 
         const token = $('meta[name="csrf-token"]').attr('content')
-        const url = '/url/store'
+        const url = '/urls'
         const data = {
             'url' : $('input[name="url"]').val()
         }

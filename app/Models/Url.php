@@ -49,4 +49,8 @@ class Url extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // private function validateShortUrl($url) {
+    //     Url::where();
+    // }
 }
