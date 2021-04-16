@@ -24,7 +24,6 @@ class Url extends Model
      */
     protected $hidden = [
         'id',
-        'user_id',
     ];
 
     /**
@@ -38,6 +37,11 @@ class Url extends Model
             $url->user_id = auth()->user()->id;
             $url->short_url = Str::random(8);
         });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'short_url';
     }
 
     /**

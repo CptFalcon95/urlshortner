@@ -57,8 +57,21 @@ class UrlController extends Controller
      *
      * @return  [type]  [return description]
      */
-    public function update()
+    public function update(UrlStoreRequest $request, Url $url)
     {
+        $url->url = $request->url;
+
+        // if($url->url != $request->url || $url->user_id === auth()->user()->id) {
+        //     return response()->json([
+        //         'errors' => "hetzelfde",
+        //     ], 422);
+        // }
+
+        if($url->save()) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -66,8 +79,9 @@ class UrlController extends Controller
      *
      * @return  [type]  [return description]
      */
-    public function destroy()
+    public function destroy(Url $url)
     {
+
     }
 
     /**

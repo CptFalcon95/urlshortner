@@ -3,3 +3,4 @@ window.Swal = Swal;
 
 require('./bootstrap')
 require('./components/urls/store')
+require('./components/urls/update')

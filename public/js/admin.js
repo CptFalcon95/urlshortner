@@ -1887,7 +1887,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 jQuery(function () {
   $('#url-creation-form').on('submit', function (e) {
     e.preventDefault();
-    var token = $('meta[name="csrf-token"]').attr('content');
     var url = '/urls';
     var data = {
       'url': $('input[name="url"]').val()
@@ -1899,7 +1898,48 @@ jQuery(function () {
         Swal.fire('Oeps!', 'Er ging iets fout, probeer het nog een keer', 'error');
       }
     })["catch"](function (error) {
+      if (error.response.status === 422) {
+        Swal.fire('Oeps!!!', error.response.data.errors.url[0], 'error');
+      }
+    });
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/components/urls/update.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/urls/update.js ***!
+  \************************************************/
+/***/ (() => {
+
+jQuery(function () {
+  var shortUrl; // Set modal data when modal is triggered.
+
+  $('#url-edit-modal').on('shown.bs.modal', function (event) {
+    var $button = $(event.relatedTarget);
+    shortUrl = $button.data('short-url');
+    $('input#edit-url').trigger('focus');
+    $('input#edit-url').val($button.data('url'));
+    $('button#delete-url').attr('data-short-url', shortUrl);
+  }); // 
+
+  $('#url-edit-form').on('submit', function (e) {
+    e.preventDefault();
+    var url = '/urls/' + shortUrl;
+    var data = {
+      'url': $('input#edit-url').val(),
+      'short_url': shortUrl
+    };
+    axios.put(url, data).then(function (res) {
+      if (res.data == true) {
+        Swal.fire('Gelukt!', 'De URL is succesvol opgeslagen', 'success');
+      } else {
+        Swal.fire('Oeps!', 'Er ging iets fout, probeer het nog een keer', 'error');
+      }
+    })["catch"](function (error) {
       if (error.response.status == 422) {
+        console.log();
         Swal.fire('Oeps!', error.response.data.errors.url[0], 'error');
       }
     });
@@ -42258,6 +42298,8 @@ window.Swal = sweetalert2_src_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0__.defaul
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./components/urls/store */ "./resources/js/components/urls/store.js");
+
+__webpack_require__(/*! ./components/urls/update */ "./resources/js/components/urls/update.js");
 })();
 
 /******/ })()

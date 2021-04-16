@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::view('/', 'welcome');
 
 Route::get('/u/{url}', 'App\Http\Controllers\UrlController@directUrl')->name('visit');
 
