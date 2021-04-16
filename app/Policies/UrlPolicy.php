@@ -11,8 +11,9 @@ class UrlPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine if the given post can be updated by the user.
+     * Determine if the given url can be updated by the user.
      *
+     * @param \App\Models\User $user
      * @param  \App\Models\Url $url
      * @return bool
      */

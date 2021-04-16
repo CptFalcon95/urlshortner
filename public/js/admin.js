@@ -1887,10 +1887,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 jQuery(function () {
   $('#url-creation-form').on('submit', function (e) {
     e.preventDefault();
-    var data = {
+    axios.post('/urls', {
       'url': $('input[name="url"]').val()
-    };
-    axios.post('/urls', data).then(function (res) {
+    }).then(function (res) {
       if (res.data == true) {
         Swal.fire('Gelukt!', 'De URL is succesvol opgeslagen', 'success');
       } else {
@@ -1917,11 +1916,13 @@ jQuery(function () {
   var currentShortUrl; // Set modal data when modal is triggered.
 
   $('#url-edit-modal').on('shown.bs.modal', function (event) {
-    var $button = $(event.relatedTarget); // Set currentShortUrl to data attribute from edit button
+    // The targeted edit button from URL's table on frontend
+    var $button = $(event.relatedTarget); // Set currentShortUrl to data-short-url attribute, from current table row edit button
 
     currentShortUrl = $button.data('short-url');
     $('input#edit-url').trigger('focus');
-    $('input#edit-url').val($button.data('url'));
+    $('input#edit-url').val($button.data('url')); // Manualy set the modal's delete button attribute to shortUrl
+
     $('button#delete-url').attr('data-short-url', shortUrl);
   }); // 
 

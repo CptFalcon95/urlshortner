@@ -5,12 +5,13 @@ jQuery(function() {
 
     // Set modal data when modal is triggered.
     $('#url-edit-modal').on('shown.bs.modal', function (event) {
+        // The targeted edit button from URL's table on frontend
         const $button = $(event.relatedTarget)
-        // Set currentShortUrl to data attribute from edit button
+        // Set currentShortUrl to data-short-url attribute, from current table row edit button
         currentShortUrl = $button.data('short-url')
-
         $('input#edit-url').trigger('focus')
         $('input#edit-url').val($button.data('url'))
+        // Manualy set the modal's delete button attribute to shortUrl
         $('button#delete-url').attr('data-short-url', shortUrl)
     })
 
@@ -18,7 +19,7 @@ jQuery(function() {
     $('#url-edit-form').on('submit', function(e) {
         e.preventDefault()
         
-        const url = '/urls/'+currentShortUrl
+        const url = '/urls/' + currentShortUrl
 
         axios.put(url, { 'url' : $('input#edit-url').val() })
         .then(res => {
