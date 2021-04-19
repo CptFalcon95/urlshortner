@@ -36,8 +36,9 @@ class UrlController extends Controller
 
     /**
      * Store shortened URL. This method is called by an ajax call from the frontend
+     * User_id and short_url are assigned within the URL model
      *
-     * @return  bool
+     * @return  bool  returns true if saving was successful
      */
     public function store(UrlStoreRequest $request)
     {
@@ -53,43 +54,54 @@ class UrlController extends Controller
     }
 
     /**
-     * Update shortened URL
+     * Check using UrlPolicy if the url's user matches the user -
+     * performing update action.
      *
-     * @return  [type]  [return description]
+     * @return  bool  returns true if user is allowed to update, and update was successful
      */
     public function update(UrlStoreRequest $request, Url $url)
     {
-        if ($this->authorize('update', $url)) {
-            $url->url = $request->url;
+        try {
+            if ($this->authorize('update', $url)) {
+                $url->url = $request->url;
+                $url->save();
 
-            if ($url->save()) {
                 return true;
             }
-        }
-
+        } catch (\Exception $e) {
+            info($e->getMessage());
+        } 
+        
         return false;
     }
 
     /**
      * Delete shortened URL
      *
-     * @return  [type]  [return description]
+     * @return  bool  returns true if deleting was successful
      */
     public function destroy(Url $url)
     {
+        try {
+            $url->delete();
+
+            return true;
+        } catch(\Exception $e) {
+            info($e->getMessage());
+        }
+        
+        return false;
     }
 
     /**
      * Increment visit counter and redirect to URL
      *
-     * @return  redirect
+     * @return  redirect  redirects to the original url
      */
-    public function directUrl(Request $request)
+    public function directUrl(Url $url)
     {
         try {
-            $url = Url::where('short_url', $request->url)->firstOrFail();
             $url->visit_count++;
-
             $url->save();
 
             return redirect($url->url);

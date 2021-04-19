@@ -4,18 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class Url extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['url'];
+    protected $fillable = [
+        'url'
+    ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -27,18 +31,31 @@ class Url extends Model
     ];
 
     /**
-     * The "booted" method of the model.
+     * The attributes that should be guarded for arrays.
      *
+     * @var array
+     */
+    protected $guarded = [
+        'user_id',
+        'short_url'
+    ];
+
+    /**
+     * Inject current user_id and short_url into model when a Url is saved
+     * 
      * @return void
      */
     protected static function booted()
     {
         static::creating(function ($url) {
             $url->user_id = auth()->user()->id;
-            $url->short_url = Str::random(8);
+            $url->short_url = self::createUniqueShortUrl();
         });
     }
 
+    /**
+     * Change the route > model binding key from url id to short_url
+     */
     public function getRouteKeyName()
     {
         return 'short_url';
@@ -46,15 +63,27 @@ class Url extends Model
 
     /**
      * Register the user -> urls relationship
-     *
-     * @return BelongsTo
      */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // private function validateShortUrl($url) {
-    //     Url::where();
-    // }
+    /**
+     * Create a unique short_url for saving in DB
+     * While short_url already exists, create new short_url, and try again
+     * Then return unique short_url
+     * 
+     * @return string
+     */
+    private static function createUniqueShortUrl()
+    {
+        $shortUrlKey = Str::random(8);
+
+        while (Url::where('short_url', $shortUrlKey)->count() === 1) {
+            $shortUrlKey = Str::random(8);
+        }
+
+        return $shortUrlKey;
+    }
 }

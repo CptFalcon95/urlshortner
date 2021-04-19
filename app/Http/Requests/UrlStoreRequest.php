@@ -36,8 +36,8 @@ class UrlStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'url.required' => __('You must enter an URL'),
-            'url.regex' => __('Please check if the provided URL is valid'),
+            'url.required' => __('all.url_required'),
+            'url.regex' => __('all.url_invalid'),
         ];
     }
 }

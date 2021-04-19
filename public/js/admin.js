@@ -1878,6 +1878,68 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/components/urls/copy_to_clipboard.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/urls/copy_to_clipboard.js ***!
+  \***********************************************************/
+/***/ (() => {
+
+jQuery(function () {// Still working on it
+  //
+  // $('.copy-to-clipboard').on('click', function() {
+  //     let $url = $(this).data('visit-url')
+  //     $(this).setAttribute('readonly', '')
+  //     $(this).style.position = 'absolute'
+  //     $(this).style.left = '-9999px'
+  //     document.body.appendChild(el)
+  //     $(this).select()
+  //     document.execCommand('copy')
+  //     document.body.removeChild(el)
+  // })
+});
+
+/***/ }),
+
+/***/ "./resources/js/components/urls/delete.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/urls/delete.js ***!
+  \************************************************/
+/***/ (() => {
+
+jQuery(function () {
+  $('button#delete-url').on('click', function () {
+    var currentShortUrl = $(this).data('short-url');
+    axios["delete"]('/urls/' + currentShortUrl).then(function (res) {
+      if (res.data == true) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Gelukt!',
+          text: 'De URL is verwijderd',
+          onClose: function onClose() {
+            location.reload();
+          }
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oeps...',
+          text: 'Er ging iets fout, probeer het nog een keer'
+        });
+      }
+    })["catch"](function (error) {
+      if (error.response.status === 422) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oeps...',
+          text: error.response.data.errors.url[0]
+        });
+      }
+    });
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/components/urls/store.js":
 /*!***********************************************!*\
   !*** ./resources/js/components/urls/store.js ***!
@@ -1891,13 +1953,28 @@ jQuery(function () {
       'url': $('input[name="url"]').val()
     }).then(function (res) {
       if (res.data == true) {
-        Swal.fire('Gelukt!', 'De URL is succesvol opgeslagen', 'success');
+        Swal.fire({
+          icon: 'success',
+          title: 'Gelukt!',
+          text: 'De URL is succesvol opgeslagen',
+          onClose: function onClose() {
+            location.reload();
+          }
+        });
       } else {
-        Swal.fire('Oeps!', 'Er ging iets fout, probeer het nog een keer', 'error');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oeps...',
+          text: 'Er ging iets fout, probeer het nog een keer'
+        });
       }
     })["catch"](function (error) {
       if (error.response.status === 422) {
-        Swal.fire('Oeps!!!', error.response.data.errors.url[0], 'error');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oeps...',
+          text: error.response.data.errors.url[0]
+        });
       }
     });
   });
@@ -1913,18 +1990,24 @@ jQuery(function () {
 
 jQuery(function () {
   // Store the short_url from currenty edited URL
-  var currentShortUrl; // Set modal data when modal is triggered.
+  var currentShortUrl;
+  var $urlEditModal = $('#url-edit-modal'); // Set modal data when modal is triggered.
 
-  $('#url-edit-modal').on('shown.bs.modal', function (event) {
+  $urlEditModal.on('shown.bs.modal', function (event) {
     // The targeted edit button from URL's table on frontend
     var $button = $(event.relatedTarget); // Set currentShortUrl to data-short-url attribute, from current table row edit button
+    // And focus on the input after its been filled
 
     currentShortUrl = $button.data('short-url');
     $('input#edit-url').trigger('focus');
     $('input#edit-url').val($button.data('url')); // Manualy set the modal's delete button attribute to shortUrl
 
-    $('button#delete-url').attr('data-short-url', shortUrl);
-  }); // 
+    $('button#delete-url').attr('data-short-url', currentShortUrl);
+  }); // Reload page after modal is closed
+
+  $urlEditModal.on('hidden.bs.modal', function (e) {
+    location.reload();
+  }); // Update a URL using Ajax when the update form is submitted
 
   $('#url-edit-form').on('submit', function (e) {
     e.preventDefault();
@@ -1933,14 +2016,25 @@ jQuery(function () {
       'url': $('input#edit-url').val()
     }).then(function (res) {
       if (res.data == true) {
-        Swal.fire('Gelukt!', 'De URL is succesvol opgeslagen', 'success');
+        Swal.fire({
+          icon: 'success',
+          title: 'Gelukt!',
+          text: 'De URL is succesvol opgeslagen'
+        });
       } else {
-        Swal.fire('Oeps!', 'Er ging iets fout, probeer het nog een keer', 'error');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oeps...',
+          text: 'Er ging iets fout, probeer het nog een keer'
+        });
       }
     })["catch"](function (error) {
       if (error.response.status === 422) {
-        console.log();
-        Swal.fire('Oeps!', error.response.data.errors.url[0], 'error');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oeps...',
+          text: error.response.data.errors.url[0]
+        });
       }
     });
   });
@@ -42300,6 +42394,10 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 __webpack_require__(/*! ./components/urls/store */ "./resources/js/components/urls/store.js");
 
 __webpack_require__(/*! ./components/urls/update */ "./resources/js/components/urls/update.js");
+
+__webpack_require__(/*! ./components/urls/delete */ "./resources/js/components/urls/delete.js");
+
+__webpack_require__(/*! ./components/urls/copy_to_clipboard */ "./resources/js/components/urls/copy_to_clipboard.js");
 })();
 
 /******/ })()

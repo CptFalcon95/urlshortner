@@ -3,8 +3,10 @@
 --}}
 
 <div class="creation-form card text-white bg-dark shadow-sm">
-    <div class="card-header bg-primary">{{ __('Create new short URL') }}</div>
-
+    <div class="card-header bg-primary">
+        <i class="fa fa-plus"></i> 
+        {{ __('all.new_url') }}
+    </div>
     <div class="card-body pt-2">
         <form method="POST" action="#" id="url-creation-form">
             <span class="mb-2 d-block">{{__('all.enter_url')}}</span>

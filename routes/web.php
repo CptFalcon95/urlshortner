@@ -20,7 +20,7 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function() {
     Route::get('dashboard', 'App\Http\Controllers\UrlController@show')->name('dashboard');
 });
 
-Route::resource('urls', '\App\Http\Controllers\UrlController')->middleware('auth');
+Route::resource('urls', 'App\Http\Controllers\UrlController')->middleware('auth');
 
 // Created a Route::resource for crud actions
 // Route::group(['prefix' => 'url', 'as' => 'url.', 'middleware' => ['auth']], function() {
