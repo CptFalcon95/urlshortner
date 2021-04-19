@@ -12,12 +12,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::view('/', 'welcome');
 
 Route::get('/u/{url}', 'App\Http\Controllers\UrlController@directUrl')->name('visit');
 
 Route::group(['middleware' => 'auth', 'as' => 'admin.'], function() {
-    Route::get('dashboard', 'App\Http\Controllers\UrlController@show')->name('dashboard');
+    Route::get('/', 'App\Http\Controllers\UrlController@show')->name('dashboard');
 });
 
 Route::resource('urls', 'App\Http\Controllers\UrlController')->middleware('auth');
