@@ -48,13 +48,17 @@ class Url extends Model
     protected static function booted()
     {
         static::creating(function ($url) {
-            $url->user_id = auth()->user()->id;
+            // Check if user is loggedIn incase this method is called when seeding the DB
+            // Otherwise seeding fails
+            if(auth()->user() != null) {
+                $url->user_id = auth()->user()->id;
+            }
             $url->short_url = self::createUniqueShortUrl();
         });
     }
 
     /**
-     * Change the route > model binding key from url id to short_url
+     * Change the route > model binding key from id to short_url
      */
     public function getRouteKeyName()
     {
