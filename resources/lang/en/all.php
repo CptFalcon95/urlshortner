@@ -18,5 +18,5 @@ return [
     "url_required" => "Url mag niet leeg zijn",
     "url_invalid" => "Er is een ongeldige url opgegeven",
     "short_url" => "Korte code",
-    "redirecting" => "U wordt doorverwezen naar",
+    "redirecting" => "U wordt over 3 seconden doorverwezen naar",
 ];
