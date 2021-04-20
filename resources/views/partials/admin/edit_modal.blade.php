@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content bg-dark text-white">
 
-            <div class="modal-header">
+            <div class="modal-header bg-primary border-0">
                 <h5 class="modal-title">
                     <i class="fa fa-edit align-text-bottom"></i> 
                     {{__('all.edit_modal')}}

@@ -13,7 +13,7 @@
         <table class="table table-striped table-dark mb-0 text-center">
             <thead>
                 <tr>
-                    <th scope="col">{{__('all.copy')}}</th>
+                    <th scope="col">{{__('all.short_url')}}</th>
                     <th scope="col">{{__('all.go')}}</th>
                     <th scope="col">{{__('all.visited')}}</th>
                     <th scope="col">{{__('all.actions')}}</th>
@@ -22,10 +22,8 @@
             <tbody>
                 @foreach($urls as $url)
                 <tr>
-                    <td>
-                        <button class="btn btn-outline-primary copy-to-clipboard" data-visit-url="{{route('visit', $url->short_url)}}">
-                            <i class="fa fa-copy"></i>
-                        </button>
+                    <td class="align-middle">
+                        {{$url->short_url}}
                     </td>
                     <td class="align-middle">
                         <a class="" target="_blank" href="{{route('visit', $url->short_url)}}">

@@ -17,4 +17,5 @@ return [
     "copy" => "Kopiëer",
     "url_required" => "Url mag niet leeg zijn",
     "url_invalid" => "Er is een ongeldige url opgegeven",
+    "short_url" => "Korte code"
 ];
