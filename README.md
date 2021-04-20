@@ -16,11 +16,9 @@ Docker and docker-compose are required for using this manual
 * To forward mysql port, set in the `.env` file the FORWARD_DB_PORT to any port that's unused
 
 ## Start
+* Optional: create alias sail="vendor/bin/sail" in ~/.bashrc
  
-* `vendor/bin/sail up`
-
-## Generate App key
-* `sail artisan key:generate`
+* `vendor/bin/sail up` or `sail up`
 ## Migrate and seed
 
-* `sail artisan:migrate --seed`
+* `vendor/bin/sail artisan migrate --seed` or `sail artisan migrate --seed`
