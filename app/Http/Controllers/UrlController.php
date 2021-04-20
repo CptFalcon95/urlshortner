@@ -104,7 +104,9 @@ class UrlController extends Controller
             $url->visit_count++;
             $url->save();
 
-            return redirect($url->url);
+            return view('redirect', [
+                'url' => $url->url
+            ]);
         } catch (\Exception $e) {
             abort(403, $e->getMessage());
         }
