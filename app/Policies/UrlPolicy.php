@@ -12,10 +12,8 @@ class UrlPolicy
 
     /**
      * Determine if the given url can be updated by the user.
-     *
-     * @param \App\Models\User $user
-     * @param  \App\Models\Url $url
-     * @return bool
+
+     * @return bool returns true if user id matches url id
      */
     public function update(User $user, Url $url)
     {

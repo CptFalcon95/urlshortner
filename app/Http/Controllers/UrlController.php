@@ -13,7 +13,7 @@ class UrlController extends Controller
     /**
      * Get all the user's shortened urls
      *
-     * @return  array
+     * @return  array  user urls
      */
     public function index(User $user)
     {
@@ -23,7 +23,7 @@ class UrlController extends Controller
     /**
      * Display all the urls on the dashboard
      *
-     * @return  view
+     * @return  view  dashboard view
      */
     public function show()
     {
@@ -35,8 +35,8 @@ class UrlController extends Controller
     }
 
     /**
-     * Store shortened URL. This method is called by an ajax call from the frontend
-     * User_id and short_url are assigned within the URL model
+     * Store shortened url. This method is called by an ajax call from the frontend
+     * User_id and short_url are assigned within the Url model
      *
      * @return  bool  returns true if saving was successful
      */
@@ -57,7 +57,7 @@ class UrlController extends Controller
      * Check using UrlPolicy if the url's user matches the user -
      * performing update action.
      *
-     * @return  bool  returns true if user is allowed to update, and update was successful
+     * @return  bool  returns true if user is allowed to update, and when update was successful
      */
     public function update(UrlStoreRequest $request, Url $url)
     {
@@ -76,16 +76,18 @@ class UrlController extends Controller
     }
 
     /**
-     * Delete shortened URL
+     * Delete shortened url
      *
      * @return  bool  returns true if deleting was successful
      */
     public function destroy(Url $url)
     {
         try {
-            $url->delete();
+            if ($this->authorize('update', $url)) {
+                $url->delete();
 
-            return true;
+                return true;
+            }
         } catch(\Exception $e) {
             info($e->getMessage());
         }
@@ -94,9 +96,9 @@ class UrlController extends Controller
     }
 
     /**
-     * Increment visit counter and redirect to URL
+     * Increment visit counter and redirect to url
      *
-     * @return  redirect  redirects to the original url
+     * @return  view  redirect view
      */
     public function directUrl(Url $url)
     {
