@@ -11,8 +11,13 @@ Docker and docker-compose are required for using this manual
 
 * In the root directory create a `.env` file, or rename the `.env-example` file
 
+* Set APP_PORT in the `.env` file to any port thats unused (eg. 8080)
+
 * To forward mysql port, set in the `.env` file the FORWARD_DB_PORT to any port that's unused
 
 ## Start
+ 
+* `vendor/bin/sail up`
+## Migrate and seed
 
-    `vendor/bin/sail up`
+* `sail artisan:migrate --seed`
