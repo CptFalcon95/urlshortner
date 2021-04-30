@@ -22,7 +22,7 @@ Docker and docker-compose are required for using this manual
 * `vendor/bin/sail up` or `sail up`
 
 ## Generate App key
-* `sail artisan key:generate`
+* `vendor/bin/sail artisan key:generate` or `sail artisan key:generate`
 ## Migrate and seed
 
 * `vendor/bin/sail artisan migrate --seed` or `sail artisan migrate --seed`
