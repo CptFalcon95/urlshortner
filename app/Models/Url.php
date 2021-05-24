@@ -41,7 +41,8 @@ class Url extends Model
     ];
 
     /**
-     * Inject current user_id and short_url into model when a Url is saved
+     * Inject current user_id and short_url into model when a Url is saved.
+     * Format the URL to ensure it contains an HTTP protocol
      * 
      * @return void
      */
@@ -50,10 +51,12 @@ class Url extends Model
         static::creating(function ($url) {
             // Check if user is loggedIn incase this method is called when seeding the DB
             // Otherwise seeding fails
-            if(auth()->user() != null) {
+            if (auth()->user() != null) {
                 $url->user_id = auth()->user()->id;
             }
             $url->short_url = self::createUniqueShortUrl();
+
+            $url->url = self::formatUrl($url->url);
         });
     }
 
@@ -89,5 +92,22 @@ class Url extends Model
         }
 
         return $shortUrlKey;
+    }
+
+    /**
+     * This method makes sure the URL contains an HTTP protocol.
+     * When there is no protocol in the URL, prefix the string with "https://"
+     * 
+     * @return string
+     */
+    private static function formatUrl($validatedUrl)
+    {
+        $url = $validatedUrl;
+
+        if (strpos($url, '://') === false) {
+            $url = "https://{$url}";
+        }
+
+        return $url;
     }
 }
