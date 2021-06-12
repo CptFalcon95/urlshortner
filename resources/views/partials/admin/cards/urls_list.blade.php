@@ -31,7 +31,7 @@
                         </a>
                     </td>
                     <td class="align-middle">{{$url->visit_count}}</td>
-                    <td><button class="btn btn-outline-secondary" data-toggle="modal" data-target="#url-edit-modal" data-short-url="{{$url->short_url}}" data-url="{{$url->url}}">Edit</button></td>
+                    <td><button class="btn btn-outline-secondary" data-toggle="modal" data-target="#url-edit-modal" data-short-url="{{$url->short_url}}" data-url="{{$url->url}}">{{__('all.edit')}}</button></td>
                 </tr>
                 @endforeach
             </tbody>

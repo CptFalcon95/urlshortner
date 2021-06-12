@@ -19,4 +19,5 @@ return [
     "url_invalid" => "Er is een ongeldige url opgegeven",
     "short_url" => "Korte code",
     "redirecting" => "U wordt over 3 seconden doorverwezen naar",
+    "edit" => "Bewerk",
 ];
